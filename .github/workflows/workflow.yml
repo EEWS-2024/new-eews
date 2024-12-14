@@ -23,7 +23,7 @@ jobs:
         run: |
           git fetch origin main --depth=1
           echo "kafka_changed=\$(git diff --quiet origin/main -- docker-config/docker-compose.kafka.yaml || echo 'true')" >> \$GITHUB_OUTPUT
-          echo "storage_changed=\$(git diff --quiet origin/main -- docker-config/docker-compose.storage.yaml || echo 'true')" >> \$GITHUB_OUTPUT
+          echo "storage_changed=\$(git diff --quiet origin/main -- docker-config/docker-compose.storage.yaml configs/migrations.sql || echo 'true')" >> \$GITHUB_OUTPUT
 
       - name: Create .env file
         run: |
@@ -72,7 +72,7 @@ jobs:
 
       - name: Run Migrations
         run: |
-          sshpass -p "${{ secrets.SSH_PASSWORD }}" scp -o StrictHostKeyChecking=no -r ./configs/migrations.sql ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }}:/home/${{ secrets.REMOTE_USER }}/eews-v2/configs
+          sshpass -p "${{ secrets.SSH_PASSWORD }}" scp -o StrictHostKeyChecking=no -r ./configs/migrations.sql ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }}:/home/${{ secrets.REMOTE_USER }}/eews-v2/configs/migrations.sql
           sshpass -p "${{ secrets.SSH_PASSWORD }}" ssh -o StrictHostKeyChecking=no ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }} << EOF
           cd eews-v2/configs
           SQL_QUERY=$(<"migrations.sql")
