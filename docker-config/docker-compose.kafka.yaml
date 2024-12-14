@@ -99,7 +99,7 @@ services:
       - new-eews-kafka-2
       - new-eews-kafka-3
     ports:
-      - "2493:9000"
+      - "9099:9000"
     environment:
       KAFKA_BROKERCONNECT: "new-eews-kafka-1:9092,new-eews-kafka-2:9092,new-eews-kafka-3:9092"
       JVM_OPTS: "-Xms32M -Xmx64M"
