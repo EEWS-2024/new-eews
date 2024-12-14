@@ -40,6 +40,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      - name: Debug outputs
+        run: |
+          echo "Kafka Changed: ${{ steps.file-changed.outputs.kafka_changed }}"
+
       - name: Update Kafka Compose
         run: |
           sshpass -p "${{ secrets.SSH_PASSWORD }}" scp -o StrictHostKeyChecking=no -r ./docker-config/docker-compose.kafka.yaml ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }}:/home/${{ secrets.REMOTE_USER }}/eews-v2
