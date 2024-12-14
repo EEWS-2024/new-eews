@@ -25,5 +25,5 @@ jobs:
 
   deploy-kafka:
     needs: setup
-    if: ${{ needs.setup.outputs.kafka_changed == 'true' }}
+    if: ${{ setup.outputs.kafka_changed == 'true' }}
     uses: ./.github/workflows/deploy-kafka.yml
