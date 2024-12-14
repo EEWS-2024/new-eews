@@ -10,6 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       kafka_changed: \${{ steps.file-changed.outputs.kafka_changed }}
+      storage_changed: \${{ steps.file-changed.outputs.storage_changed }}
     steps:
       - name: Install sshpass
         run: sudo apt-get install -y sshpass
@@ -22,6 +23,14 @@ jobs:
         run: |
           git fetch origin main --depth=1
           echo "kafka_changed=\$(git diff --quiet origin/main -- docker-config/docker-compose.kafka.yaml || echo 'true')" >> \$GITHUB_OUTPUT
+          echo "storage_changed=\$(git diff --quiet origin/main -- docker-config/docker-compose.storage.yaml || echo 'true')" >> \$GITHUB_OUTPUT
+
+      - name: Create .env file
+        run: |
+          sshpass -p "${{ secrets.SSH_PASSWORD }}" ssh -o StrictHostKeyChecking=no ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }} << EOF
+          cd eews-v2
+          echo "POSTGRES_USER=${{ secrets.DB_USER }}" >> .env
+          echo "POSTGRES_PASSWORD=${{ secrets.DB_PASSWORD }}" >> .env
 
   deploy-kafka:
     runs-on: ubuntu-latest
@@ -40,4 +49,41 @@ jobs:
           sshpass -p "${{ secrets.SSH_PASSWORD }}" ssh -o StrictHostKeyChecking=no ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }} << EOF
           cd eews-v2
           docker compose -f docker-compose.kafka.yaml up -d
+          EOF
+
+  deploy-storage:
+    runs-on: ubuntu-latest
+    needs: setup
+    if: \${{ needs.setup.outputs.storage_changed == 'true' }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Update Kafka Compose
+        run: |
+          sshpass -p "${{ secrets.SSH_PASSWORD }}" scp -o StrictHostKeyChecking=no -r ./docker-config/docker-compose.storage.yaml ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }}:/home/${{ secrets.REMOTE_USER }}/eews-v2
+
+      - name: Run Docker Compose on remote server
+        run: |
+          sshpass -p "${{ secrets.SSH_PASSWORD }}" ssh -o StrictHostKeyChecking=no ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }} << EOF
+          cd eews-v2
+          docker compose -f docker-compose.storage.yaml up -d
+          EOF
+
+      - name: Run Migrations
+        run: |
+          sshpass -p "${{ secrets.SSH_PASSWORD }}" scp -o StrictHostKeyChecking=no -r ./configs/migrations.sql ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }}:/home/${{ secrets.REMOTE_USER }}/eews-v2/configs
+          sshpass -p "${{ secrets.SSH_PASSWORD }}" ssh -o StrictHostKeyChecking=no ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }} << EOF
+          cd eews-v2/configs
+          SQL_QUERY=$(<"migrations.sql")
+          if [[ -z "$SQL_QUERY" ]]; then
+              echo "Error: Unable to read the SQL file or the file is empty."
+              exit 1
+          fi
+          docker exec -i "new-eews-postgres" sh -c "PGPASSWORD=${{ secrets.DB_PASSWORD }} psql -U ${{ secrets.DB_USER }} -d postgres" <<< "$SQL_QUERY"
+          if [[ $? -eq 0 ]]; then
+              echo "SQL query executed successfully inside the Docker container."
+          else
+              echo "Error: Failed to execute the SQL query inside the Docker container."
+          fi
           EOF
