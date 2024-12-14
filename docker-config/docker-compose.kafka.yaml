@@ -21,12 +21,12 @@ services:
     depends_on:
       - new-eews-zookeeper
     ports:
-      - "9093:9093"
+      - "9096:9096"
     environment:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: "new-eews-zookeeper:2181"
-      KAFKA_LISTENERS: DOCKER://new-eews-kafka-1:9092,OUTSIDE://new-eews-kafka-1:9093
-      KAFKA_ADVERTISED_LISTENERS: DOCKER://new-eews-kafka-1:9092,OUTSIDE://85.209.163.202:9093
+      KAFKA_LISTENERS: DOCKER://new-eews-kafka-1:9092,OUTSIDE://new-eews-kafka-1:9096
+      KAFKA_ADVERTISED_LISTENERS: DOCKER://new-eews-kafka-1:9092,OUTSIDE://85.209.163.202:9096
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: DOCKER:PLAINTEXT,OUTSIDE:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: DOCKER
 
@@ -39,12 +39,12 @@ services:
     depends_on:
       - new-eews-zookeeper
     ports:
-      - "9094:9094"
+      - "9097:9097"
     environment:
       KAFKA_BROKER_ID: 2
       KAFKA_ZOOKEEPER_CONNECT: "new-eews-zookeeper:2181"
-      KAFKA_LISTENERS: DOCKER://new-eews-kafka-2:9092,OUTSIDE://new-eews-kafka-2:9094
-      KAFKA_ADVERTISED_LISTENERS: DOCKER://new-eews-kafka-2:9092,OUTSIDE://85.209.163.202:9094
+      KAFKA_LISTENERS: DOCKER://new-eews-kafka-2:9092,OUTSIDE://new-eews-kafka-2:9097
+      KAFKA_ADVERTISED_LISTENERS: DOCKER://new-eews-kafka-2:9092,OUTSIDE://85.209.163.202:9097
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: DOCKER:PLAINTEXT,OUTSIDE:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: DOCKER
 
@@ -57,12 +57,12 @@ services:
     depends_on:
       - new-eews-zookeeper
     ports:
-      - "9095:9095"
+      - "9098:9098"
     environment:
       KAFKA_BROKER_ID: 3
       KAFKA_ZOOKEEPER_CONNECT: "new-eews-zookeeper:2181"
-      KAFKA_LISTENERS: DOCKER://new-eews-kafka-3:9092,OUTSIDE://new-eews-kafka-3:9095
-      KAFKA_ADVERTISED_LISTENERS: DOCKER://new-eews-kafka-3:9092,OUTSIDE://85.209.163.202:9095
+      KAFKA_LISTENERS: DOCKER://new-eews-kafka-3:9092,OUTSIDE://new-eews-kafka-3:9098
+      KAFKA_ADVERTISED_LISTENERS: DOCKER://new-eews-kafka-3:9092,OUTSIDE://85.209.163.202:9098
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: DOCKER:PLAINTEXT,OUTSIDE:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: DOCKER
 
