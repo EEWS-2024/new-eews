@@ -29,7 +29,7 @@ jobs:
         run: |
           sshpass -p "${{ secrets.SSH_PASSWORD }}" ssh -o StrictHostKeyChecking=no ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }} << EOF
           cd eews-v2
-          echo "POSTGRES_USER=${{ secrets.DB_USER }}" >> .env
+          echo "POSTGRES_USER=${{ secrets.DB_USER }}" > .env
           echo "POSTGRES_PASSWORD=${{ secrets.DB_PASSWORD }}" >> .env
 
   deploy-kafka:
@@ -81,7 +81,9 @@ jobs:
 
   migrate-storage:
     runs-on: ubuntu-latest
-    needs: deploy-storage
+    needs:
+      - setup
+      - deploy-storage
     steps:
       - name: Run Migrations
         run: |
