@@ -8,6 +8,8 @@ on:
 jobs:
   setup:
     runs-on: ubuntu-latest
+    outputs:
+      kafka_changed: \${{ steps.file-changed.outputs.kafka_changed }}
     steps:
       - name: Install sshpass
         run: sudo apt-get install -y sshpass
@@ -19,9 +21,9 @@ jobs:
         id: file-changed
         run: |
           git fetch origin main --depth=1
-          git diff --quiet origin/main -- docker-config/docker-compose.kafka.yaml || echo "kafka_changed=true" >> $GITHUB_ENV
+          echo "kafka_changed=\$(git diff --quiet origin/main -- docker-config/docker-compose.kafka.yaml || echo 'true')" >> \$GITHUB_OUTPUT
 
   deploy-kafka:
     needs: setup
-    if: ${{ env.kafka_changed == 'true' }}
+    if: ${{ needs.setup.outputs.kafka_changed == 'true' }}
     uses: ./.github/workflows/deploy-kafka.yml
