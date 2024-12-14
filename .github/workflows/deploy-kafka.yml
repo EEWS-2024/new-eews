@@ -1,9 +1,6 @@
 name: Deploy Kafka
 on:
   workflow_call:
-  push:
-    paths:
-      - 'docker-config/docker-compose.kafka.yaml'
 
 jobs:
   deploy-kafka:

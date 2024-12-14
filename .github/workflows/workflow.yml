@@ -11,6 +11,17 @@ jobs:
     steps:
       - name: Install sshpass
         run: sudo apt-get install -y sshpass
+
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Detect changed files
+        id: file-changed
+        run: |
+          git fetch origin main --depth=1
+          git diff --quiet origin/main -- docker-config/docker-compose.kafka.yaml || echo "kafka_changed=true" >> $GITHUB_ENV
+
   deploy-kafka:
     needs: setup
+    if: env.kafka_changed == 'true'
     uses: ./.github/workflows/deploy-kafka.yml
