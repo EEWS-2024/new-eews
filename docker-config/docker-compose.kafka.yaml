@@ -1,0 +1,105 @@
+networks:
+  nginx-manager_customnetwork:
+    external: true
+
+services:
+  new-eews-zookeeper:
+    networks:
+      - nginx-manager_customnetwork
+    restart: always
+    image: confluentinc/cp-zookeeper
+    container_name: new-eews-zookeeper
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+
+  new-eews-kafka-1:
+    networks:
+      - nginx-manager_customnetwork
+    restart: always
+    container_name: new-eews-kafka-1
+    image: confluentinc/cp-kafka
+    depends_on:
+      - new-eews-zookeeper
+    ports:
+      - "9093:9093"
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: "new-eews-zookeeper:2181"
+      KAFKA_LISTENERS: DOCKER://new-eews-kafka-1:9092,OUTSIDE://new-eews-kafka-1:9093
+      KAFKA_ADVERTISED_LISTENERS: DOCKER://new-eews-kafka-1:9092,OUTSIDE://85.209.163.202:9093
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: DOCKER:PLAINTEXT,OUTSIDE:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: DOCKER
+
+  new-eews-kafka-2:
+    networks:
+      - nginx-manager_customnetwork
+    restart: always
+    container_name: new-eews-kafka-2
+    image: confluentinc/cp-kafka
+    depends_on:
+      - new-eews-zookeeper
+    ports:
+      - "9094:9094"
+    environment:
+      KAFKA_BROKER_ID: 2
+      KAFKA_ZOOKEEPER_CONNECT: "new-eews-zookeeper:2181"
+      KAFKA_LISTENERS: DOCKER://new-eews-kafka-2:9092,OUTSIDE://new-eews-kafka-2:9094
+      KAFKA_ADVERTISED_LISTENERS: DOCKER://new-eews-kafka-2:9092,OUTSIDE://85.209.163.202:9094
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: DOCKER:PLAINTEXT,OUTSIDE:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: DOCKER
+
+  new-eews-kafka-3:
+    networks:
+      - nginx-manager_customnetwork
+    restart: always
+    container_name: new-eews-kafka-3
+    image: confluentinc/cp-kafka
+    depends_on:
+      - new-eews-zookeeper
+    ports:
+      - "9095:9095"
+    environment:
+      KAFKA_BROKER_ID: 3
+      KAFKA_ZOOKEEPER_CONNECT: "new-eews-zookeeper:2181"
+      KAFKA_LISTENERS: DOCKER://new-eews-kafka-3:9092,OUTSIDE://new-eews-kafka-3:9095
+      KAFKA_ADVERTISED_LISTENERS: DOCKER://new-eews-kafka-3:9092,OUTSIDE://85.209.163.202:9095
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: DOCKER:PLAINTEXT,OUTSIDE:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: DOCKER
+
+  new-eews-init-kafka:
+    networks:
+      - nginx-manager_customnetwork
+    container_name: new-eews-init-kafka
+    image: confluentinc/cp-kafka:6.1.1
+    depends_on:
+      - new-eews-kafka-1
+      - new-eews-kafka-2
+      - new-eews-kafka-3
+      - new-eews-zookeeper
+    entrypoint: [ "/bin/sh", "-c" ]
+    command: |
+      "
+      # blocks until kafka is reachable
+      kafka-topics --bootstrap-server new-eews-kafka-1:9092 --list
+      echo -e 'Creating kafka topics'
+      kafka-topics --bootstrap-server new-eews-kafka-1:9092 --create --if-not-exists --topic query --replication-factor 3 --partitions 3 --config segment.bytes=150000 --config retention.bytes=3000000 --config retention.ms=120000
+      kafka-topics --bootstrap-server new-eews-kafka-1:9092 --create --if-not-exists --topic p_arrival --replication-factor 3 --partitions 3 --config segment.bytes=150000 --config retention.bytes=3000000 --config retention.ms=120000
+      kafka-topics --bootstrap-server new-eews-kafka-1:9092 --create --if-not-exists --topic pick --replication-factor 3 --partitions 3 --config segment.bytes=150000 --config retention.bytes=3000000 --config retention.ms=120000
+      echo -e 'Successfully created the following topics:'
+      kafka-topics --bootstrap-server new-eews-kafka-1:9092 --list
+      "
+
+  new-eews-kafdrop:
+    image: obsidiandynamics/kafdrop:latest
+    container_name: new-eews-kafdrop
+    networks:
+      - nginx-manager_customnetwork
+    depends_on:
+      - new-eews-kafka-1
+      - new-eews-kafka-2
+      - new-eews-kafka-3
+    ports:
+      - "2493:9000"
+    environment:
+      KAFKA_BROKERCONNECT: "new-eews-kafka-1:9092,new-eews-kafka-2:9092,new-eews-kafka-3:9092"
+      JVM_OPTS: "-Xms32M -Xmx64M"

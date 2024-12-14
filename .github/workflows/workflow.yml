@@ -1,0 +1,16 @@
+name: Deploy EEWS New Architecture
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install sshpass
+        run: sudo apt-get install -y sshpass
+  deploy-kafka:
+    needs: setup
+    uses: ./.github/workflows/deploy-kafka.yml
