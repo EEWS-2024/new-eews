@@ -80,7 +80,6 @@ services:
     command: |
       "
       # blocks until kafka is reachable
-      kafka-topics --bootstrap-server new-eews-kafka-1:9092 --list
       echo -e 'Creating kafka topics'
       kafka-topics --bootstrap-server new-eews-kafka-1:9092 --create --if-not-exists --topic query --replication-factor 3 --partitions 3 --config segment.bytes=150000 --config retention.bytes=3000000 --config retention.ms=120000
       kafka-topics --bootstrap-server new-eews-kafka-1:9092 --create --if-not-exists --topic p_arrival --replication-factor 3 --partitions 3 --config segment.bytes=150000 --config retention.bytes=3000000 --config retention.ms=120000

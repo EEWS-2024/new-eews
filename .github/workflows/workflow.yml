@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       kafka_changed: \${{ steps.file-changed.outputs.kafka_changed }}
-      storage_changed: \${{ steps.file-changed.outputs.storage_changed }}
+#      storage_changed: \${{ steps.file-changed.outputs.storage_changed }}
     steps:
       - name: Install sshpass
         run: sudo apt-get install -y sshpass
