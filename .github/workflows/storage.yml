@@ -38,8 +38,8 @@ jobs:
         - name: Run Migrations
           run: |
             sshpass -p "${{ secrets.SSH_PASSWORD }}" ssh -o StrictHostKeyChecking=no ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }} << EOF
-            cd ~/eews-v2/configs
-            SQL_QUERY=$(<"migrations.sql")
+            cd eews-v2
+            SQL_QUERY=$(cat migrations.sql)
             if [[ -z "$SQL_QUERY" ]]; then
                 echo "Error: Unable to read the SQL file or the file is empty."
             else
