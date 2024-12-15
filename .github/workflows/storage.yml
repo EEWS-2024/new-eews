@@ -31,9 +31,12 @@ jobs:
         - name: Checkout repository
           uses: actions/checkout@v3
 
+        - name: Update Migrations
+          run: |
+            sshpass -p "${{ secrets.SSH_PASSWORD }}" scp -o StrictHostKeyChecking=no -r ./configs/migrations.sql ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }}:/home/${{ secrets.REMOTE_USER }}/eews-v2/configs/migrations.sql
+
         - name: Run Migrations
           run: |
-            sshpass -p "${{ secrets.SSH_PASSWORD }}" scp -o StrictHostKeyChecking=no -r ./configs/migrations.sql ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }}:/home/${{ secrets.REMOTE_USER }}/eews-v2/configs/migrations.sql << EOF
             sshpass -p "${{ secrets.SSH_PASSWORD }}" ssh -o StrictHostKeyChecking=no ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }} << EOF
             cd ~/eews-v2/configs
             SQL_QUERY=$(<"migrations.sql")
