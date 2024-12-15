@@ -34,7 +34,7 @@ jobs:
             sshpass -p "${{ secrets.SSH_PASSWORD }}" scp -o StrictHostKeyChecking=no -r ./configs/migrations.sql ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }}:/home/${{ secrets.REMOTE_USER }}/eews-v2/configs/migrations.sql
             sshpass -p "${{ secrets.SSH_PASSWORD }}" ssh -o StrictHostKeyChecking=no ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }} << EOF
             cd eews-v2/configs
-            SQL_QUERY=$(<"migrations.sql")
+            SQL_QUERY=$(<"./migrations.sql")
             if [[ -z "$SQL_QUERY" ]]; then
                 echo "Error: Unable to read the SQL file or the file is empty."
             else
