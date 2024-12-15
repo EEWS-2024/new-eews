@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS configs (
+CREATE TABLE IF NOT EXISTS configurations (
     id SERIAL PRIMARY KEY,
     key VARCHAR(255) NOT NULL,
     value TEXT NOT NULL,

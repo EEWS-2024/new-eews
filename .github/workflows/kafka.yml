@@ -1,0 +1,22 @@
+name: Deploy Kafka
+on:
+  push:
+    paths:
+      - 'docker-config/docker-compose.kafka.yaml'
+jobs:
+  deploy-kafka:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Update Kafka Compose
+      run: |
+        sshpass -p "${{ secrets.SSH_PASSWORD }}" scp -o StrictHostKeyChecking=no -r ./docker-config/docker-compose.kafka.yaml ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }}:/home/${{ secrets.REMOTE_USER }}/eews-v2
+
+    - name: Run Docker Compose on remote server
+      run: |
+        sshpass -p "${{ secrets.SSH_PASSWORD }}" ssh -o StrictHostKeyChecking=no ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }} << EOF
+        cd eews-v2
+        docker compose -f docker-compose.kafka.yaml up -d
+        EOF

@@ -1,0 +1,23 @@
+name: Common Configuration
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  common-configuration:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install sshpass
+        run: sudo apt-get install -y sshpass
+
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Create .env file
+        run: |
+          sshpass -p "${{ secrets.SSH_PASSWORD }}" ssh -o StrictHostKeyChecking=no ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }} << EOF
+          cd eews-v2
+          echo "POSTGRES_USER=${{ secrets.DB_USER }}" > .env
+          echo "POSTGRES_PASSWORD=${{ secrets.DB_PASSWORD }}" >> .env

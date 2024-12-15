@@ -1,0 +1,45 @@
+name: storage.yml
+on:
+    push:
+        paths:
+        - 'docker-config/docker-compose.storage.yaml'
+        - 'configs/*'
+jobs:
+    deploy-storage:
+        runs-on: ubuntu-latest
+        steps:
+        - name: Checkout repository
+          uses: actions/checkout@v3
+
+        - name: Update storage Compose
+          run: |
+            sshpass -p "${{ secrets.SSH_PASSWORD }}" scp -o StrictHostKeyChecking=no -r ./docker-config/docker-compose.storage.yaml ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }}:/home/${{ secrets.REMOTE_USER }}/eews-v2
+
+        - name: Run Docker Compose on remote server
+          run: |
+              sshpass -p "${{ secrets.SSH_PASSWORD }}" ssh -o StrictHostKeyChecking=no ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }} << EOF
+              cd eews-v2
+              docker compose -f docker-compose.storage.yaml up -d
+              EOF
+
+    migrate-storage:
+        runs-on: ubuntu-latest
+        steps:
+        - name: Run Migrations
+          run: |
+            sshpass -p "${{ secrets.SSH_PASSWORD }}" scp -o StrictHostKeyChecking=no -r ./configs/migrations.sql ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }}:/home/${{ secrets.REMOTE_USER }}/eews-v2/configs/migrations.sql
+            sshpass -p "${{ secrets.SSH_PASSWORD }}" ssh -o StrictHostKeyChecking=no ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }} << EOF
+            cd eews-v2/configs
+            SQL_QUERY=$(<"migrations.sql")
+            if [[ -z "$SQL_QUERY" ]]; then
+                echo "Error: Unable to read the SQL file or the file is empty."
+            else
+                psql -U ${{ secrets.DB_USER }} -d ${{ secrets.DB_NAME }} -c "$SQL_QUERY"
+            fi
+            docker exec -i "new-eews-postgres" sh -c "PGPASSWORD=${{ secrets.DB_PASSWORD }} psql -U ${{ secrets.DB_USER }} -d postgres" <<< "$SQL_QUERY"
+            if [[ $? -eq 0 ]]; then
+                echo "SQL query executed successfully inside the Docker container."
+            else
+                echo "Error: Failed to execute the SQL query inside the Docker container."
+            fi
+            EOF
