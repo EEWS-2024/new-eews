@@ -1,11 +1,9 @@
-name: storage.yml
+name: Deploy Storage Configuration
 on:
     push:
-      branches:
-        - main
-#        paths:
-#        - 'docker-config/docker-compose.storage.yaml'
-#        - 'configs/*'
+      paths:
+        - 'docker-config/docker-compose.storage.yaml'
+        - 'configs/*'
 jobs:
     deploy-storage:
         runs-on: ubuntu-latest

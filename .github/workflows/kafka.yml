@@ -1,4 +1,4 @@
-name: Deploy Kafka
+name: Deploy Kafka Configuration
 on:
   push:
     paths:
