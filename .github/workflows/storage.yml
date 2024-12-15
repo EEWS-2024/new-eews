@@ -24,6 +24,7 @@ jobs:
 
     migrate-storage:
         runs-on: ubuntu-latest
+        needs: deploy-storage
         steps:
         - name: Run Migrations
           run: |
