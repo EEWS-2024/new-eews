@@ -34,6 +34,10 @@ jobs:
         - name: Update Migrations
           run: |
             sshpass -p "${{ secrets.SSH_PASSWORD }}" scp -o StrictHostKeyChecking=no -r ./configs/migrations.sql ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }}:/home/${{ secrets.REMOTE_USER }}/eews-v2/configs/migrations.sql
+        
+        - name: Update Migration Script
+          run: |
+              sshpass -p "${{ secrets.SSH_PASSWORD }}" scp -o StrictHostKeyChecking=no -r ./configs/migrate.sh ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }}:/home/${{ secrets.REMOTE_USER }}/eews-v2/configs/migrate.sh
 
         - name: Run Migrations
           run: |
