@@ -4,14 +4,14 @@ networks:
     driver: bridge
     ipam:
       config:
-        - subnet: 172.20.14.0/24
-          gateway: 172.20.14.1
+        - subnet: 172.20.0.0/24
+          gateway: 172.20.0.1
 
 services:
   new-eews-postgres:
     networks:
       nginx-manager_customnetwork:
-        ipv4_address: 172.20.14.56
+        ipv4_address: 172.20.0.56
     restart: always
     image: postgres:13
     container_name: new-eews-postgres
