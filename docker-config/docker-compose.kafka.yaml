@@ -1,11 +1,17 @@
 networks:
   nginx-manager_customnetwork:
     external: true
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.14.0/24
+          gateway: 172.20.14.1
 
 services:
   new-eews-zookeeper:
     networks:
-      - nginx-manager_customnetwork
+      nginx-manager_customnetwork:
+        ipv4_address: 172.20.14.51
     restart: always
     image: confluentinc/cp-zookeeper
     container_name: new-eews-zookeeper
@@ -14,7 +20,8 @@ services:
 
   new-eews-kafka-1:
     networks:
-      - nginx-manager_customnetwork
+      nginx-manager_customnetwork:
+        ipv4_address: 172.20.14.52
     restart: always
     container_name: new-eews-kafka-1
     image: confluentinc/cp-kafka
@@ -34,7 +41,8 @@ services:
 
   new-eews-kafka-2:
     networks:
-      - nginx-manager_customnetwork
+      nginx-manager_customnetwork:
+        ipv4_address: 172.20.14.53
     restart: always
     container_name: new-eews-kafka-2
     image: confluentinc/cp-kafka
@@ -54,7 +62,8 @@ services:
 
   new-eews-kafka-3:
     networks:
-      - nginx-manager_customnetwork
+      nginx-manager_customnetwork:
+        ipv4_address: 172.20.14.54
     restart: always
     container_name: new-eews-kafka-3
     image: confluentinc/cp-kafka
@@ -99,7 +108,8 @@ services:
     image: obsidiandynamics/kafdrop:latest
     container_name: new-eews-kafdrop
     networks:
-      - nginx-manager_customnetwork
+      nginx-manager_customnetwork:
+        ipv4_address: 172.20.14.55
     depends_on:
       - new-eews-kafka-1
       - new-eews-kafka-2

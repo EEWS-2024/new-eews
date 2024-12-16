@@ -1,11 +1,17 @@
 networks:
   nginx-manager_customnetwork:
     external: true
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.14.0/24
+          gateway: 172.20.14.1
 
 services:
   new-eews-postgres:
     networks:
-      - nginx-manager_customnetwork
+      nginx-manager_customnetwork:
+        ipv4_address: 172.20.14.56
     restart: always
     image: postgres:13
     container_name: new-eews-postgres
