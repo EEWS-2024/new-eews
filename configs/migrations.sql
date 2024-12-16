@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS stations (
     nearest_stations VARCHAR(255)[] NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-)
+);
 
 CREATE TRIGGER set_station_updated_at
 BEFORE UPDATE ON stations
