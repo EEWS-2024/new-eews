@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS configurations (
 );
 
 -- Add a trigger to the `configurations` table
-CREATE TRIGGER IF NOT EXISTS set_configuration_updated_at
+CREATE TRIGGER set_configuration_updated_at
 BEFORE UPDATE ON configurations
 FOR EACH ROW
 EXECUTE FUNCTION update_updated_at_column();
@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS stations (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )
 
-CREATE TRIGGER IF NOT EXISTS set_station_updated_at
+CREATE TRIGGER set_station_updated_at
 BEFORE UPDATE ON stations
 FOR EACH ROW
 EXECUTE FUNCTION update_updated_at_column();
