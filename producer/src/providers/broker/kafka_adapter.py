@@ -37,4 +37,10 @@ class KafkaAdapter(BrokerPort):
         pass
 
     def produce_message(self, value: Any, key: Optional[str] = None):
-        pass
+        self.producer.produce(
+            self.producer_topic,
+            value=self.serializer(json.dumps(value)),
+            key=key,
+        )
+
+        self.producer.flush()

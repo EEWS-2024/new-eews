@@ -1,0 +1,52 @@
+name: Build and Push Producer Service
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'docker-config/docker-compose.producer.yaml'
+      - 'producer/**/*'
+
+jobs:
+  build-image:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Create .env file
+        run: |
+          echo "SQLALCHEMY_DATABASE_URI=${{ secrets.SQLALCHEMY_DATABASE_URI }}" > producer/.env
+          echo "SEED_LINK_URL=${{ secrets.SEED_LINK_URL }}" >> producer/.env
+          echo "BOOTSTRAP_SERVERS=${{ secrets.BOOTSTRAP_SERVERS }}" >> producer/.env
+          echo "PRODUCER_TOPIC=${{ secrets.PRODUCER_TOPIC }}" >> producer/.env
+
+      - name: Build Docker image
+        run: |
+          docker build -t eews-producer:latest ./producer
+          docker tag eews-producer:latest docker.io/slackingdjaeger/eews-producer:latest
+          docker push docker.io/slackingdjaeger/eews-producer:latest
+
+  deploy:
+    needs: build-image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Update storage Compose
+        run: |
+          sshpass -p "${{ secrets.SSH_PASSWORD }}" scp -o StrictHostKeyChecking=no -r ./docker-config/docker-compose.producer.yaml ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }}:/home/${{ secrets.REMOTE_USER }}/eews-v2
+
+      - name: Run Docker Compose on remote server
+        run: |
+            sshpass -p "${{ secrets.SSH_PASSWORD }}" ssh -o StrictHostKeyChecking=no ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }} << EOF
+            cd eews-v2
+            docker compose -f docker-compose.producer.yaml up -d
+            EOF

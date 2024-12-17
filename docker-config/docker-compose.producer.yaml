@@ -1,0 +1,19 @@
+networks:
+  nginx-manager_customnetwork:
+    external: true
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/24
+          gateway: 172.20.0.1
+
+services:
+  new-eews-producer:
+    networks:
+      nginx-manager_customnetwork:
+        ipv4_address: 172.20.0.57
+    restart: always
+    image: docker.io/slackingdjaeger/eews-producer:latest
+    container_name: new-eews-producer
+    ports:
+      - "8001:8000"
