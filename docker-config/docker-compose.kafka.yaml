@@ -17,8 +17,6 @@ services:
     container_name: new-eews-zookeeper
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
-    volumes:
-      - zookeeper_data:/var/lib/zookeeper/data
 
   new-eews-kafka-1:
     networks:
@@ -38,8 +36,6 @@ services:
       KAFKA_ADVERTISED_LISTENERS: INTERNAL://172.20.0.52:9092,OUTSIDE://85.209.163.202:9096
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INTERNAL:PLAINTEXT,OUTSIDE:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
-    volumes:
-      - kafka1_data:/var/lib/kafka/data
 
   new-eews-kafka-2:
     networks:
@@ -59,8 +55,6 @@ services:
       KAFKA_ADVERTISED_LISTENERS: INTERNAL://172.20.0.53:9092,OUTSIDE://85.209.163.202:9097
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INTERNAL:PLAINTEXT,OUTSIDE:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
-    volumes:
-      - kafka2_data:/var/lib/kafka/data
 
   new-eews-kafka-3:
     networks:
@@ -80,8 +74,6 @@ services:
       KAFKA_ADVERTISED_LISTENERS: INTERNAL://172.20.0.54:9092,OUTSIDE://85.209.163.202:9098
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INTERNAL:PLAINTEXT,OUTSIDE:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
-    volumes:
-      - kafka3_data:/var/lib/kafka/data
 
   new-eews-init-kafka:
     networks:
@@ -121,10 +113,3 @@ services:
     environment:
       KAFKA_BROKERCONNECT: "172.25.0.52:9092,172.25.0.53:9092,172.25.0.54:9092"
       JVM_OPTS: "-Xms32M -Xmx64M"
-
-
-volumes:
-  zookeeper_data:
-  kafka1_data:
-  kafka2_data:
-  kafka3_data:
