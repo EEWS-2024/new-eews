@@ -111,5 +111,5 @@ services:
     ports:
       - "9099:9000"
     environment:
-      KAFKA_BROKERCONNECT: "172.25.0.52:9092,172.25.0.53:9092,172.25.0.54:9092"
+      KAFKA_BROKERCONNECT: "172.20.0.52:9092,172.20.0.53:9092,172.20.0.54:9092"
       JVM_OPTS: "-Xms32M -Xmx64M"
