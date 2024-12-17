@@ -18,6 +18,7 @@ CREATE TABLE IF NOT EXISTS stations (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     name VARCHAR(255) NOT NULL,
     code VARCHAR(255) NOT NULL UNIQUE,
+    elevation DECIMAL NOT NULL,
     lat DECIMAL NOT NULL,
     long DECIMAL NOT NULL,
     is_enabled BOOLEAN DEFAULT TRUE,
