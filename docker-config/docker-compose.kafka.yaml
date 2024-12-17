@@ -17,6 +17,8 @@ services:
     container_name: new-eews-zookeeper
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
+    volumes:
+      - zookeeper_data:/var/lib/zookeeper/data
 
   new-eews-kafka-1:
     networks:
