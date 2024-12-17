@@ -10,3 +10,8 @@ stream_router = APIRouter(tags=["stream"])
 def live(background_task: BackgroundTasks, stream_service: StreamServiceInterface = Depends(StreamService)):
     background_task.add_task(stream_service.start_trace)
     return {"status": "ok"}
+
+@stream_router.get("/idle")
+def idle(background_task: BackgroundTasks, stream_service: StreamServiceInterface = Depends(StreamService)):
+    background_task.add_task(stream_service.stop_trace)
+    return {"status": "ok"}

@@ -11,3 +11,6 @@ class StreamService(StreamServiceInterface):
 
     def start_trace(self):
         self.seedlink_provider.start_streaming()
+
+    def stop_trace(self):
+        self.seedlink_provider.stop_streaming()

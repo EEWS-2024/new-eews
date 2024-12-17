@@ -62,4 +62,6 @@ class SeedLinkAdapter(ObspyPort, EasySeedLinkClient):
             self.__run()
 
     def stop_streaming(self):
-        pass
+        self.broker.stop_trace()
+        self.close()
+        print("Stopping SeedLink client")

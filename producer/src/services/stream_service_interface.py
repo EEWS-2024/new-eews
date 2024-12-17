@@ -4,4 +4,7 @@ from abc import ABC, abstractmethod
 class StreamServiceInterface(ABC):
     @abstractmethod
     def start_trace(self):
-        pass
+        raise NotImplementedError()
+    @abstractmethod
+    def stop_trace(self):
+        raise NotImplementedError()

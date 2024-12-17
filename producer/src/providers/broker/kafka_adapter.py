@@ -34,7 +34,14 @@ class KafkaAdapter(BrokerPort):
         self.producer.flush()
 
     def stop_trace(self):
-        pass
+        for i in range(0, self.partitions):
+            self.producer.produce(
+                self.producer_topic,
+                value=self.serializer(json.dumps({"type": "stop"})),
+                partition=i,
+                key="stop",
+            )
+        self.producer.flush()
 
     def produce_message(self, value: Any, key: Optional[str] = None):
         self.producer.produce(
