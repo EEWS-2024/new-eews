@@ -29,7 +29,7 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t eews-producer:latest ./producer
+          docker build --no-cache -t eews-producer:latest ./producer
           docker tag eews-producer:latest docker.io/slackingdjaeger/eews-producer:latest
           docker push docker.io/slackingdjaeger/eews-producer:latest
 
