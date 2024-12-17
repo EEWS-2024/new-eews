@@ -9,6 +9,7 @@ networks:
 
 services:
   new-eews-producer:
+    pull_policy: "always"
     networks:
       nginx-manager_customnetwork:
         ipv4_address: 172.20.0.57
