@@ -22,5 +22,20 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
+  new-eews-redis:
+    networks:
+      nginx-manager_customnetwork:
+        ipv4_address: 172.20.0.58
+    restart: always
+    image: redis
+    container_name: new-eews-redis
+    env_file:
+      - .env
+    ports:
+      - "6380:6379"
+    volumes:
+      - redis_data:/data
+
 volumes:
   postgres_data:
+  redis_data:

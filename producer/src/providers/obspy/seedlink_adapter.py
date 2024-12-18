@@ -1,4 +1,7 @@
+import asyncio
+import threading
 import time
+from threading import Thread
 from typing import Optional, Any
 
 from fastapi.params import Depends
@@ -7,6 +10,8 @@ from obspy.clients.seedlink.slpacket import SLPacket
 
 from producer.src.providers.broker.broker_port import BrokerPort
 from producer.src.providers.broker.kafka_adapter import KafkaAdapter
+from producer.src.providers.cache.cache_port import CachePort
+from producer.src.providers.cache.redis_adapter import RedisAdapter
 from producer.src.providers.database.database_port import DatabasePort
 from producer.src.providers.database.postgres_adapter import PostgresAdapter
 from producer.src.providers.obspy.obspy_port import ObspyPort
@@ -19,14 +24,15 @@ class SeedLinkAdapter(ObspyPort, EasySeedLinkClient):
             self,
             config: ConfigService = Depends(ConfigService),
             broker: BrokerPort = Depends(KafkaAdapter),
-            database: DatabasePort = Depends(PostgresAdapter)
+            database: DatabasePort = Depends(PostgresAdapter),
+            cache: CachePort = Depends(RedisAdapter)
     ):
         self.broker = broker
+        self.cache = cache
         self.database = database
         super().__init__(database)
         EasySeedLinkClient.__init__(self, server_url=config.SEED_LINK_URL)
         self.__select_stream()
-        self.__is_streaming = False
 
     def __select_stream(self):
         for station in self.enabled_station_codes:
@@ -37,9 +43,12 @@ class SeedLinkAdapter(ObspyPort, EasySeedLinkClient):
             raise Exception(
                 "No streams specified. Use select_stream() to select a stream"
             )
-        self.__streaming_started = True
         print("Starting collection on:", time.time())
-        while True:
+        while True:  # Stop condition
+            if not self.cache.is_exists("streaming_flag"):
+                break
+
+            print("Collecting data...")
             data = self.conn.collect()
 
             if data == SLPacket.SLTERMINATE:
@@ -58,10 +67,12 @@ class SeedLinkAdapter(ObspyPort, EasySeedLinkClient):
 
     def start_streaming(self, start_time: Optional[Any] = 0, end_time: Optional[Any] = 0):
         self.broker.start_trace()
-        if not self.__is_streaming:
+        if not self.cache.is_exists("streaming_flag"):
+            self.cache.set("streaming_flag", True)
             self.__run()
 
     def stop_streaming(self):
-        self.broker.stop_trace()
         self.close()
+        self.broker.stop_trace()
+        self.cache.destroy("streaming_flag")
         print("Stopping SeedLink client")

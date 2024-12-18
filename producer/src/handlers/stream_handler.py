@@ -12,6 +12,6 @@ def live(background_task: BackgroundTasks, stream_service: StreamServiceInterfac
     return {"status": "ok"}
 
 @stream_router.get("/idle")
-def idle(background_task: BackgroundTasks, stream_service: StreamServiceInterface = Depends(StreamService)):
-    background_task.add_task(stream_service.stop_trace)
+def idle(stream_service: StreamServiceInterface = Depends(StreamService)):
+    stream_service.stop_trace()
     return {"status": "ok"}
