@@ -21,4 +21,5 @@ jobs:
           cd eews-v2
           echo "POSTGRES_USER=${{ secrets.DB_USER }}" > .env
           echo "POSTGRES_PASSWORD=${{ secrets.DB_PASSWORD }}" >> .env
+          echo "REDIS_USERNAME=${{ secrets.REDIS_USERNAME }}" >> .env
           echo "REDIS_PASSWORD=${{ secrets.REDIS_PASSWORD }}" >> .env
