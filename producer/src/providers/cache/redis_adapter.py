@@ -10,8 +10,6 @@ class RedisAdapter(CachePort):
         self.cache = redis.Redis(
             host=config.REDIS_HOST,
             port=int(config.REDIS_PORT),
-            username=config.REDIS_USERNAME,
-            password=config.REDIS_PASSWORD,
         )
 
     def get(self, key):
