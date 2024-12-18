@@ -46,6 +46,7 @@ class SeedLinkAdapter(ObspyPort, EasySeedLinkClient):
         print("Starting collection on:", time.time())
         while True:  # Stop condition
             if not self.cache.is_exists("streaming_flag"):
+                self.close()
                 break
 
             print("Collecting data...")
@@ -72,7 +73,6 @@ class SeedLinkAdapter(ObspyPort, EasySeedLinkClient):
             self.__run()
 
     def stop_streaming(self):
-        self.close()
         self.broker.stop_trace()
         self.cache.destroy("streaming_flag")
         print("Stopping SeedLink client")
