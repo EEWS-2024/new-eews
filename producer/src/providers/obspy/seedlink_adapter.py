@@ -68,7 +68,7 @@ class SeedLinkAdapter(ObspyPort, EasySeedLinkClient):
     def start_streaming(self, start_time: Optional[Any] = 0, end_time: Optional[Any] = 0):
         self.broker.start_trace()
         if not self.cache.is_exists("streaming_flag"):
-            self.cache.set("streaming_flag", True)
+            self.cache.set("streaming_flag", 1)
             self.__run()
 
     def stop_streaming(self):
