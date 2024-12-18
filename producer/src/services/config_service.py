@@ -11,4 +11,5 @@ class ConfigService:
     PRODUCER_TOPIC = os.environ.get("PRODUCER_TOPIC")
     REDIS_HOST = os.environ.get("REDIS_HOST")
     REDIS_PORT = os.environ.get("REDIS_PORT")
+    REDIS_USERNAME = os.environ.get("REDIS_USERNAME")
     REDIS_PASSWORD = os.environ.get("REDIS_PASSWORD")
