@@ -16,7 +16,8 @@ from producer.src.providers.database.database_port import DatabasePort
 from producer.src.providers.database.postgres_adapter import PostgresAdapter
 from producer.src.providers.obspy.obspy_port import ObspyPort
 from producer.src.services.config_service import ConfigService
-from producer.src.utilities.trace_mapper import trace_mapper
+from producer.src.services.preprocess_service import PreprocessService
+from producer.src.services.preprocess_service_interface import PreprocessServiceInterface
 
 
 class SeedLinkAdapter(ObspyPort, EasySeedLinkClient):
@@ -25,10 +26,12 @@ class SeedLinkAdapter(ObspyPort, EasySeedLinkClient):
             config: ConfigService = Depends(ConfigService),
             broker: BrokerPort = Depends(KafkaAdapter),
             database: DatabasePort = Depends(PostgresAdapter),
-            cache: CachePort = Depends(RedisAdapter)
+            cache: CachePort = Depends(RedisAdapter),
+            preprocess: PreprocessServiceInterface = Depends(PreprocessService)
     ):
         self.broker = broker
         self.cache = cache
+        self.preprocess = preprocess
         self.database = database
         super().__init__(database)
         EasySeedLinkClient.__init__(self, server_url=config.SEED_LINK_URL)
@@ -62,14 +65,16 @@ class SeedLinkAdapter(ObspyPort, EasySeedLinkClient):
             assert isinstance(data, SLPacket)
             packet_type = data.get_type()
             if packet_type not in (SLPacket.TYPE_SLINF, SLPacket.TYPE_SLINFT):
-                message = trace_mapper(data.get_trace())
-                if message["station"] in self.enabled_station_codes:
+                trace_data = data.get_trace()
+                if trace_data.stats.get("station") in self.enabled_station_codes:
+                    message = self.preprocess.impute(data.get_trace())
                     self.broker.produce_message(message, message["station"])
 
     def start_streaming(self, start_time: Optional[Any] = 0, end_time: Optional[Any] = 0):
         self.broker.start_trace()
         if not self.cache.is_exists("streaming_flag"):
             self.cache.set("streaming_flag", 1)
+            self.preprocess.reset()
             self.__run()
 
     def stop_streaming(self):
