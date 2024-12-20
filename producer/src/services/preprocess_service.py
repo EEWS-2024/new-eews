@@ -1,4 +1,5 @@
-from datetime import datetime, timedelta, time
+from datetime import datetime, timedelta
+import time
 from typing import Dict
 
 from obspy import Trace
