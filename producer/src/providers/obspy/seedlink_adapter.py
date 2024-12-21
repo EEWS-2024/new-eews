@@ -1,4 +1,6 @@
+import json
 import time
+from datetime import datetime
 from typing import Optional, Any
 
 from fastapi.params import Depends
@@ -30,6 +32,9 @@ class SeedLinkAdapter(ObspyPort, EasySeedLinkClient):
         super().__init__(database)
         EasySeedLinkClient.__init__(self, server_url=config.SEED_LINK_URL)
         self.__select_stream()
+        self.experiment_attempt = 0
+        self.experiment_execution_times = []
+        self.experiment_processed_data = []
 
     def __select_stream(self):
         for station in self.enabled_station_codes:
@@ -40,8 +45,12 @@ class SeedLinkAdapter(ObspyPort, EasySeedLinkClient):
             raise Exception(
                 "No streams specified. Use select_stream() to select a stream"
             )
-        print("Starting collection on:", time.time())
+        print("Starting collection on:", datetime.now())
+        service_start_time = time.time()
+        experiment_data_count = 0
         while True:  # Stop condition
+            experiment_start_time = time.time()
+
             if not self.cache.is_exists("streaming_flag"):
                 self.close()
                 break
@@ -62,6 +71,19 @@ class SeedLinkAdapter(ObspyPort, EasySeedLinkClient):
                 message = trace_mapper(data.get_trace())
                 if message["station"] in self.enabled_station_codes:
                     self.broker.produce_message(message, message["station"])
+                    experiment_data_count += 1
+                    if time.time() - experiment_start_time >= 1:
+                        self.experiment_processed_data.append(experiment_data_count)
+                        experiment_data_count = 0
+
+            end_time = time.time()
+            self.experiment_execution_times.append(end_time - experiment_start_time)
+            if end_time - service_start_time >= 60:
+                self.save_experiment()
+                self.experiment_attempt += 1
+                service_start_time = time.time()
+                if self.experiment_attempt == 5:
+                    self.stop_streaming()
 
     def start_streaming(self, start_time: Optional[Any] = 0, end_time: Optional[Any] = 0):
         self.broker.start_trace()
@@ -73,3 +95,16 @@ class SeedLinkAdapter(ObspyPort, EasySeedLinkClient):
         self.broker.stop_trace()
         self.cache.destroy("streaming_flag")
         print("Stopping SeedLink client")
+
+    def save_experiment(self):
+        experiment_execution_time = self.experiment_execution_times[1:] if self.experiment_attempt == 0 else self.experiment_execution_times
+
+        stats_data = {
+            "execution_times": experiment_execution_time,
+            "processed_data": self.experiment_processed_data
+        }
+        with open(f"./out/experiment_stats_{self.experiment_attempt}.json", "w") as f:
+            json.dump(stats_data, f, indent=4)
+
+        self.experiment_execution_times = []
+        self.experiment_processed_data = []
