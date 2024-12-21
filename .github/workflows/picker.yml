@@ -24,7 +24,7 @@ jobs:
         run: |
           echo "SQLALCHEMY_DATABASE_URI=${{ secrets.SQLALCHEMY_DATABASE_URI }}" > picker/.env
           echo "BOOTSTRAP_SERVERS=${{ secrets.BOOTSTRAP_SERVERS }}" >> picker/.env
-          echo "PRODUCER_TOPIC=${{ secrets.CONSUMER_TOPIC }}" >> picker/.env
+          echo "KAFKA_TOPIC=${{ secrets.KAFKA_TOPIC }}" >> picker/.env
           echo "REDIS_HOST=${{ secrets.REDIS_HOST }}" >> picker/.env
           echo "REDIS_PORT=${{ secrets.REDIS_PORT }}" >> picker/.env
 

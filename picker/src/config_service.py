@@ -6,7 +6,7 @@ load_dotenv()
 
 class Config:
     BOOTSTRAP_SERVERS = os.environ.get("BOOTSTRAP_SERVERS")
-    CONSUMER_TOPIC = os.environ.get("CONSUMER_TOPIC")
+    KAFKA_TOPIC = os.environ.get("KAFKA_TOPIC")
     REDIS_HOST = os.environ.get("REDIS_HOST")
     REDIS_PORT = os.environ.get("REDIS_PORT")
     PIPELINE_MODEL_PATH = os.environ.get("PIPELINE_MODEL_PATH", "./static/pipelines/model_p_best.pipeline")

@@ -25,7 +25,7 @@ jobs:
           echo "SQLALCHEMY_DATABASE_URI=${{ secrets.SQLALCHEMY_DATABASE_URI }}" > producer/.env
           echo "SEED_LINK_URL=${{ secrets.SEED_LINK_URL }}" >> producer/.env
           echo "BOOTSTRAP_SERVERS=${{ secrets.BOOTSTRAP_SERVERS }}" >> producer/.env
-          echo "PRODUCER_TOPIC=${{ secrets.PRODUCER_TOPIC }}" >> producer/.env
+          echo "KAFKA_TOPIC=${{ secrets.KAFKA_TOPIC }}" >> producer/.env
           echo "REDIS_HOST=${{ secrets.REDIS_HOST }}" >> producer/.env
           echo "REDIS_PORT=${{ secrets.REDIS_PORT }}" >> producer/.env
 

@@ -13,7 +13,7 @@ def main():
     }, True)
 
     processor = container.processor()
-    processor.consume(Config.CONSUMER_TOPIC)
+    processor.consume(Config.KAFKA_TOPIC)
 
 if __name__ == "__main__":
     main()

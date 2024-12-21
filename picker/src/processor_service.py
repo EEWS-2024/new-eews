@@ -48,8 +48,8 @@ class ProcessorService:
         return nearest_stations, station_locations
 
 
-    def consume(self, consumer_topic: str):
-        self.consumer.subscribe([consumer_topic])
+    def consume(self, kafka_topic: str):
+        self.consumer.subscribe([kafka_topic])
 
         while True:
             message = self.consumer.poll(10)
