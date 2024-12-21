@@ -27,7 +27,7 @@ jobs:
           echo "BOOTSTRAP_SERVERS=${{ secrets.BOOTSTRAP_SERVERS }}" >> producer/.env
           echo "PRODUCER_TOPIC=${{ secrets.PRODUCER_TOPIC }}" >> producer/.env
           echo "REDIS_HOST=${{ secrets.REDIS_HOST }}" >> producer/.env
-          echo "REDIS_PORT=${{ secrets.PRODUCER_REDIS_PORT }}" >> producer/.env
+          echo "REDIS_PORT=${{ secrets.REDIS_PORT }}" >> producer/.env
 
       - name: Build Docker image
         run: |

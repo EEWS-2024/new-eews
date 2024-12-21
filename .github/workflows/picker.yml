@@ -1,0 +1,53 @@
+name: Build and Push Picker Service
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'docker-config/docker-compose.picker.yaml'
+      - 'picker/**/*'
+
+jobs:
+  build-image:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Create .env file
+        run: |
+          echo "SQLALCHEMY_DATABASE_URI=${{ secrets.SQLALCHEMY_DATABASE_URI }}" > picker/.env
+          echo "BOOTSTRAP_SERVERS=${{ secrets.BOOTSTRAP_SERVERS }}" >> picker/.env
+          echo "PRODUCER_TOPIC=${{ secrets.CONSUMER_TOPIC }}" >> picker/.env
+          echo "REDIS_HOST=${{ secrets.REDIS_HOST }}" >> picker/.env
+          echo "REDIS_PORT=${{ secrets.REDIS_PORT }}" >> picker/.env
+
+      - name: Build Docker image
+        run: |
+          docker build --no-cache -t eews-picker:latest ./picker
+          docker tag eews-picker:latest docker.io/slackingdjaeger/eews-picker:latest
+          docker push docker.io/slackingdjaeger/eews-picker:latest
+
+  deploy:
+    needs: build-image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Update storage Compose
+        run: |
+          sshpass -p "${{ secrets.SSH_PASSWORD }}" scp -o StrictHostKeyChecking=no -r ./docker-config/docker-compose.picker.yaml ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }}:/home/${{ secrets.REMOTE_USER }}/eews-v2
+
+      - name: Run Docker Compose on remote server
+        run: |
+            sshpass -p "${{ secrets.SSH_PASSWORD }}" ssh -o StrictHostKeyChecking=no ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }} << EOF
+            cd eews-v2
+            docker compose -f docker-compose.picker.yaml up -d
+            EOF
