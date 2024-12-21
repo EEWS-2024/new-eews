@@ -27,10 +27,10 @@ class PoolingService:
             self.cache[station] = {}
 
         if station in self.station_p_time:
-            self.station_p_time[station] = {}
+            self.station_p_time[station] = datetime(1970, 1, 1)
 
         if station in self.station_s_time:
-            self.station_s_time[station] = {}
+            self.station_s_time[station] = datetime(1970, 1, 1)
 
         self.initiated_stations.remove(station)
 
