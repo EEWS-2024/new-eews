@@ -8,7 +8,7 @@ networks:
           gateway: 172.20.0.1
 
 services:
-  new-eews-producer:
+  new-eews-picker:
     pull_policy: "always"
     networks:
       nginx-manager_customnetwork:
