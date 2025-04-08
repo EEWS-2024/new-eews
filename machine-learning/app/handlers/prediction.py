@@ -213,3 +213,14 @@ class PredictionHandler:
             # "s_arr_id": f"{station_code}~{s_arr_id}",
             "new_s_event": is_new_s_event,
         }
+
+    def predict_stats(self, x: List[float], station_code: str):
+        X = np.array([x])
+        magnitude = float(self.mag_model.predict(X)[0][0])
+        distance = float(self.dist_model.predict(X)[0][0])
+
+        return {
+            "station_code": station_code,
+            "magnitude": magnitude,
+            "distance": distance,
+        }
