@@ -67,6 +67,77 @@ class PredictionHandler:
 
         return station_wave
 
+    def __pick_arrival(
+        self,
+        prediction: np.ndarray,
+        window_size,
+        threshold=0.5
+    ) -> Tuple[bool, float, int]:
+        detected_indices = np.where((prediction > threshold).any(axis=1))[
+            0
+        ]  # Index where p wave arrival is detected
+
+        # Case if p wave is detected
+        if detected_indices.any():
+            first_detection_index = detected_indices[0]
+            ideal_deviation = (
+                    np.array(detected_indices) - first_detection_index
+            )  # Location of p wave arrival ideally follows # this value
+
+            # For all triggered windows, find its argmax
+            argmax = np.array(
+                prediction[detected_indices].argmax(axis=1)
+            )  # p wave pick index in every windows
+            deviation = argmax + ideal_deviation  # predicted deviation
+
+            mean_approx = first_detection_index - (window_size - round(np.mean(deviation)))
+
+            return True, mean_approx, len(detected_indices)
+
+        # Case if no p wave detected
+        return False, 0.0, 0
+
+    def __examine_prediction(
+            self,
+            prediction: np.ndarray,
+            station_code: str,
+            begin_time: datetime,
+            station_wave: StationWave
+    ) -> Tuple[bool, datetime, bool]:
+        arrival_detected, arrival_pick_idx, arrival_count = self.__pick_arrival(
+            prediction,
+            window_size=self.WINDOW_SIZE,
+            threshold=self.P_THRESHOLD
+        )
+
+        arrival_time = begin_time + timedelta(
+            seconds=arrival_pick_idx / self.SAMPLING_RATE
+        )
+
+        is_new_earthquake = False
+        if arrival_detected:
+            # Case if detected earthquake is continuation from previous inference
+            if abs(station_wave.time - arrival_time) < self.EARTHQUAKE_PICK_TIME_THRESHOLD:
+                # refine pick time calculation
+                station_wave.time = station_wave.time + (arrival_time - station_wave.time) * arrival_count / (
+                        station_wave.count + arrival_count
+                )
+                station_wave.count += arrival_count
+            # Case if detected earthquake is a new event (not a continuation from previous inference)
+            else:
+                new_station_wave = StationWave(
+                    station_code=station_code,
+                    time=arrival_time,
+                    count=arrival_count,
+                    type=station_wave.type,
+                )
+                self.db.session.add(new_station_wave)
+                is_new_earthquake = True
+
+            self.db.session.commit()
+
+        return arrival_detected, arrival_time, is_new_earthquake
+
     def predict(self, x: List[float], start_time: str, station_code: str):
         station_primary_wave = self.__get_station_wave(
             station_code,
@@ -101,7 +172,7 @@ class PredictionHandler:
 
         predicted_p_wave = self.p_model.predict(X)
 
-        is_p_arrival_detected, p_arrival_time, is_new_p_event = self.examine_prediction(
+        is_p_arrival_detected, p_arrival_time, is_new_p_event = self.__examine_prediction(
             predicted_p_wave,
             station_code,
             start_time,
@@ -123,7 +194,7 @@ class PredictionHandler:
                 "secondary",
             )
 
-            is_s_arrival_detected, s_arrival_time, is_new_s_event = self.examine_prediction(
+            is_s_arrival_detected, s_arrival_time, is_new_s_event = self.__examine_prediction(
                 predicted_s_wave,
                 station_code,
                 start_time,
@@ -142,74 +213,3 @@ class PredictionHandler:
             # "s_arr_id": f"{station_code}~{s_arr_id}",
             "new_s_event": is_new_s_event,
         }
-
-    def examine_prediction(
-            self,
-            prediction: np.ndarray,
-            station_code: str,
-            begin_time: datetime,
-            station_wave: StationWave
-    ) -> Tuple[bool, datetime, bool]:
-        arrival_detected, arrival_pick_idx, arrival_count = self.pick_arrival(
-            prediction,
-            window_size=self.WINDOW_SIZE,
-            threshold=self.P_THRESHOLD
-        )
-
-        arrival_time = begin_time + timedelta(
-            seconds=arrival_pick_idx / self.SAMPLING_RATE
-        )
-
-        is_new_earthquake = False
-        if arrival_detected:
-            # Case if detected earthquake is continuation from previous inference
-            if abs(station_wave.time - arrival_time) < self.EARTHQUAKE_PICK_TIME_THRESHOLD:
-                # refine pick time calculation
-                station_wave.time = station_wave.time + (arrival_time - station_wave.time) * arrival_count / (
-                        station_wave.count + arrival_count
-                )
-                station_wave.count += arrival_count
-            # Case if detected earthquake is a new event (not a continuation from previous inference)
-            else:
-                new_station_wave = StationWave(
-                    station_code=station_code,
-                    time=arrival_time,
-                    count=arrival_count,
-                    type=station_wave.type,
-                )
-                self.db.session.add(new_station_wave)
-                is_new_earthquake = True
-
-            self.db.session.commit()
-
-        return arrival_detected, arrival_time, is_new_earthquake
-
-    def pick_arrival(
-        self,
-        prediction: np.ndarray,
-        window_size,
-        threshold=0.5
-    ) -> Tuple[bool, float, int]:
-        detected_indices = np.where((prediction > threshold).any(axis=1))[
-            0
-        ]  # Index where p wave arrival is detected
-
-        # Case if p wave is detected
-        if detected_indices.any():
-            first_detection_index = detected_indices[0]
-            ideal_deviation = (
-                    np.array(detected_indices) - first_detection_index
-            )  # Location of p wave arrival ideally follows # this value
-
-            # For all triggered windows, find its argmax
-            argmax = np.array(
-                prediction[detected_indices].argmax(axis=1)
-            )  # p wave pick index in every windows
-            deviation = argmax + ideal_deviation  # predicted deviation
-
-            mean_approx = first_detection_index - (window_size - round(np.mean(deviation)))
-
-            return True, mean_approx, len(detected_indices)
-
-        # Case if no p wave detected
-        return False, 0.0, 0
