@@ -1,17 +1,24 @@
 from threading import Thread
 from typing import List
 
+from flask import current_app
+from flask_sqlalchemy import SQLAlchemy
+
 from app.providers.seedlink_provider import SeedlinkProvider
 
 
 class TraceHandler:
-    def __init__(self):
-        self.seedlink_provider = SeedlinkProvider()
+    def __init__(self, db: SQLAlchemy):
+        self.seedlink_provider = SeedlinkProvider(db)
 
     def run(self, stations: List[str]):
         self.seedlink_provider.clear_stream()
+        context = current_app._get_current_object()
 
-        thread = Thread(target=self.seedlink_provider.stream_data, args=(stations,))
+        thread = Thread(
+            target=self.seedlink_provider.stream_data,
+            args=(stations,context)
+        )
         thread.daemon = True  # Dies if main process dies
         thread.start()
 
