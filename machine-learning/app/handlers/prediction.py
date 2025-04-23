@@ -222,5 +222,6 @@ class PredictionHandler:
         return {
             "station_code": station_code,
             "magnitude": magnitude,
+            "depth": 0.0,
             "distance": distance,
         }
