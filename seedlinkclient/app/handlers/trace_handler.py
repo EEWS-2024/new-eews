@@ -4,6 +4,7 @@ from typing import List
 from flask import current_app
 from flask_sqlalchemy import SQLAlchemy
 
+from app.handlers.missing_data_handler import MissingDataHandler
 from app.providers.seedlink_provider import SeedlinkProvider
 
 
@@ -17,7 +18,11 @@ class TraceHandler:
 
         thread = Thread(
             target=self.seedlink_provider.stream_data,
-            args=(stations,context)
+            args=(
+                stations,
+                context,
+                MissingDataHandler,
+            )
         )
         thread.daemon = True  # Dies if main process dies
         thread.start()
