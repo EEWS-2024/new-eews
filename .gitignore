@@ -1,6 +1,6 @@
 */**/.idea
 */**/.venv
-*/**/__pycache_
+*/**/__pycache__
 */**/.env
 */**/.DS_Store
 */**/.pytest_cache

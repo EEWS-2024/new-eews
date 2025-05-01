@@ -1,0 +1,8 @@
+services:
+  eews-producer:
+    build:
+      context: ../seedlinkclient
+      dockerfile: Dockerfile
+    image: docker.io/slackingdjaeger/guncang-producer:latest
+    env_file:
+      - ../seedlinkclient/.env

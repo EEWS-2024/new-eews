@@ -2,15 +2,14 @@ from threading import Thread
 from typing import List
 
 from flask import current_app
-from flask_sqlalchemy import SQLAlchemy
 
 from app.handlers.missing_data_handler import MissingDataHandler
 from app.providers.seedlink_provider import SeedlinkProvider
 
 
 class TraceHandler:
-    def __init__(self, db: SQLAlchemy):
-        self.seedlink_provider = SeedlinkProvider(db)
+    def __init__(self):
+        self.seedlink_provider = SeedlinkProvider()
 
     def run(self, stations: List[str]):
         self.seedlink_provider.clear_stream()
