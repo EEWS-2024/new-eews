@@ -86,7 +86,7 @@ services:
     ports:
       - "9204:9204"
     environment:
-      KAFKA_BROKERCONNECT: "172.20.0.77:9093,172.20.0.78:9093,172.20.0.79:9093"
+      KAFKA_BROKERCONNECT: "172.20.0.91:9093,172.20.0.92:9093,172.20.0.93:9093"
       JVM_OPTS: "-Xms32M -Xmx64M"
       SERVER_PORT: 9204
 
