@@ -5,10 +5,11 @@ on:
     branches:
       - main
     paths:
+      - ".github/workflows/deploy.yaml"
       - docker-compose.deploy.yaml
 
 jobs:
-  scp_deploy:
+  update_compose:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
