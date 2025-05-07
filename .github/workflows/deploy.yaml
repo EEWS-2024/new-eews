@@ -19,6 +19,6 @@ jobs:
         with:
           host: ${{ secrets.REMOTE_HOST }}
           username: ${{ secrets.REMOTE_USER }}
-          password: ${{ secrets.REMOTE_PASSWORD }}
+          password: ${{ secrets.SSH_PASSWORD }}
           source: "docker-compose.deploy.yaml" # comma-separated list
           target: "/home/user02/guncang/" # remote directory
