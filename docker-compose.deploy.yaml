@@ -99,4 +99,4 @@ services:
     image: docker.io/slackingdjaeger/guncang-seedlink:latest
     container_name: guncang-seedlink
     ports:
-      - "9205:5000"
+      - "9205:5001"
