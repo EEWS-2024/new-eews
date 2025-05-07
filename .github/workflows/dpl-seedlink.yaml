@@ -1,0 +1,36 @@
+name: Deploy Seedlink
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "docker/docker-compose.build-seedlink.yaml"
+      - "seedlinkclient/**"
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Create .env
+        run: |
+          cat <<EOF > seedlinkclient/.env
+          FLASK_APP=${{ secrets.FLASK_APP }}
+          SEEDLINK_URL=${{ secrets.SEEDLINK_URL }}
+          KAFKA_BOOTSTRAP_SERVERS=${{ secrets.KAFKA_BOOTSTRAP_SERVERS }}
+          KAFKA_TOPIC=${{ secrets.SEEDLINK_KAFKA_TOPIC }}
+          EOF
+
+      - name: Build and push images
+        run: |
+          docker compose -f docker/docker-compose.build-seedlink.yaml build --push

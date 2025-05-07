@@ -5,7 +5,6 @@ import time
 from typing import List
 
 from confluent_kafka import Producer
-from flask_sqlalchemy import SQLAlchemy
 from obspy.clients.seedlink import EasySeedLinkClient
 from obspy.clients.seedlink.slpacket import SLPacket
 
@@ -16,7 +15,6 @@ from config import Config
 class SeedlinkProvider:
     def __init__(
         self,
-        db: SQLAlchemy,
     ):
         self.network = "GE"
         self.channel = "BH?"
@@ -25,7 +23,6 @@ class SeedlinkProvider:
         self.producer = Producer({
             "bootstrap.servers": Config.KAFKA_BOOTSTRAP_SERVERS,
         })
-        self.db = db
         self.missing_data_handler: MissingDataHandler | None = None
 
     def clear_stream(self):

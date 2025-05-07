@@ -1,0 +1,102 @@
+networks:
+  nginx-manager_customnetwork:
+    external: true
+
+services:
+  guncang-zookeeper:
+    networks:
+      nginx-manager_customnetwork:
+        ipv4_address: 172.20.0.90
+    restart: always
+    image: confluentinc/cp-zookeeper
+    container_name: guncang-zookeeper
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2183
+
+  guncang-kafka:
+    networks:
+      nginx-manager_customnetwork:
+        ipv4_address: 172.20.0.91
+    restart: always
+    container_name: guncang-kafka
+    image: confluentinc/cp-kafka
+    depends_on:
+      - guncang-zookeeper
+    ports:
+      - "9201:9201"
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: "172.20.0.90:2183"
+      KAFKA_LISTENERS: INTERNAL://0.0.0.0:9093,OUTSIDE://0.0.0.0:9201
+      KAFKA_ADVERTISED_LISTENERS: INTERNAL://172.20.0.91:9093,OUTSIDE://85.209.163.202:9201
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INTERNAL:PLAINTEXT,OUTSIDE:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
+
+  guncang-kafka-2:
+    networks:
+      nginx-manager_customnetwork:
+        ipv4_address: 172.20.0.92
+    restart: always
+    container_name: guncang-kafka-2
+    image: confluentinc/cp-kafka
+    depends_on:
+      - guncang-zookeeper
+    ports:
+      - "9202:9202"
+    environment:
+      KAFKA_BROKER_ID: 2
+      KAFKA_ZOOKEEPER_CONNECT: "172.20.0.90:2183"
+      KAFKA_LISTENERS: INTERNAL://0.0.0.0:9093,OUTSIDE://0.0.0.0:9202
+      KAFKA_ADVERTISED_LISTENERS: INTERNAL://172.20.0.92:9093,OUTSIDE://85.209.163.202:9202
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INTERNAL:PLAINTEXT,OUTSIDE:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
+
+  guncang-kafka-3:
+    networks:
+      nginx-manager_customnetwork:
+        ipv4_address: 172.20.0.93
+    restart: always
+    container_name: guncang-kafka-3
+    image: confluentinc/cp-kafka
+    depends_on:
+      - guncang-zookeeper
+    ports:
+      - "9203:9203"
+    environment:
+      KAFKA_BROKER_ID: 3
+      KAFKA_ZOOKEEPER_CONNECT: "172.20.0.90:2183"
+      KAFKA_LISTENERS: INTERNAL://0.0.0.0:9093,OUTSIDE://0.0.0.0:9203
+      KAFKA_ADVERTISED_LISTENERS: INTERNAL://172.20.0.93:9093,OUTSIDE://85.209.163.202:9203
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INTERNAL:PLAINTEXT,OUTSIDE:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
+
+  guncang-kafdrop:
+    image: obsidiandynamics/kafdrop:latest
+    container_name: guncang-kafdrop
+    networks:
+      nginx-manager_customnetwork:
+        ipv4_address: 172.20.0.94
+    depends_on:
+      - guncang-kafka
+      - guncang-kafka-2
+      - guncang-kafka-3
+    ports:
+      - "9204:9000"
+    environment:
+      KAFKA_BROKERCONNECT: "172.20.0.77:9093,172.20.0.78:9093,172.20.0.79:9093"
+      JVM_OPTS: "-Xms32M -Xmx64M"
+
+  guncang-seedlink:
+    pull_policy: "always"
+    networks:
+      nginx-manager_customnetwork:
+        ipv4_address: 172.20.0.95
+    restart: always
+    depends_on:
+      - guncang-kafka
+      - guncang-kafka-2
+      - guncang-kafka-3
+    image: docker.io/slackingdjaeger/guncang-seedlink:latest
+    container_name: guncang-seedlink
+    ports:
+      - "9205:5000"

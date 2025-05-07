@@ -1,17 +1,12 @@
 from flask import Flask
 
-from app.extensions import db
 from app.handlers.trace_handler import TraceHandler
 
 def create_app(config_class='config.Config'):
     app = Flask(__name__)
     app.config.from_object(config_class)
 
-    db.init_app(app)
-
-    trace_handler = TraceHandler(
-        db=db
-    )
+    trace_handler = TraceHandler(    )
 
     app.extensions = getattr(app, "extensions", {})
     app.extensions["trace_handler"] = trace_handler
