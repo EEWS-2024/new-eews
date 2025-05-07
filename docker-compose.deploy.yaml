@@ -12,6 +12,8 @@ services:
     container_name: guncang-zookeeper
     environment:
       ZOOKEEPER_CLIENT_PORT: 2183
+    ports:
+      - "2183:2183"
 
   guncang-kafka:
     networks:
@@ -23,6 +25,7 @@ services:
     depends_on:
       - guncang-zookeeper
     ports:
+      - "9093:9093"
       - "9201:9201"
     environment:
       KAFKA_BROKER_ID: 1
@@ -81,10 +84,11 @@ services:
       - guncang-kafka-2
       - guncang-kafka-3
     ports:
-      - "9204:9000"
+      - "9204:9204"
     environment:
       KAFKA_BROKERCONNECT: "172.20.0.77:9093,172.20.0.78:9093,172.20.0.79:9093"
       JVM_OPTS: "-Xms32M -Xmx64M"
+      SERVER_PORT: 9204
 
   guncang-seedlink:
     pull_policy: "always"
