@@ -1,0 +1,24 @@
+name: Update Compose Deploy
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - docker-compose.deploy.yaml
+
+jobs:
+  scp_deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Copy file via SSH password
+        uses: appleboy/scp-action@v1
+        with:
+          host: ${{ secrets.REMOTE_HOST }}
+          username: ${{ secrets.REMOTE_USER }}
+          password: ${{ secrets.REMOTE_PASSWORD }}
+          source: "docker-compose.deploy.yaml" # comma-separated list
+          target: "/home/user02/guncang/" # remote directory
