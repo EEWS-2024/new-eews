@@ -102,6 +102,8 @@ services:
       - POSTGRES_PASSWORD=guncang
       - POSTGRES_DB=ml_db
     restart: always
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
     ports:
       - "9205:9205"
 
@@ -113,6 +115,8 @@ services:
     container_name: guncang-redis
     command: ["redis-server", "--port", "9206"]
     restart: always
+    volumes:
+      - redis_data:/data
     ports:
       - "9206:9206"
 
@@ -154,3 +158,7 @@ services:
     container_name: guncang-machine-learning
     ports:
       - "9208:5001"
+
+volumes:
+  postgres_data:
+  redis_data:
