@@ -25,7 +25,7 @@ jobs:
 
       - name: Create .env
         run: |
-          cat <<EOF > seedlinkclient/.env
+          cat <<EOF > machine-learning/.env
           FLASK_APP=${{ secrets.FLASK_APP }}
           DATABASE_URL=${{ secrets.DATABASE_URL }}/ml_db
           REDIS_HOST=${{ secrets.REDIS_HOST }}
