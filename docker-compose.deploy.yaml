@@ -131,6 +131,17 @@ services:
     ports:
       - "9207:5000"
 
+  guncang-migrations:
+    image: docker.io/slackingdjaeger/guncang-machine-learning:latest
+    container_name: guncang-migrations
+    command: flask db upgrade
+    restart: "no"
+    depends_on:
+      guncang-postgres:
+        condition: service_healthy
+    networks:
+      - nginx-manager_customnetwork
+
   guncang-machine-learning:
     pull_policy: "always"
     networks:
