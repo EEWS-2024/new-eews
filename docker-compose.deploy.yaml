@@ -90,11 +90,37 @@ services:
       JVM_OPTS: "-Xms32M -Xmx64M"
       SERVER_PORT: 9204
 
+  guncang-postgres:
+    image: postgres:15.5
+    container_name: guncang-postgres
+    networks:
+      nginx-manager_customnetwork:
+        ipv4_address: 172.20.0.95
+    command: ["-p", "9205"]
+    environment:
+      - POSTGRES_USER=guncang
+      - POSTGRES_PASSWORD=guncang
+      - POSTGRES_DB=ml_db
+    restart: always
+    ports:
+      - "9205:9205"
+
+  guncang-redis:
+    image: redis
+    networks:
+      nginx-manager_customnetwork:
+        ipv4_address: 172.20.0.96
+    container_name: guncang-redis
+    command: ["redis-server", "--port", "9206"]
+    restart: always
+    ports:
+      - "9206:9206"
+
   guncang-seedlink:
     pull_policy: "always"
     networks:
       nginx-manager_customnetwork:
-        ipv4_address: 172.20.0.95
+        ipv4_address: 172.20.0.97
     restart: always
     depends_on:
       - guncang-kafka
@@ -103,4 +129,18 @@ services:
     image: docker.io/slackingdjaeger/guncang-seedlink:latest
     container_name: guncang-seedlink
     ports:
-      - "9205:5000"
+      - "9207:5000"
+
+  guncang-machine-learning:
+    pull_policy: "always"
+    networks:
+      nginx-manager_customnetwork:
+        ipv4_address: 172.20.0.98
+    restart: always
+    depends_on:
+      - guncang-redis
+      - guncang-postgres
+    image: docker.io/slackingdjaeger/guncang-machine-learning:latest
+    container_name: guncang-machine-learning
+    ports:
+      - "9208:5001"

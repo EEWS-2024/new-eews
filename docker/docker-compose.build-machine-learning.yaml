@@ -1,0 +1,8 @@
+services:
+  guncang-machine-learning:
+    build:
+      context: ../machine-learning
+      dockerfile: Dockerfile
+    image: docker.io/slackingdjaeger/guncang-machine-learning:latest
+    env_file:
+      - ../machine-learning/.env
