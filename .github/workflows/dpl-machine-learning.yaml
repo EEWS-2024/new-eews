@@ -28,7 +28,7 @@ jobs:
           FLASK_APP=${{ secrets.FLASK_APP }}
           DATABASE_URL=${{ secrets.DATABASE_URL }}/ml_db
           REDIS_HOST=${{ secrets.REDIS_HOST }}
-          REDIS_PORT=${{ secrets.SEEDLINK_REDIS_PORT }}
+          REDIS_PORT=${{ secrets.REDIS_PORT }}
           EOF
 
       - name: Build and push images
