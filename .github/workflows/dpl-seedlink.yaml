@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - "docker/docker-compose.build-seedlink.yaml"
+      - ".github/workflows/dpl-seedlink.yaml"
       - "seedlinkclient/**"
 
 jobs:
