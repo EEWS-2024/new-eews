@@ -137,8 +137,7 @@ services:
     command: flask db upgrade
     restart: "no"
     depends_on:
-      guncang-postgres:
-        condition: service_healthy
+      - guncang-postgres
     networks:
       - nginx-manager_customnetwork
 
