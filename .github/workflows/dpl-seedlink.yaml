@@ -29,7 +29,7 @@ jobs:
           FLASK_APP=${{ secrets.FLASK_APP }}
           SEEDLINK_URL=${{ secrets.SEEDLINK_URL }}
           KAFKA_BOOTSTRAP_SERVERS=${{ secrets.KAFKA_BOOTSTRAP_SERVERS }}
-          KAFKA_TOPIC=${{ secrets.SEEDLINK_KAFKA_TOPIC }}
+          KAFKA_TOPIC=${{ secrets.KAFKA_TOPIC }}
           EOF
 
       - name: Build and push images

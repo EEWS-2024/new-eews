@@ -66,6 +66,7 @@ class SeedlinkProvider:
                 "data": data_to_send,
                 "sampling_rate": stats.sampling_rate,
                 "arrival_time": arrival_time,
+                "type": "live",
             }
 
             self.producer.produce(
