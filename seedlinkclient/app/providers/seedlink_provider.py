@@ -1,14 +1,13 @@
 import datetime
 import json
 import threading
-import time
 from typing import List
 
 from confluent_kafka import Producer
 from obspy.clients.seedlink import EasySeedLinkClient
 from obspy.clients.seedlink.slpacket import SLPacket
 
-from app.handlers.missing_data_handler import MissingDataHandler
+from app.handlers.data_poll_handler import DataPollHandler
 from config import Config
 
 
@@ -23,7 +22,7 @@ class SeedlinkProvider:
         self.producer = Producer({
             "bootstrap.servers": Config.KAFKA_BOOTSTRAP_SERVERS,
         })
-        self.missing_data_handler: MissingDataHandler | None = None
+        self.poll_data_handler: DataPollHandler | None = None
 
     def clear_stream(self):
         self.stop_event.clear()
@@ -35,60 +34,44 @@ class SeedlinkProvider:
             self,
             stats,
             data,
-            arrival_time
+            start_time
     ):
-        current_time = stats.starttime.datetime
-        if (
-                stats.station in self.missing_data_handler.last_processed_time
-                and stats.channel in self.missing_data_handler.last_processed_time[stats.station]
-        ):
-            current_time = self.missing_data_handler.last_processed_time[stats.station][stats.channel]
+        time_to_add = datetime.timedelta(seconds=382 / stats.sampling_rate)
 
-        self.missing_data_handler.data_pool[stats.station][stats.channel].extend(data)
+        trace_data = {
+            "network": stats.network,
+            "station": stats.station,
+            "channel": stats.channel,
+            "location": stats.location,
+            "start_time": str(start_time),
+            "end_time": str(start_time + time_to_add),
+            "delta": stats.delta,
+            "npts": stats.npts,
+            "calib": stats.calib,
+            "data": data,
+            "sampling_rate": stats.sampling_rate,
+            "type": "live",
+        }
 
-        while len(self.missing_data_handler.data_pool[stats.station][stats.channel]) >= 382:
-            data_to_send = self.missing_data_handler.data_pool[stats.station][stats.channel][:382]
-            self.missing_data_handler.data_pool[stats.station][stats.channel] = self.missing_data_handler.data_pool[
-                stats.station
-            ][stats.channel][382:]
-            time_to_add = datetime.timedelta(seconds=382 / stats.sampling_rate)
-
-            trace_data = {
-                "network": stats.network,
-                "station": stats.station,
-                "channel": stats.channel,
-                "location": stats.location,
-                "start_time": str(current_time),
-                "end_time": str(current_time + time_to_add),
-                "delta": stats.delta,
-                "npts": stats.npts,
-                "calib": stats.calib,
-                "data": data_to_send,
-                "sampling_rate": stats.sampling_rate,
-                "arrival_time": arrival_time,
-                "type": "live",
-            }
-
-            self.producer.produce(
-                Config.KAFKA_TOPIC,
-                value=json.dumps(trace_data),
-                key=f"{stats.station}",
-            )
-            self.producer.flush()
-            print(f"Produced message for station {stats.station}")
-            current_time = current_time + time_to_add
+        self.producer.produce(
+            Config.KAFKA_TOPIC,
+            value=json.dumps(trace_data),
+            key=f"{stats.station}",
+        )
+        self.producer.flush()
+        print(f"Produced message for station {stats.station}")
 
 
-    def stream_data(self, stations: List[str], app, missing_data_handler):
+    def stream_data(self, stations: List[str], app, poll_data):
         with app.app_context():
             client = EasySeedLinkClient(server_url=Config.SEEDLINK_URL)
-            self.missing_data_handler = missing_data_handler()
+
+            self.poll_data_handler = poll_data()
             for station in stations:
                 client.select_stream(net=self.network, station=station, selector=self.channel)
 
             while not self.stop_event.is_set():
                 data = client.conn.collect()
-                arrival_time = time.time()
                 if data == SLPacket.SLTERMINATE:
                     # Send termination status to core server
                     print("Connection terminated")
@@ -102,14 +85,17 @@ class SeedlinkProvider:
                     if packet_type not in (SLPacket.TYPE_SLINF, SLPacket.TYPE_SLINFT):
                         trace = data.get_trace()
                         if trace.stats.channel in self.selected_channels:
-                            self.missing_data_handler.handle_missing_data(
+                            client.on_data(trace)
+                            trace_data, start_time = self.poll_data_handler.poll_data(
                                 trace.stats.station,
                                 trace.stats.channel,
                                 trace.stats.starttime.datetime,
-                                trace.stats.sampling_rate,
-                            )
-                            self.publish(
-                                trace.stats,
                                 trace.data.tolist(),
-                                arrival_time,
                             )
+
+                            if trace_data:
+                                self.publish(
+                                    trace.stats,
+                                    trace_data,
+                                    start_time,
+                                )

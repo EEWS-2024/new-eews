@@ -3,7 +3,7 @@ from typing import List
 
 from flask import current_app
 
-from app.handlers.missing_data_handler import MissingDataHandler
+from app.handlers.data_poll_handler import DataPollHandler
 from app.providers.seedlink_provider import SeedlinkProvider
 
 
@@ -20,7 +20,7 @@ class TraceHandler:
             args=(
                 stations,
                 context,
-                MissingDataHandler,
+                DataPollHandler,
             )
         )
         thread.daemon = True  # Dies if main process dies
