@@ -23,7 +23,7 @@ class PredictionHandler:
         self.S_THRESHOLD = 0.5
         self.SAMPLING_RATE = 20.0
         self.WINDOW_SIZE = 382
-        self.DATETIME_FORMAT = "%Y-%m-%d %H:%M:%S.%f"
+        self.DATETIME_FORMAT = "%Y-%m-%d %H:%M:%S"
         self.EARTHQUAKE_PICK_TIME_THRESHOLD = timedelta(seconds=6)
         self.S_WAVE_DETECTION_DURATION = timedelta(minutes=1)
 
