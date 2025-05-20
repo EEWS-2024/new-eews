@@ -100,7 +100,7 @@ services:
     environment:
       - POSTGRES_USER=guncang
       - POSTGRES_PASSWORD=guncang
-      - POSTGRES_DB=ml_db
+      - POSTGRES_DB=ml_db,picker_db
     restart: always
     volumes:
       - postgres_data:/var/lib/postgresql/data
