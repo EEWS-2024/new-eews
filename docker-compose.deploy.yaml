@@ -92,7 +92,7 @@ services:
 
   guncang-timescale:
     image: timescale/timescaledb:latest-pg15
-    container_name: guncang-postgres
+    container_name: guncang-timescale
     networks:
       nginx-manager_customnetwork:
         ipv4_address: 172.20.0.95
@@ -141,7 +141,7 @@ services:
     command: flask db upgrade
     restart: "no"
     depends_on:
-      - guncang-postgres
+      - guncang-timescale
     networks:
       - nginx-manager_customnetwork
 
@@ -153,7 +153,7 @@ services:
     restart: always
     depends_on:
       - guncang-redis
-      - guncang-postgres
+      - guncang-timescale
     image: docker.io/slackingdjaeger/guncang-machine-learning:latest
     container_name: guncang-machine-learning
     ports:
