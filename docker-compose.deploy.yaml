@@ -90,8 +90,8 @@ services:
       JVM_OPTS: "-Xms32M -Xmx64M"
       SERVER_PORT: 9204
 
-  guncang-postgres:
-    image: postgres:15.5
+  guncang-timescale:
+    image: timescale/timescaledb:latest-pg15
     container_name: guncang-postgres
     networks:
       nginx-manager_customnetwork:
