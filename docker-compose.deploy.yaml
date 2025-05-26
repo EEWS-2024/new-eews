@@ -103,7 +103,7 @@ services:
       - POSTGRESQL_SHARED_PRELOAD_LIBRARIES=timescaledb
     restart: always
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - /home/user02/guncang:/var/lib/postgresql/data
     ports:
       - "9205:9205"
 
@@ -160,5 +160,4 @@ services:
       - "9208:5001"
 
 volumes:
-  postgres_data:
   redis_data:
