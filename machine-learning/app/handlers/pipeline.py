@@ -23,7 +23,7 @@ class Pipeline(ABC):
         pass
 
     def set(self, x: np.ndarray, station_code: str):
-        self.redis.set(f"{station_code}_{self.function_name}", x.dumps())
+        self.redis.set(f"{station_code}_{self.function_name}", pickle.dumps(x))
 
     def get(self, station_code: str) -> np.ndarray | None:
         if not self.redis.exists(f"{station_code}_{self.function_name}"):
@@ -153,17 +153,28 @@ class SlidingWindow(Pipeline):
 
         # Cut windows
         prev_window = self.get(station_code)
-        for i in range(1, min(self.window_size, len(x))):
-            cut_windows.append(np.concatenate([prev_window[i:], x[:i]]))
-        cut_windows = np.array(cut_windows)
-
-        # Update last windows
-        windows: np.ndarray
-        if uncut_windows.any():  # if uncut windows is not empty
-            windows = np.concatenate([cut_windows, uncut_windows], axis=0)
+        
+        if prev_window is None:
+            # For first run, just use the current data as the only window
+            windows = x.reshape(1, *x.shape)  # Add batch dimension
+            self.set(x, station_code)
+        elif prev_window.shape[0] != self.window_size:
+            # Reset with correct shape
+            windows = x.reshape(1, *x.shape)  # Add batch dimension
+            self.set(x, station_code)
         else:
-            windows = cut_windows
-        self.set(windows[-1], station_code)
+            for i in range(1, min(self.window_size, len(x))):
+                cut_window = np.concatenate([prev_window[i:], x[:i]])
+                cut_windows.append(cut_window)
+            
+            cut_windows = np.array(cut_windows)
+
+            # Update last windows
+            if uncut_windows.any():  # if uncut windows is not empty
+                windows = np.concatenate([cut_windows, uncut_windows], axis=0)
+            else:
+                windows = cut_windows
+            self.set(windows[-1], station_code)
 
         if self.normalize_windows:
             for i in range(len(windows)):
@@ -176,4 +187,11 @@ class SlidingWindow(Pipeline):
         return windows
 
     def set_initial_state(self, x: np.ndarray, station_code: str) -> None:
-        self.set(x[:self.window_size], station_code)
+        # Pastikan kita menyimpan data dengan shape yang benar untuk window_size
+        if len(x) >= self.window_size:
+            self.set(x[:self.window_size], station_code)
+        else:
+            # Jika data kurang dari window_size, pad dengan zeros
+            padded = np.zeros((self.window_size, x.shape[1]))
+            padded[:len(x)] = x
+            self.set(padded, station_code)
