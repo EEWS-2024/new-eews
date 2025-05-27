@@ -85,17 +85,21 @@ class SeedlinkProvider:
                     if packet_type not in (SLPacket.TYPE_SLINF, SLPacket.TYPE_SLINFT):
                         trace = data.get_trace()
                         if trace.stats.channel in self.selected_channels:
-                            client.on_data(trace)
-                            trace_data, start_time = self.poll_data_handler.poll_data(
-                                trace.stats.station,
-                                trace.stats.channel,
-                                trace.stats.starttime.datetime,
-                                trace.data.tolist(),
-                            )
-
-                            if trace_data:
-                                self.publish(
-                                    trace.stats,
-                                    trace_data,
-                                    start_time,
+                            try:
+                                client.on_data(trace)
+                                trace_data, start_time = self.poll_data_handler.poll_data(
+                                    trace.stats.station,
+                                    trace.stats.channel,
+                                    trace.stats.starttime.datetime,
+                                    trace.data.tolist(),
                                 )
+
+                                if trace_data:
+                                    self.publish(
+                                        trace.stats,
+                                        trace_data,
+                                        start_time,
+                                    )
+                            except Exception as e:
+                                print(f"Error processing trace data: {e}")
+                                continue
