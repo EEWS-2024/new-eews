@@ -6,12 +6,22 @@ from redis import Redis
 from datetime import datetime, timedelta
 
 from sqlalchemy import desc
+import tensorflow as tf
 from tensorflow.keras.models import load_model
 from tensorflow.keras.optimizers import Adam
 
 from app.handlers.pipeline import Slope, Square, AddChannels, Log1P, MultiExponentialSmoothing, PairwiseRatio, SlidingWindow
 from app.models import StationWave, StationTime
+import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
+import warnings
+warnings.filterwarnings("ignore")
+
+
+# Configure TensorFlow to avoid eager mode issues
+tf.compat.v1.disable_eager_execution()
+tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)
 
 class PredictionHandler:
     def __init__(
@@ -41,15 +51,35 @@ class PredictionHandler:
         self.pairwise_ratio = PairwiseRatio([0.9, 0.92375, 0.9475, 0.97125, 0.995])
         self.sliding_window = SlidingWindow(redis, 382)
 
-        custom_objects = {'Custom>Adam': Adam}
-
-        self.p_model = load_model("models/model_p_2_1_best.h5", custom_objects=custom_objects)
-        self.s_model = load_model("models/model_s_2_1_best.h5", custom_objects=custom_objects)
-        self.mag_model = load_model("models/model_mag_1.h5", custom_objects=custom_objects)
-        self.dist_model = load_model("models/model_dist_1.h5", custom_objects=custom_objects)
+        # Initialize models with TensorFlow session management
+        self.graph = tf.compat.v1.Graph()
+        self.sess = tf.compat.v1.Session(graph=self.graph)
+        
+        with self.graph.as_default():
+            with self.sess.as_default():
+                custom_objects = {'Custom>Adam': Adam}
+                
+                try:
+                    self.p_model = load_model("models/model_p_2_1_best.h5", custom_objects=custom_objects)
+                    self.s_model = load_model("models/model_s_2_1_best.h5", custom_objects=custom_objects)
+                    self.mag_model = load_model("models/model_mag_1.h5", custom_objects=custom_objects)
+                    self.dist_model = load_model("models/model_dist_1.h5", custom_objects=custom_objects)
+                    print("Custom models loaded successfully")
+                except Exception as e:
+                    print(f"Error loading custom models: {e}")
+                    self.p_model = None
+                    self.s_model = None
+                    self.mag_model = None
+                    self.dist_model = None
 
         self.redis = redis
         self.db = db
+
+    def _predict_with_session(self, model, X):
+        """Helper method to predict using the correct TensorFlow session"""
+        with self.graph.as_default():
+            with self.sess.as_default():
+                return model.predict(X)
 
     def __get_station_wave(self, station_code: str, wave_type: str):
         station_wave = StationWave.query.filter_by(
@@ -170,7 +200,21 @@ class PredictionHandler:
             self.sliding_window.set_initial_state(X, station_code)
         X = self.sliding_window.compute(X, station_code)
 
-        predicted_p_wave = self.p_model.predict(X)
+        if self.p_model is None:
+            # Return default response if model not loaded
+            return {
+                "station_code": station_code,
+                "init_end": True,
+                "p_arr": False,
+                "p_arr_time": start_time.strftime(self.DATETIME_FORMAT),
+                "new_p_event": False,
+                "s_arr": False,
+                "s_arr_time": start_time.strftime(self.DATETIME_FORMAT),
+                "new_s_event": False,
+                "error": "Custom models not loaded"
+            }
+            
+        predicted_p_wave = self._predict_with_session(self.p_model, X)
 
         is_p_arrival_detected, p_arrival_time, is_new_p_event = self.__examine_prediction(
             predicted_p_wave,
@@ -187,7 +231,7 @@ class PredictionHandler:
             station_time.time = p_arrival_time
 
         if station_time.time - start_time <= self.S_WAVE_DETECTION_DURATION:
-            predicted_s_wave: np.ndarray = self.s_model.predict(X)
+            predicted_s_wave: np.ndarray = self._predict_with_session(self.s_model, X)
 
             station_secondary_wave = self.__get_station_wave(
                 station_code,
@@ -215,9 +259,18 @@ class PredictionHandler:
         }
 
     def predict_stats(self, x: List[float], station_code: str):
+        if self.mag_model is None or self.dist_model is None:
+            return {
+                "station_code": station_code,
+                "magnitude": 0.0,
+                "depth": 0.0,
+                "distance": 0.0,
+                "error": "Custom models not loaded"
+            }
+            
         X = np.array([x])
-        magnitude = float(self.mag_model.predict(X)[0][0])
-        distance = float(self.dist_model.predict(X)[0][0])
+        magnitude = float(self._predict_with_session(self.mag_model, X)[0][0])
+        distance = float(self._predict_with_session(self.dist_model, X)[0][0])
 
         return {
             "station_code": station_code,
