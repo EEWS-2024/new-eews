@@ -34,7 +34,7 @@ class PhaseNetHandler:
                     self.model = UNet(mode="pred")
                     
                     # Load model weights
-                    model_path = "models/phasenet/190703-214543"
+                    model_path = "models/phasenet/base"
                     if os.path.exists(model_path):
                         saver = tf.compat.v1.train.Saver()
                         saver.restore(self.sess, tf.train.latest_checkpoint(model_path))

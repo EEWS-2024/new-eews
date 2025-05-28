@@ -56,10 +56,10 @@ class PredictionHandler:
                 custom_objects = {'Custom>Adam': Adam}
                 
                 try:
-                    self.p_model = load_model("models/model_p_2_1_best.h5", custom_objects=custom_objects)
-                    self.s_model = load_model("models/model_s_2_1_best.h5", custom_objects=custom_objects)
-                    self.mag_model = load_model("models/model_mag_1.h5", custom_objects=custom_objects)
-                    self.dist_model = load_model("models/model_dist_1.h5", custom_objects=custom_objects)
+                    self.p_model = load_model("models/custom/model_p_2_1_best.h5", custom_objects=custom_objects)
+                    self.s_model = load_model("models/custom/model_s_2_1_best.h5", custom_objects=custom_objects)
+                    self.mag_model = load_model("models/custom/model_mag_1.h5", custom_objects=custom_objects)
+                    self.dist_model = load_model("models/custom/model_dist_1.h5", custom_objects=custom_objects)
                     print("Custom models loaded successfully")
                 except Exception as e:
                     print(f"Error loading custom models: {e}")
