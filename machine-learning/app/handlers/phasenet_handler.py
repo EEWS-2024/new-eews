@@ -8,21 +8,17 @@ from scipy.interpolate import interp1d
 from app.handlers.phasenet.model import UNet
 from app.handlers.phasenet.detect_peaks import detect_peaks
 
-import os
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
-
 import warnings
 warnings.filterwarnings("ignore")
-
 
 tf.compat.v1.disable_eager_execution()
 tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)
 
 class PhaseNetHandler:
     def __init__(self):
-        self.INPUT_SAMPLING_RATE = 20.0   # Sampling rate data Indonesia (Hz)
-        self.PHASENET_SAMPLING_RATE = 100.0  # Sampling rate yang dibutuhkan PhaseNet (Hz)
-        self.PHASENET_LENGTH = 3000       # Panjang data yang dibutuhkan PhaseNet (points)
+        self.INPUT_SAMPLING_RATE = 20.0   # Sampling rate for Indonesia (Hz)
+        self.PHASENET_SAMPLING_RATE = 100.0  # Sampling rate that PhaseNet requires (Hz)
+        self.PHASENET_LENGTH = 3000       # Length of data that PhaseNet requires (points)
         self.MIN_INPUT_LENGTH = 600       # Minimal input data: 3000 * (20/100) = 600 points
         self.X_SHAPE = [3000, 1, 3]       # PhaseNet input shape
         self.DATETIME_FORMAT = "%Y-%m-%d %H:%M:%S"
@@ -53,38 +49,40 @@ class PhaseNetHandler:
 
     def preprocess_data(self, data: np.ndarray) -> np.ndarray:
         """
-        Preprocess data untuk PhaseNet dengan resampling berdasarkan sampling rate
-        Input: (600+, 3) pada 20 Hz -> Output: (1, 3000, 1, 3) pada 100 Hz
+        Preprocess data for PhaseNet with resampling based on sampling rate
+        Input: (600+, 3) at 20 Hz -> Output: (1, 3000, 1, 3) at 100 Hz
+
+        This is because PhaseNet requires 3000 points at 100 Hz, but we have 20 Hz data.
         """
         original_length = data.shape[0]
         
-        # Validasi minimal input length
+        # Check if input data is too short
         if original_length < self.MIN_INPUT_LENGTH:
             raise ValueError(f"Input data is too short. Minimum required is {self.MIN_INPUT_LENGTH} points, "
                  f"but received {original_length} points")
         
-        # Hitung rasio resampling berdasarkan sampling rate
-        # Dari 20 Hz ke 100 Hz = 5x lebih banyak data points
+        # Calculate the ratio of resampling based on sampling rate
+        # From 20 Hz to 100 Hz = 5x more data points
         resample_ratio = self.PHASENET_SAMPLING_RATE / self.INPUT_SAMPLING_RATE  # 100/20 = 5
         
-        # Hitung panjang data yang dibutuhkan pada 20 Hz untuk menghasilkan 3000 points pada 100 Hz
+        # Calculate the required input length at 20 Hz to produce 3000 points at 100 Hz
         required_input_length = int(self.PHASENET_LENGTH / resample_ratio)  # 3000/5 = 600
         
-        # Jika input lebih panjang dari yang dibutuhkan, ambil bagian awal
+        # If input is longer than required, take the first part
         if original_length > required_input_length:
             data = data[:required_input_length, :]
             original_length = required_input_length
         
-        # Resample dari 20 Hz ke 100 Hz menggunakan linear interpolation
-        target_length = int(original_length * resample_ratio)  # Harus menghasilkan 3000
+        # Resample from 20 Hz to 100 Hz using linear interpolation
+        target_length = int(original_length * resample_ratio)  # Should produce 3000
         
         # Create interpolation function for each channel
         resampled_data = np.zeros((target_length, 3))
         
         for channel in range(3):
-            # Time indices untuk data original (20 Hz)
+            # Time indices for original data (20 Hz)
             original_time = np.arange(original_length) / self.INPUT_SAMPLING_RATE
-            # Time indices untuk data target (100 Hz)
+            # Time indices for target data (100 Hz)
             target_time = np.arange(target_length) / self.PHASENET_SAMPLING_RATE
             
             # Interpolate
@@ -92,9 +90,9 @@ class PhaseNetHandler:
                         bounds_error=False, fill_value='extrapolate')
             resampled_data[:, channel] = f(target_time)
         
-        # Pastikan panjang data tepat 3000 points
+        # Make sure data length is exactly 3000 points
         if target_length != self.PHASENET_LENGTH:
-            # Jika tidak tepat 3000, lakukan interpolasi sekali lagi
+            # If not exactly 3000, do interpolation again
             final_data = np.zeros((self.PHASENET_LENGTH, 3))
             for channel in range(3):
                 original_indices = np.linspace(0, 1, target_length)
@@ -109,14 +107,14 @@ class PhaseNetHandler:
             if np.std(channel_data) > 0:
                 resampled_data[:, channel] = (channel_data - np.mean(channel_data)) / np.std(channel_data)
         
-        # Reshape untuk PhaseNet: (1, 3000, 1, 3)
+        # Reshape for PhaseNet: (1, 3000, 1, 3)
         processed_data = resampled_data.reshape(1, self.PHASENET_LENGTH, 1, 3)
         
         return processed_data
 
     def postprocess_predictions(self, predictions: np.ndarray, start_time: str, station_code: str) -> Tuple[int, int]:
         """
-        Postprocess PhaseNet predictions untuk mendapatkan P dan S picks
+        Postprocess PhaseNet predictions to get P and S picks
         """
         # PhaseNet output shape: (1, 3000, 1, 3) -> (P, S, N)
         # Channel 0: P-wave probability
@@ -126,7 +124,7 @@ class PhaseNetHandler:
         pred_p = predictions[0, :, 0, 0]  # P-wave predictions
         pred_s = predictions[0, :, 0, 1]  # S-wave predictions
         
-        # Detect peaks dengan threshold
+        # Detect peaks with threshold
         p_threshold = 0.3
         s_threshold = 0.3
         mpd = 50  # minimum peak distance
@@ -137,26 +135,26 @@ class PhaseNetHandler:
         # Detect S-wave picks
         s_indices, s_probs = detect_peaks(pred_s, mph=s_threshold, mpd=mpd)
         
-        # Convert dari 3000-point space (100 Hz) ke input space (20 Hz)
-        # Rasio konversi berdasarkan sampling rate
+        # Convert from 3000-point space (100 Hz) to input space (20 Hz)
+        # Conversion ratio based on sampling rate
         scale_factor = self.INPUT_SAMPLING_RATE / self.PHASENET_SAMPLING_RATE  # 20/100 = 0.2
         
         p_index = -1
         s_index = -1
         
         if len(p_indices) > 0:
-            # Ambil pick pertama dengan confidence tertinggi
+            # Take the first pick with highest confidence
             best_p_idx = np.argmax(p_probs)
-            # Convert dari 100 Hz space ke 20 Hz space
+            # Convert from 100 Hz space to 20 Hz space
             p_index = int(p_indices[best_p_idx] * scale_factor)
             
         if len(s_indices) > 0:
-            # Ambil pick pertama dengan confidence tertinggi
+            # Take the first pick with highest confidence
             best_s_idx = np.argmax(s_probs)
-            # Convert dari 100 Hz space ke 20 Hz space
+            # Convert from 100 Hz space to 20 Hz space
             s_index = int(s_indices[best_s_idx] * scale_factor)
         
-        # Ensure indices are within bounds (maksimal 600 untuk input 20 Hz)
+        # Ensure indices are within bounds (maximum 600 for 20 Hz input)
         max_input_index = self.MIN_INPUT_LENGTH - 1
         if p_index >= max_input_index:
             p_index = -1
@@ -185,9 +183,9 @@ class PhaseNetHandler:
         
         try:
             # Convert to numpy array
-            data = np.array(x)  # Shape: (600+, 3) - minimal 600 points untuk 20 Hz
+            data = np.array(x)  # Shape: (600+, 3) - minimum 600 points for 20 Hz
             
-            # Validasi input length
+            # Check if input length is valid
             if data.shape[0] < self.MIN_INPUT_LENGTH:
                 return {
                     "station_code": station_code,

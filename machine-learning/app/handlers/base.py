@@ -1,11 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import List, Dict, Any
-import os
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
-
 import warnings
 warnings.filterwarnings("ignore")
-
 
 class BasePredictionHandler(ABC):
     """Abstract base class for prediction handlers"""

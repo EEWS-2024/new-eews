@@ -2,12 +2,8 @@
 
 from __future__ import division, print_function
 import numpy as np
-import os
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
-
 import warnings
 warnings.filterwarnings("ignore")
-
 
 __author__ = "Marcos Duarte, https://github.com/demotu"
 __version__ = "1.0.6"

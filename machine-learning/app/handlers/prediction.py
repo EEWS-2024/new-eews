@@ -12,12 +12,8 @@ from tensorflow.keras.optimizers import Adam
 
 from app.handlers.pipeline import Slope, Square, AddChannels, Log1P, MultiExponentialSmoothing, PairwiseRatio, SlidingWindow
 from app.models import StationWave, StationTime
-import os
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
-
 import warnings
 warnings.filterwarnings("ignore")
-
 
 # Configure TensorFlow to avoid eager mode issues
 tf.compat.v1.disable_eager_execution()
@@ -250,11 +246,9 @@ class PredictionHandler:
             "init_end": True,
             "p_arr": is_p_arrival_detected,
             "p_arr_time": p_arrival_time.strftime(self.DATETIME_FORMAT),
-            # "p_arr_id": f"{station_code}~{p_arr_id}",
             "new_p_event": is_new_p_event,
             "s_arr": is_s_arrival_detected,
             "s_arr_time": s_arrival_time.strftime(self.DATETIME_FORMAT),
-            # "s_arr_id": f"{station_code}~{s_arr_id}",
             "new_s_event": is_new_s_event,
         }
 
