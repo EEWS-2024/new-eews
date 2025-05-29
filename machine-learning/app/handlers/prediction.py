@@ -252,41 +252,41 @@ class PredictionHandler:
     def recalculate(
         self,
         station_codes: List[str],
-        station_latitudes:  List[float],
-        station_longitudes: List[float],
+        latitudes:  List[float],
+        longitudes: List[float],
         magnitudes: List[float],
         distances: List[float],
     ):
         magnitudes: np.ndarray = np.array(magnitudes)
         distances: np.ndarray = np.array(distances).astype(np.complex128)
-        station_latitudes: np.ndarray = np.array(
-            station_latitudes
+        latitudes: np.ndarray = np.array(
+            latitudes
         ).astype(np.complex128)
-        station_longitudes: np.ndarray = np.array(
-            station_longitudes
+        longitudes: np.ndarray = np.array(
+            longitudes
         ).astype(np.complex128)
 
-        station_latitudes_rad = station_latitudes / 180.0 * np.pi * 6371.0
-        station_longitudes_rad = station_longitudes / 180.0 * np.pi * 6371.0
+        latitudes_rad = latitudes / 180.0 * np.pi * 6371.0
+        longitudes_rad = longitudes / 180.0 * np.pi * 6371.0
 
         magnitude = np.mean(magnitudes)
 
         points = []
-        for i in range(len(station_latitudes) - 1):
-            for j in range(i + 1, len(station_latitudes)):
+        for i in range(len(latitudes) - 1):
+            for j in range(i + 1, len(latitudes)):
                 # distance between two stations
                 R = self.__haversine(
-                    station_latitudes[i],
-                    station_longitudes[i],
-                    station_latitudes[j],
-                    station_longitudes[j],
+                    latitudes[i],
+                    longitudes[i],
+                    latitudes[j],
+                    longitudes[j],
                 )
 
                 # Radians position of two stations
-                xi = station_latitudes_rad[i]
-                yi = station_longitudes_rad[i]
-                xj = station_latitudes_rad[j]
-                yj = station_longitudes_rad[j]
+                xi = latitudes_rad[i]
+                yi = longitudes_rad[i]
+                xj = latitudes_rad[j]
+                yj = longitudes_rad[j]
                 ri = distances[i]
                 rj = distances[j]
 
