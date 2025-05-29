@@ -46,3 +46,11 @@ def predict_stats():
     return prediction_handler.predict_stats(
         **request.get_json()
     )
+
+@bp.route('/predict/recalculate', methods=['POST'])
+def recalculate():
+    prediction_handler = current_app.extensions.get("prediction_handler")
+
+    return prediction_handler.recalculate(
+        **request.get_json()
+    )
