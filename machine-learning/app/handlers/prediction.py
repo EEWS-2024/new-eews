@@ -348,9 +348,11 @@ class PredictionHandler:
         # Convert result back to degree
         ans *= 180 / np.pi / 6371.0
 
-        return {
+        response = {
             "station_codes": station_codes,
             "magnitude": float(magnitude),
             "latitude": float(ans[0]),
             "longitude": float(ans[1]),
         }
+
+        return response

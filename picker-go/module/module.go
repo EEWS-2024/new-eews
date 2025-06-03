@@ -1,6 +1,8 @@
 package module
 
 import (
+	"context"
+	"github.com/jackc/pgx/v5/pgxpool"
 	"picker-go/core/poller/port"
 	"picker-go/internal/config"
 	"picker-go/internal/poller"
@@ -19,6 +21,13 @@ func Initialize() (*config.Config, *poller.Poller, error) {
 		return nil, nil, err
 	}
 
-	p := poller.NewPoller(consumer)
+	redisClient := adapter.NewRedisAdapter(cfg)
+
+	db, err := pgxpool.New(context.Background(), cfg.DatabaseUrl)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	p := poller.NewPoller(consumer, cfg, redisClient, db)
 	return cfg, p, nil
 }

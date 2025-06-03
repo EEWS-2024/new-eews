@@ -1,0 +1,21 @@
+package poller
+
+type Trace struct {
+	Network      string  `json:"network"`
+	Station      string  `json:"station"`
+	Channel      string  `json:"channel"`
+	Location     string  `json:"location"`
+	StartTime    string  `json:"start_time"`
+	EndTime      string  `json:"end_time"`
+	Delta        float64 `json:"delta"`
+	Npts         int     `json:"npts"`
+	Calib        float64 `json:"calib"`
+	SamplingRate float64 `json:"sampling_rate"`
+	ArrivalTime  float64 `json:"arrival_time"`
+	Type         string  `json:"type"`
+	Data         []int   `json:"data"`
+}
+
+type PolledData struct {
+	Traces map[string]map[string][]int `json:"traces"`
+}
