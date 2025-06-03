@@ -11,5 +11,6 @@ type Message struct {
 type BrokerConsumer interface {
 	Subscribe(topics []string) error
 	Poll(timeout int) (*Message, error)
+	Publish(topic string, key string, value interface{}) (err error)
 	Close() error
 }

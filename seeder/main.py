@@ -12,11 +12,11 @@ load_dotenv()
 TRESHOLD_DISTANCE = 1000
 
 conn = psycopg2.connect(
-    dbname=os.environ.get("DB_NAME"),
-    user=os.environ.get("DB_USER"),
-    password=os.environ.get("DB_PASSWORD"),
-    host=os.environ.get("DB_HOST"),
-    port=os.environ.get("DB_PORT")
+    dbname=os.environ.get("DB_NAME", "picker_db"),
+    user=os.environ.get("DB_USER", "guncang"),
+    password=os.environ.get("DB_PASSWORD", "guncang"),
+    host=os.environ.get("DB_HOST", "85.209.163.202"),
+    port=os.environ.get("DB_PORT", 9205)
 )
 cur = conn.cursor()
 
@@ -183,11 +183,39 @@ def create_tables():
             UNIQUE (station_code, channel)
         )
     """)
+    cur.execute("""
+        CREATE TABLE IF NOT EXISTS waveforms (
+            pick_time TIMESTAMPTZ NOT NULL,
+            station_code VARCHAR(255) REFERENCES stations(code),
+            depth FLOAT NOT NULL,
+            distance FLOAT NOT NULL,
+            magnitude FLOAT NOT NULL,
+            is_new BOOLEAN NOT NULL DEFAULT TRUE
+        )
+    """)
+    cur.execute("""
+        SELECT create_hypertable('waveforms', 'pick_time')
+    """)
+    cur.execute("""
+        CREATE TABLE IF NOT EXISTS epic_waveforms (
+            event_time TIMESTAMPTZ NOT NULL,
+            magnitude FLOAT NOT NULL,
+            latitude FLOAT NOT NULL,
+            longitude FLOAT NOT NULL,
+            station_codes TEXT[] NOT NULL
+        )
+    """)
+    # cur.execute("""
+    #        SELECT create_hypertable('epic_waveforms', 'event_time')
+    #    """)
     conn.commit()
 
 
 if __name__ == "__main__":
     command = sys.argv[1] if len(sys.argv) > 1 else ""
+    if command == "init-only":
+        create_tables()
+        sys.exit(0)
     if command == "init":
         create_tables()
     seed_data()

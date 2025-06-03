@@ -1,22 +1,19 @@
 package main
 
 import (
-	"fmt"
-	"os"
+	"log"
 	"picker-go/module"
 )
 
 func main() {
 	cfg, poller, err := module.Initialize()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Initialization error: %v\n", err)
-		os.Exit(1)
+		log.Fatalf("Initialization error: %v\n", err)
 	}
 
-	topics := []string{cfg.KafkaTopic}
+	topics := []string{cfg.KafkaConsumerTopic}
 
 	if err := poller.Run(topics); err != nil {
-		fmt.Fprintf(os.Stderr, "Runtime error: %v\n", err)
-		os.Exit(1)
+		log.Fatalf("Runtime error: %v\n", err)
 	}
 }
