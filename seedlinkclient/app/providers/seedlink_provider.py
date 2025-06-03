@@ -36,7 +36,7 @@ class SeedlinkProvider:
             data,
             start_time
     ):
-        time_to_add = datetime.timedelta(seconds=382 / stats.sampling_rate)
+        time_to_add = datetime.timedelta(seconds=600 / stats.sampling_rate)
 
         trace_data = {
             "network": stats.network,

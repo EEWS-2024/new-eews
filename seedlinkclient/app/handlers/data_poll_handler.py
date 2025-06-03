@@ -31,15 +31,15 @@ class DataPollHandler:
         if channel not in self.data_poll[station][formatted_start_time]:
             self.data_poll[station][formatted_start_time][channel] = data_points
 
-        if len(self.data_poll[station][formatted_start_time][channel]) < 382:
+        if len(self.data_poll[station][formatted_start_time][channel]) < 600:
             stored_data_points_length = len(self.data_poll[station][formatted_start_time][channel])
             data_points_length = len(data_points)
-            exceeded_data_points = 382 - (data_points_length + stored_data_points_length)
+            exceeded_data_points = 600 - (data_points_length + stored_data_points_length)
             data_points = data_points[:exceeded_data_points]
             self.data_poll[station][formatted_start_time][channel].extend(data_points)
 
-        if len(self.data_poll[station][formatted_start_time][channel]) >= 382:
-            data_to_send = self.data_poll[station][formatted_start_time][channel][:382]
+        if len(self.data_poll[station][formatted_start_time][channel]) >= 600:
+            data_to_send = self.data_poll[station][formatted_start_time][channel][:600]
             del self.data_poll[station][formatted_start_time]
             return data_to_send, datetime.strptime(formatted_start_time, "%Y-%m-%dT%H:%M")
 
@@ -62,12 +62,12 @@ class DataPollHandler:
         delta_minutes = delta.total_seconds() / 60
 
         if delta_minutes >= 1:
-            missing_samples = 382 - len(polled_data[channel])
+            missing_samples = 600 - len(polled_data[channel])
 
             if missing_samples > 0:
                 missing_data = [0] * missing_samples
                 polled_data[channel].extend(missing_data)
 
-            data_to_send = polled_data[channel][:382]
+            data_to_send = polled_data[channel][:600]
             del polled_data
             return data_to_send, start_time
