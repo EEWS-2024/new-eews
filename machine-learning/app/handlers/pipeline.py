@@ -187,11 +187,11 @@ class SlidingWindow(Pipeline):
         return windows
 
     def set_initial_state(self, x: np.ndarray, station_code: str) -> None:
-        # Pastikan kita menyimpan data dengan shape yang benar untuk window_size
+        # Make sure we save data with the correct shape for window_size
         if len(x) >= self.window_size:
             self.set(x[:self.window_size], station_code)
         else:
-            # Jika data kurang dari window_size, pad dengan zeros
+            # If data is less than window_size, pad with zeros
             padded = np.zeros((self.window_size, x.shape[1]))
             padded[:len(x)] = x
             self.set(padded, station_code)
