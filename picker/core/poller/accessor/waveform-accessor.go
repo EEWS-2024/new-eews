@@ -1,7 +1,7 @@
 package accessor
 
 import (
-	"picker-go/internal/poller/accessor"
+	"picker/internal/poller/accessor"
 )
 
 type WaveFormAccessor interface {

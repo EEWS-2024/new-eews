@@ -1,0 +1,743 @@
+[
+  {
+    "code": "TNTI",
+    "lat": "0.7718",
+    "long": "127.3667",
+    "elevation": "43",
+    "name": "GEOFON Station GEOFON Station Ternate, Indonesia",
+    "channels": [
+      {
+        "code": "BHN",
+        "depth": 3.0,
+        "azimuth": 0.0,
+        "dip": 0.0,
+        "sample_rate": 20.0
+      },
+      {
+        "code": "BHE",
+        "depth": 3.0,
+        "azimuth": 90.0,
+        "dip": 0.0,
+        "sample_rate": 20.0
+      },
+      {
+        "code": "BHZ",
+        "depth": 3.0,
+        "azimuth": 0.0,
+        "dip": -90.0,
+        "sample_rate": 20.0
+      }
+    ]
+  },
+  {
+    "code": "TOLI",
+    "lat": "1.1214",
+    "long": "120.7944",
+    "elevation": "86",
+    "name": "GEOFON Station GEOFON Station Tolitoli, Sulawesi",
+    "channels": [
+      {
+        "code": "BHN",
+        "depth": 2.0,
+        "azimuth": 0.0,
+        "dip": 0.0,
+        "sample_rate": 20.0
+      },
+      {
+        "code": "BHE",
+        "depth": 2.0,
+        "azimuth": 90.0,
+        "dip": 0.0,
+        "sample_rate": 20.0
+      },
+      {
+        "code": "BHZ",
+        "depth": 2.0,
+        "azimuth": 0.0,
+        "dip": -90.0,
+        "sample_rate": 20.0
+      }
+    ]
+  },
+  {
+    "code": "GENI",
+    "lat": "-2.5927",
+    "long": "140.1678",
+    "elevation": "47",
+    "name": "GEOFON Station Genyem, Irian Jaya Indonesia",
+    "channels": [
+      {
+        "code": "BHN",
+        "depth": 0.0,
+        "azimuth": 0.0,
+        "dip": 0.0,
+        "sample_rate": 20.0
+      },
+      {
+        "code": "BHE",
+        "depth": 0.0,
+        "azimuth": 90.0,
+        "dip": 0.0,
+        "sample_rate": 20.0
+      },
+      {
+        "code": "BHZ",
+        "depth": 0.0,
+        "azimuth": 0.0,
+        "dip": -90.0,
+        "sample_rate": 20.0
+      }
+    ]
+  },
+  {
+    "code": "PMBI",
+    "lat": "-2.9024",
+    "long": "104.6993",
+    "elevation": "25",
+    "name": "GEOFON Station Palembang, Sumatra",
+    "channels": [
+      {
+        "code": "BHN",
+        "depth": 0.0,
+        "azimuth": 0.0,
+        "dip": 0.0,
+        "sample_rate": 20.0
+      },
+      {
+        "code": "BHE",
+        "depth": 0.0,
+        "azimuth": 90.0,
+        "dip": 0.0,
+        "sample_rate": 20.0
+      },
+      {
+        "code": "BHZ",
+        "depth": 0.0,
+        "azimuth": 0.0,
+        "dip": -90.0,
+        "sample_rate": 20.0
+      }
+    ]
+  },
+  {
+    "code": "BKB",
+    "lat": "-1.1073",
+    "long": "116.9048",
+    "elevation": "110",
+    "name": "GEOFON Station GEOFON Station Balikpapan, Kalimantan",
+    "channels": [
+      {
+        "code": "BHN",
+        "depth": 0.0,
+        "azimuth": 0.0,
+        "dip": 0.0,
+        "sample_rate": 20.0
+      },
+      {
+        "code": "BHE",
+        "depth": 0.0,
+        "azimuth": 90.0,
+        "dip": 0.0,
+        "sample_rate": 20.0
+      },
+      {
+        "code": "BHZ",
+        "depth": 0.0,
+        "azimuth": 0.0,
+        "dip": -90.0,
+        "sample_rate": 20.0
+      }
+    ]
+  },
+  {
+    "code": "SOEI",
+    "lat": "-9.7553",
+    "long": "124.2672",
+    "elevation": "1047",
+    "name": "GEOFON Station GEOFON Station Soe, Timor",
+    "channels": [
+      {
+        "code": "BHN",
+        "depth": 0.0,
+        "azimuth": 0.0,
+        "dip": 0.0,
+        "sample_rate": 20.0
+      },
+      {
+        "code": "BHE",
+        "depth": 0.0,
+        "azimuth": 90.0,
+        "dip": 0.0,
+        "sample_rate": 20.0
+      },
+      {
+        "code": "BHZ",
+        "depth": 0.0,
+        "azimuth": 0.0,
+        "dip": -90.0,
+        "sample_rate": 20.0
+      }
+    ]
+  },
+  {
+    "code": "SANI",
+    "lat": "-2.0496",
+    "long": "125.9881",
+    "elevation": "30",
+    "name": "GEOFON Station Sanana, Moluccas, Indonesia",
+    "channels": [
+      {
+        "code": "BHN",
+        "depth": 2.0,
+        "azimuth": 0.0,
+        "dip": 0.0,
+        "sample_rate": 20.0
+      },
+      {
+        "code": "BHE",
+        "depth": 2.0,
+        "azimuth": 90.0,
+        "dip": 0.0,
+        "sample_rate": 20.0
+      },
+      {
+        "code": "BHZ",
+        "depth": 2.0,
+        "azimuth": 0.0,
+        "dip": -90.0,
+        "sample_rate": 20.0
+      }
+    ]
+  },
+  {
+    "code": "MMRI",
+    "lat": "-8.6357",
+    "long": "122.2376",
+    "elevation": "137",
+    "name": "GEOFON Station GEOFON Station Maumere, Flores",
+    "channels": [
+      {
+        "code": "BHN",
+        "depth": 3.0,
+        "azimuth": 0.0,
+        "dip": 0.0,
+        "sample_rate": 20.0
+      },
+      {
+        "code": "BHE",
+        "depth": 3.0,
+        "azimuth": 90.0,
+        "dip": 0.0,
+        "sample_rate": 20.0
+      },
+      {
+        "code": "BHZ",
+        "depth": 3.0,
+        "azimuth": 0.0,
+        "dip": -90.0,
+        "sample_rate": 20.0
+      }
+    ]
+  },
+  {
+    "code": "PMBT",
+    "lat": "-2.927",
+    "long": "104.772",
+    "elevation": "30",
+    "name": "GEOFON Station Palembang, Sumatra, Indonesia",
+    "channels": [
+      {
+        "code": "BHN",
+        "depth": 0.0,
+        "azimuth": 0.0,
+        "dip": 0.0,
+        "sample_rate": 20.0
+      },
+      {
+        "code": "BHE",
+        "depth": 0.0,
+        "azimuth": 90.0,
+        "dip": 0.0,
+        "sample_rate": 20.0
+      },
+      {
+        "code": "BHZ",
+        "depth": 0.0,
+        "azimuth": 0.0,
+        "dip": -90.0,
+        "sample_rate": 20.0
+      }
+    ]
+  },
+  {
+    "code": "TOLI2",
+    "lat": "1.11119",
+    "long": "120.78174",
+    "elevation": "51",
+    "name": "GEOFON Station Tolitoli, Sulawesi, Indonesia",
+    "channels": [
+      {
+        "code": "BHN",
+        "depth": 2.0,
+        "azimuth": 0.0,
+        "dip": 0.0,
+        "sample_rate": 20.0
+      },
+      {
+        "code": "BHE",
+        "depth": 2.0,
+        "azimuth": 90.0,
+        "dip": 0.0,
+        "sample_rate": 20.0
+      },
+      {
+        "code": "BHZ",
+        "depth": 2.0,
+        "azimuth": 0.0,
+        "dip": -90.0,
+        "sample_rate": 20.0
+      }
+    ]
+  },
+  {
+    "code": "BKNI",
+    "lat": "0.3262",
+    "long": "101.0396",
+    "elevation": "65",
+    "name": "GEOFON Station GEOFON Station Bangkinang, Sumatra",
+    "channels": [
+      {
+        "code": "BHN",
+        "depth": 3.0,
+        "azimuth": 0.0,
+        "dip": 0.0,
+        "sample_rate": 20.0
+      },
+      {
+        "code": "BHE",
+        "depth": 3.0,
+        "azimuth": 90.0,
+        "dip": 0.0,
+        "sample_rate": 20.0
+      },
+      {
+        "code": "BHZ",
+        "depth": 3.0,
+        "azimuth": 0.0,
+        "dip": -90.0,
+        "sample_rate": 20.0
+      }
+    ]
+  },
+  {
+    "code": "UGM",
+    "lat": "-7.9125",
+    "long": "110.5231",
+    "elevation": "350",
+    "name": "GEOFON Station Wanagama, Indonesia",
+    "channels": [
+      {
+        "code": "BHN",
+        "depth": 2.0,
+        "azimuth": 0.0,
+        "dip": 0.0,
+        "sample_rate": 20.0
+      },
+      {
+        "code": "BHE",
+        "depth": 2.0,
+        "azimuth": 90.0,
+        "dip": 0.0,
+        "sample_rate": 20.0
+      },
+      {
+        "code": "BHZ",
+        "depth": 2.0,
+        "azimuth": 0.0,
+        "dip": -90.0,
+        "sample_rate": 20.0
+      }
+    ]
+  },
+  {
+    "code": "FAKI",
+    "lat": "-2.91925",
+    "long": "132.24889",
+    "elevation": "136",
+    "name": "GEOFON Station GEOFON Station Fak Fak, Irian Jaya",
+    "channels": [
+      {
+        "code": "BHN",
+        "depth": 0.0,
+        "azimuth": 0.0,
+        "dip": 0.0,
+        "sample_rate": 20.0
+      },
+      {
+        "code": "BHE",
+        "depth": 0.0,
+        "azimuth": 90.0,
+        "dip": 0.0,
+        "sample_rate": 20.0
+      },
+      {
+        "code": "BHZ",
+        "depth": 0.0,
+        "azimuth": 0.0,
+        "dip": -90.0,
+        "sample_rate": 20.0
+      }
+    ]
+  },
+  {
+    "code": "CISI",
+    "lat": "-7.5557",
+    "long": "107.8153",
+    "elevation": "544",
+    "name": "GEOFON Station GEOFON Station Cisomped, Java",
+    "channels": [
+      {
+        "code": "BHN",
+        "depth": 0.0,
+        "azimuth": 0.0,
+        "dip": 0.0,
+        "sample_rate": 20.0
+      },
+      {
+        "code": "BHE",
+        "depth": 0.0,
+        "azimuth": 90.0,
+        "dip": 0.0,
+        "sample_rate": 20.0
+      },
+      {
+        "code": "BHZ",
+        "depth": 0.0,
+        "azimuth": 0.0,
+        "dip": -90.0,
+        "sample_rate": 20.0
+      }
+    ]
+  },
+  {
+    "code": "BNDI",
+    "lat": "-4.5224",
+    "long": "129.9045",
+    "elevation": "16",
+    "name": "GEOFON Station Bandaneira, Indonesia",
+    "channels": [
+      {
+        "code": "BHN",
+        "depth": 2.0,
+        "azimuth": 0.0,
+        "dip": 0.0,
+        "sample_rate": 20.0
+      },
+      {
+        "code": "BHE",
+        "depth": 2.0,
+        "azimuth": 90.0,
+        "dip": 0.0,
+        "sample_rate": 20.0
+      },
+      {
+        "code": "BHZ",
+        "depth": 2.0,
+        "azimuth": 0.0,
+        "dip": -90.0,
+        "sample_rate": 20.0
+      }
+    ]
+  },
+  {
+    "code": "PLAI",
+    "lat": "-8.8275",
+    "long": "117.7765",
+    "elevation": "125",
+    "name": "GEOFON Station Plampang, Sumbawa, Indonesia",
+    "channels": [
+      {
+        "code": "BHN",
+        "depth": 0.0,
+        "azimuth": 0.0,
+        "dip": 0.0,
+        "sample_rate": 20.0
+      },
+      {
+        "code": "BHE",
+        "depth": 0.0,
+        "azimuth": 90.0,
+        "dip": 0.0,
+        "sample_rate": 20.0
+      },
+      {
+        "code": "BHZ",
+        "depth": 0.0,
+        "azimuth": 0.0,
+        "dip": -90.0,
+        "sample_rate": 20.0
+      }
+    ]
+  },
+  {
+    "code": "MNAI",
+    "lat": "-4.3605",
+    "long": "102.9557",
+    "elevation": "154",
+    "name": "GEOFON Station GEOFON Station Manna, Sumatra",
+    "channels": [
+      {
+        "code": "BHN",
+        "depth": 3.0,
+        "azimuth": 0.0,
+        "dip": 0.0,
+        "sample_rate": 20.0
+      },
+      {
+        "code": "BHE",
+        "depth": 3.0,
+        "azimuth": 90.0,
+        "dip": 0.0,
+        "sample_rate": 20.0
+      },
+      {
+        "code": "BHZ",
+        "depth": 3.0,
+        "azimuth": 0.0,
+        "dip": -90.0,
+        "sample_rate": 20.0
+      }
+    ]
+  },
+  {
+    "code": "GSI",
+    "lat": "1.3039",
+    "long": "97.5755",
+    "elevation": "107",
+    "name": "GEOFON Station Gunungsitoli, Nias",
+    "channels": [
+      {
+        "code": "BHN",
+        "depth": 0.0,
+        "azimuth": 0.0,
+        "dip": 0.0,
+        "sample_rate": 20.0
+      },
+      {
+        "code": "BHE",
+        "depth": 0.0,
+        "azimuth": 90.0,
+        "dip": 0.0,
+        "sample_rate": 20.0
+      },
+      {
+        "code": "BHZ",
+        "depth": 0.0,
+        "azimuth": 0.0,
+        "dip": -90.0,
+        "sample_rate": 20.0
+      },
+      {
+        "code": "BHN",
+        "depth": 0.0,
+        "azimuth": 0.0,
+        "dip": 0.0,
+        "sample_rate": 20.0
+      },
+      {
+        "code": "BHE",
+        "depth": 0.0,
+        "azimuth": 90.0,
+        "dip": 0.0,
+        "sample_rate": 20.0
+      },
+      {
+        "code": "BHZ",
+        "depth": 0.0,
+        "azimuth": 0.0,
+        "dip": -90.0,
+        "sample_rate": 20.0
+      }
+    ]
+  },
+  {
+    "code": "SMRI",
+    "lat": "-7.04915",
+    "long": "110.44067",
+    "elevation": "203",
+    "name": "GEOFON Station GEOFON Station Semarang, Java",
+    "channels": [
+      {
+        "code": "BHN",
+        "depth": 3.0,
+        "azimuth": 0.0,
+        "dip": 0.0,
+        "sample_rate": 20.0
+      },
+      {
+        "code": "BHE",
+        "depth": 3.0,
+        "azimuth": 90.0,
+        "dip": 0.0,
+        "sample_rate": 20.0
+      },
+      {
+        "code": "BHZ",
+        "depth": 3.0,
+        "azimuth": 0.0,
+        "dip": -90.0,
+        "sample_rate": 20.0
+      }
+    ]
+  },
+  {
+    "code": "SAUI",
+    "lat": "-7.9826",
+    "long": "131.2988",
+    "elevation": "110",
+    "name": "GEOFON Station Saumlaki, Tanimbar, Indonesia",
+    "channels": [
+      {
+        "code": "BHN",
+        "depth": 0.0,
+        "azimuth": 0.0,
+        "dip": 0.0,
+        "sample_rate": 20.0
+      },
+      {
+        "code": "BHE",
+        "depth": 0.0,
+        "azimuth": 90.0,
+        "dip": 0.0,
+        "sample_rate": 20.0
+      },
+      {
+        "code": "BHZ",
+        "depth": 0.0,
+        "azimuth": 0.0,
+        "dip": -90.0,
+        "sample_rate": 20.0
+      }
+    ]
+  },
+  {
+    "code": "YOGI",
+    "lat": "-7.8166",
+    "long": "110.2949",
+    "elevation": "160",
+    "name": "GEOFON Station Yogyakarta, Java",
+    "channels": [
+      {
+        "code": "BHN",
+        "depth": 0.0,
+        "azimuth": 0.0,
+        "dip": 0.0,
+        "sample_rate": 20.0
+      },
+      {
+        "code": "BHE",
+        "depth": 0.0,
+        "azimuth": 90.0,
+        "dip": 0.0,
+        "sample_rate": 20.0
+      },
+      {
+        "code": "BHZ",
+        "depth": 0.0,
+        "azimuth": 0.0,
+        "dip": -90.0,
+        "sample_rate": 20.0
+      }
+    ]
+  },
+  {
+    "code": "LHMI",
+    "lat": "5.2288",
+    "long": "96.9472",
+    "elevation": "3",
+    "name": "GEOFON Station GEOFON Station Lhokseumave, Sumatra",
+    "channels": [
+      {
+        "code": "BHN",
+        "depth": 0.0,
+        "azimuth": 0.0,
+        "dip": 0.0,
+        "sample_rate": 20.0
+      },
+      {
+        "code": "BHE",
+        "depth": 0.0,
+        "azimuth": 90.0,
+        "dip": 0.0,
+        "sample_rate": 20.0
+      },
+      {
+        "code": "BHZ",
+        "depth": 0.0,
+        "azimuth": 0.0,
+        "dip": -90.0,
+        "sample_rate": 20.0
+      }
+    ]
+  },
+  {
+    "code": "LUWI",
+    "lat": "-1.0418",
+    "long": "122.7717",
+    "elevation": "6",
+    "name": "GEOFON Station GEOFON Station Lhokseumave, Sulawesi",
+    "channels": [
+      {
+        "code": "BHN",
+        "depth": 2.0,
+        "azimuth": 0.0,
+        "dip": 0.0,
+        "sample_rate": 20.0
+      },
+      {
+        "code": "BHE",
+        "depth": 2.0,
+        "azimuth": 90.0,
+        "dip": 0.0,
+        "sample_rate": 20.0
+      },
+      {
+        "code": "BHZ",
+        "depth": 2.0,
+        "azimuth": 0.0,
+        "dip": -90.0,
+        "sample_rate": 20.0
+      }
+    ]
+  },
+  {
+    "code": "JAGI",
+    "lat": "-8.4702",
+    "long": "114.1521",
+    "elevation": "171",
+    "name": "GEOFON Station GEOFON Station Jajag, Java",
+    "channels": [
+      {
+        "code": "BHN",
+        "depth": 0.0,
+        "azimuth": 0.0,
+        "dip": 0.0,
+        "sample_rate": 20.0
+      },
+      {
+        "code": "BHE",
+        "depth": 0.0,
+        "azimuth": 90.0,
+        "dip": 0.0,
+        "sample_rate": 20.0
+      },
+      {
+        "code": "BHZ",
+        "depth": 0.0,
+        "azimuth": 0.0,
+        "dip": -90.0,
+        "sample_rate": 20.0
+      }
+    ]
+  }
+]

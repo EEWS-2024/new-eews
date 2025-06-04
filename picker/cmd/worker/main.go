@@ -2,7 +2,7 @@ package main
 
 import (
 	"log"
-	"picker-go/module"
+	"picker/module"
 )
 
 func main() {

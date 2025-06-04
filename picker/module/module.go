@@ -3,10 +3,10 @@ package module
 import (
 	"context"
 	"github.com/jackc/pgx/v5/pgxpool"
-	"picker-go/core/poller/port"
-	"picker-go/internal/config"
-	"picker-go/internal/poller"
-	"picker-go/internal/poller/adapter"
+	"picker/core/poller/port"
+	"picker/internal/config"
+	"picker/internal/poller"
+	"picker/internal/poller/adapter"
 )
 
 func Initialize() (*config.Config, *poller.Poller, error) {

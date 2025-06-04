@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/confluentinc/confluent-kafka-go/v2/kafka"
-	"picker-go/core/poller/port"
+	"picker/core/poller/port"
 )
 
 type Consumer struct {

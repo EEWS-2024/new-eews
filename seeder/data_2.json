@@ -1,0 +1,3662 @@
+[
+    {
+        "code": "ACRG",
+        "lat": "5.641485",
+        "long": "-0.207117",
+        "elevation": "75.0",
+        "name": "GEOFON/GGSA Station Accra, Ghana",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 1.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 1.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 1.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "APE",
+        "lat": "37.0689",
+        "long": "25.5306",
+        "elevation": "620.0",
+        "name": "GEOFON Station Apirathos, Naxos",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 0.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "APEZ",
+        "lat": "34.9777",
+        "long": "24.8859",
+        "elevation": "435.0",
+        "name": "GEOFON Station Moni Apezanon, Greece",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 0.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "ARPR",
+        "lat": "39.09289",
+        "long": "38.33557",
+        "elevation": "1537.0",
+        "name": "GEOFON/MedNet/KOERI Station Arapgir, Turkey",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 0.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "BALJ",
+        "lat": "32.0873",
+        "long": "35.64",
+        "elevation": "375.0",
+        "name": "Station GEOFON, JSO/DESERVE Station Balqa/Jordan",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 3.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 3.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 3.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "BBJI",
+        "lat": "-7.462603",
+        "long": "107.65",
+        "elevation": "615.0",
+        "name": "GEOFON Station GEOFON Station Bungbulang, Garut, Java",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 0.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "BGIO",
+        "lat": "31.7219",
+        "long": "35.0877",
+        "elevation": "752.0",
+        "name": "GII/GEOFON Station Bar Giyyora, Israel",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 2.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 2.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 2.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "BKB",
+        "lat": "-1.1073",
+        "long": "116.9048",
+        "elevation": "110.0",
+        "name": "GEOFON Station GEOFON Station Balikpapan, Kalimantan",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 0.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "BKNI",
+        "lat": "0.3262",
+        "long": "101.0396",
+        "elevation": "65.0",
+        "name": "GEOFON Station GEOFON Station Bangkinang, Sumatra",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 3.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 3.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 3.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "BNDI",
+        "lat": "-4.5224",
+        "long": "129.9045",
+        "elevation": "16.0",
+        "name": "GEOFON Station Bandaneira, Indonesia",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 2.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 2.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 2.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "BOAB",
+        "lat": "12.4493",
+        "long": "-85.6659",
+        "elevation": "381.0",
+        "name": "INETER/GEOFON Station INETER, GEOFON Station Boaco/Nicaragua",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 5.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 5.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 5.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "CART",
+        "lat": "37.5868",
+        "long": "-1.0012",
+        "elevation": "65.0",
+        "name": "ROA/UCM/GEOFON Station Cartagena, Spain",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 5.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 5.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 5.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "CEU",
+        "lat": "35.8987",
+        "long": "-5.3731",
+        "elevation": "320.0",
+        "name": "ROA/UCM/GEOFON Station Ceuta, Spain",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 0.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "CISI",
+        "lat": "-7.5557",
+        "long": "107.8153",
+        "elevation": "544.0",
+        "name": "GEOFON Station GEOFON Station Cisomped, Java",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 0.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "CSS",
+        "lat": "34.9611",
+        "long": "33.331",
+        "elevation": "396.0",
+        "name": "GEOFON/GII Station Mathiatis, Cyprus",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 0.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "DAG",
+        "lat": "76.7713",
+        "long": "-18.655",
+        "elevation": "23.0",
+        "name": "GEOFON/AWI Station Danmarkshavn, Greenland",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 0.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "DAMY",
+        "lat": "14.5725",
+        "long": "44.3917",
+        "elevation": "2488.0",
+        "name": "GEOFON Station GEOFON Station Dhamar, Yemen",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 2.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 2.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 2.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "DSB",
+        "lat": "53.2452",
+        "long": "-6.3762",
+        "elevation": "236.0",
+        "name": "GEOFON/DIAS Station Dublin, Ireland",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 0.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "EIL",
+        "lat": "29.6699",
+        "long": "34.9512",
+        "elevation": "210.0",
+        "name": "GII/GEOFON Station Eilat, Israel",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 200.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 200.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 200.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "FAKI",
+        "lat": "-2.91925",
+        "long": "132.24889",
+        "elevation": "136.0",
+        "name": "GEOFON Station GEOFON Station Fak Fak, Irian Jaya",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 0.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "FALKS",
+        "lat": "51.6819",
+        "long": "11.2655",
+        "elevation": "335.0",
+        "name": "GEOFON Station Falkenstein, Germany",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 0.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "FLT1",
+        "lat": "52.3306",
+        "long": "11.2372",
+        "elevation": "100.0",
+        "name": "Temp GEOFON Station Temp GEOFON Station Flechtingen, Germany",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 0.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "FODE",
+        "lat": "35.3797",
+        "long": "24.9576",
+        "elevation": "50.0",
+        "name": "GEOFON Station Fodele, Crete",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 0.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "GENI",
+        "lat": "-2.5927",
+        "long": "140.1678",
+        "elevation": "47.0",
+        "name": "GEOFON Station Genyem, Irian Jaya Indonesia",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 0.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "GHAJ",
+        "lat": "31.30341",
+        "long": "35.56648",
+        "elevation": "-58.0",
+        "name": "DESERVE Station GEOFON, JSO/DESERVE Station Ghor Haditha/Jordan",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 3.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 3.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 3.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "GHAR",
+        "lat": "32.1224",
+        "long": "13.0885",
+        "elevation": "650.0",
+        "name": "GEOFON/ETHZ Station Gharyan, Libya",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 2.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 2.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 2.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "GSI",
+        "lat": "1.3039",
+        "long": "97.5755",
+        "elevation": "107.0",
+        "name": "GEOFON Station Gunungsitoli, Nias",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 0.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "GVD",
+        "lat": "34.8392",
+        "long": "24.0873",
+        "elevation": "180.0",
+        "name": "NOA/GEOFON Station Gavdos Island, Greece",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 0.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "HALK",
+        "lat": "6.0885",
+        "long": "80.6805",
+        "elevation": "42.0",
+        "name": "GEOFON Station Hakmana, Sri Lanka",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 0.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "HLG",
+        "lat": "54.183092",
+        "long": "7.883014",
+        "elevation": "37.0",
+        "name": "UKiel/GEOFON Station Helgoland, Germany",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 0.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "HMDM",
+        "lat": "6.77314",
+        "long": "73.18216",
+        "elevation": "1.0",
+        "name": "GEOFON Station GEOFON Station Hanimaadhoo, Maldives",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 0.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "IBBN",
+        "lat": "52.3063",
+        "long": "7.7592",
+        "elevation": "140.0",
+        "name": "RUB/GEOFON Station Ibbenbueren, Germany",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 1.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 1.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 1.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "ILTH",
+        "lat": "54.0279",
+        "long": "-6.3362",
+        "elevation": "21.0",
+        "name": "GEOFON/DIAS Station Belurgan, Co Louth, Ireland",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 1.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 1.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 1.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "IMMV",
+        "lat": "35.4606",
+        "long": "23.9811",
+        "elevation": "230.0",
+        "name": "NOA/GEOFON Station Iera Moni Varipetrou, Greece",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 0.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "ISP",
+        "lat": "37.8433",
+        "long": "30.5093",
+        "elevation": "1100.0",
+        "name": "GEOFON/MedNet/KOERI Station Isparta, Turkey",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 5.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 5.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 5.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "JAGI",
+        "lat": "-8.4702",
+        "long": "114.1521",
+        "elevation": "171.0",
+        "name": "GEOFON Station GEOFON Station Jajag, Java",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 0.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "JER",
+        "lat": "31.7719",
+        "long": "35.1972",
+        "elevation": "770.0",
+        "name": "GII/GEOFON Station Jerusalem, Israel",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 0.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "KAAM",
+        "lat": "0.49264",
+        "long": "72.99486",
+        "elevation": "1.0",
+        "name": "GEOFON Station GEOFON Station Kaadhehdhoo, Maldives",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 0.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "KARN",
+        "lat": "35.4019",
+        "long": "23.9174",
+        "elevation": "420.0",
+        "name": "GEOFON Station Karanos, Crete",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 0.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "KARP",
+        "lat": "35.5471",
+        "long": "27.16106",
+        "elevation": "524.0",
+        "name": "NOA/RUB/GEOFON Station Karpathos,Greece",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 0.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "KBS",
+        "lat": "78.9154",
+        "long": "11.9385",
+        "elevation": "90.0",
+        "name": "(GSN) IRIS/USGS (IU), GEOFON (GE), AWI, and UB",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 3.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 3.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 3.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "KBU",
+        "lat": "34.5151",
+        "long": "69.1347",
+        "elevation": "1820.0",
+        "name": "GEOFON Station GEOFON Station Kabul, Afghanistan",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 3.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 3.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 3.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "KERA",
+        "lat": "35.3692",
+        "long": "23.5577",
+        "elevation": "240.0",
+        "name": "RUB Station Keramoti, Crete",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 0.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "KIBK",
+        "lat": "-2.35907",
+        "long": "38.0433",
+        "elevation": "790.0",
+        "name": "GEOFON Station Kibwezi, Kenya",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 0.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "KMBO",
+        "lat": "-1.1271",
+        "long": "37.2525",
+        "elevation": "1950.0",
+        "name": "(GSN) IRIS/USGS (IU), GEOFON (GE), & Univ. Nairobi",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 20.0,
+                "azimuth": 98.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 20.0,
+                "azimuth": 8.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 20.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "KRIS",
+        "lat": "35.178",
+        "long": "25.503",
+        "elevation": "850.0",
+        "name": "GEOFON Station Kristallenia, Greece",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 0.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "KSDI",
+        "lat": "33.192",
+        "long": "35.659",
+        "elevation": "123.0",
+        "name": "GII Station Kfar Sold, Israel",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 0.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "KTHA",
+        "lat": "36.2566",
+        "long": "23.0621",
+        "elevation": "360.0",
+        "name": "NOA/GEOFON Station Kythira, Greece",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 0.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "KWP",
+        "lat": "49.6305",
+        "long": "22.7078",
+        "elevation": "463.0",
+        "name": "GEOFON Station Kalwaria Paclawska, Poland",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 3.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 3.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 3.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "LAST",
+        "lat": "35.1611",
+        "long": "25.4786",
+        "elevation": "870.0",
+        "name": "GEOFON Station Lasithi, Greece",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 0.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "LHMI",
+        "lat": "5.2288",
+        "long": "96.9472",
+        "elevation": "3.0",
+        "name": "GEOFON Station GEOFON Station Lhokseumave, Sumatra",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 0.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "LID",
+        "lat": "54.5481",
+        "long": "13.3664",
+        "elevation": "1.0",
+        "name": "GRSN/GEOFON Station Liddow, Germany",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 0.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "LODK",
+        "lat": "3.42195",
+        "long": "35.36165",
+        "elevation": "665.0",
+        "name": "GEOFON Station Lodwar, Kenya",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 0.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "LUWI",
+        "lat": "-1.0418",
+        "long": "122.7717",
+        "elevation": "6.0",
+        "name": "GEOFON Station GEOFON Station Lhokseumave, Sulawesi",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 2.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 2.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 2.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "LVC",
+        "lat": "-22.6127",
+        "long": "-68.9111",
+        "elevation": "2960.0",
+        "name": "(GSN) IRIS/USGS (IU), GEOFON (GE), and U of Chile",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 30.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 30.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 30.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "MAHO",
+        "lat": "39.8959",
+        "long": "4.2665",
+        "elevation": "15.0",
+        "name": "ROA/UCM/GEOFON Station Mahon, Menorca",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 30.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 30.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 30.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "MALK",
+        "lat": "8.39682",
+        "long": "80.54254",
+        "elevation": "113.0",
+        "name": "GEOFON Station Mahakanadarawa, Sri Lanka",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 0.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "MALT",
+        "lat": "38.3134",
+        "long": "38.4273",
+        "elevation": "1120.0",
+        "name": "GEOFON/MedNet Station Malatya, Turkey",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 3.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 3.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 3.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "MARCO",
+        "lat": "40.29722",
+        "long": "15.8063",
+        "elevation": "890.0",
+        "name": "GEOFON/IMAA-CNR Station Tramutola, Italy",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 0.5,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 0.5,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 0.5,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "MARJ",
+        "lat": "32.5226",
+        "long": "20.8776",
+        "elevation": "650.0",
+        "name": "GEOFON Station Al Marj, Libya",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 0.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "MATE",
+        "lat": "40.64907",
+        "long": "16.70442",
+        "elevation": "494.0",
+        "name": "U Basilicata/GEOFON Station Matera, Italy",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 5.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 5.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 5.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "MAUI",
+        "lat": "20.7683",
+        "long": "-156.2448",
+        "elevation": "2060.0",
+        "name": "GEOFON Station Haleakala, Maui",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 0.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "MELI",
+        "lat": "35.2899",
+        "long": "-2.9392",
+        "elevation": "40.0",
+        "name": "ROA/UCM/GEOFON Station Melilla, Spain",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 3.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 3.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 3.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "MHV",
+        "lat": "54.9595",
+        "long": "37.7664",
+        "elevation": "150.0",
+        "name": "GEOFON Station Michnevo, Russia",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 10.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 10.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 10.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "MLR",
+        "lat": "45.4912",
+        "long": "25.9456",
+        "elevation": "1378.0",
+        "name": "GEOFON Station Muntele Rosu, Romania",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 10.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 10.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 10.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "MMRI",
+        "lat": "-8.6357",
+        "long": "122.2376",
+        "elevation": "137.0",
+        "name": "GEOFON Station GEOFON Station Maumere, Flores",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 3.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 3.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 3.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "MNAI",
+        "lat": "-4.3605",
+        "long": "102.9557",
+        "elevation": "154.0",
+        "name": "GEOFON Station GEOFON Station Manna, Sumatra",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 3.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 3.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 3.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "MORC",
+        "lat": "49.7766",
+        "long": "17.5428",
+        "elevation": "740.0",
+        "name": "GEOFON Station Moravsky Beroun, Czech Republic",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 5.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 5.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 5.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "MRNI",
+        "lat": "33.01178",
+        "long": "35.392",
+        "elevation": "918.0",
+        "name": "GII Station Mount Meron, Israel",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 3.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 3.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 3.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "MSBI",
+        "lat": "31.3126",
+        "long": "35.358",
+        "elevation": "-220.0",
+        "name": "DESERVE Station Mazada, Israel",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 3.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 3.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 3.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "MTE",
+        "lat": "40.3997",
+        "long": "-7.5442",
+        "elevation": "815.0",
+        "name": "GEOFON Station Manteigas, Portugal",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 3.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 3.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 3.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "NAI",
+        "lat": "-1.2739",
+        "long": "36.8037",
+        "elevation": "1692.0",
+        "name": "IRIS/GEOFON Station Nairobi, Kenya",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 0.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "NPW",
+        "lat": "19.7785",
+        "long": "96.1376",
+        "elevation": "158.0",
+        "name": "DMH/GEOFON Station Naypyitaw, Myanmar",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 0.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "PABE",
+        "lat": "55.50523",
+        "long": "23.96796",
+        "elevation": "58.0",
+        "name": "LGT/GEOFON Station Paberze, Lithuania",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 5.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 5.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 5.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "PBUR",
+        "lat": "56.02361",
+        "long": "21.92945",
+        "elevation": "126.0",
+        "name": "LGT/GEOFON Station Paburge, Lithuania",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 3.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 3.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 3.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "PLAI",
+        "lat": "-8.8275",
+        "long": "117.7765",
+        "elevation": "125.0",
+        "name": "GEOFON Station Plampang, Sumbawa, Indonesia",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 0.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "PMBI",
+        "lat": "-2.9024",
+        "long": "104.6993",
+        "elevation": "25.0",
+        "name": "GEOFON Station Palembang, Sumatra",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 0.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "PMBT",
+        "lat": "-2.927",
+        "long": "104.772",
+        "elevation": "30.0",
+        "name": "GEOFON Station Palembang, Sumatra, Indonesia",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 0.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "PMG",
+        "lat": "-9.4047",
+        "long": "147.1597",
+        "elevation": "90.0",
+        "name": "(GSN) IRIS/USGS (IU),GEOFON(GE)Poseidon,PM Geo Obs",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 0.0,
+                "azimuth": 88.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 0.0,
+                "azimuth": 358.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "PSZ",
+        "lat": "47.9184",
+        "long": "19.8944",
+        "elevation": "940.0",
+        "name": "GKKI/GEOFON Station Piszkes, Hungary",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 2.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 2.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 2.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "PUL",
+        "lat": "59.767",
+        "long": "30.317",
+        "elevation": "65.0",
+        "name": "GEOFON Station Pulkovo, Russia",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 10.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 10.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 10.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "PVLZ",
+        "lat": "35.173",
+        "long": "-4.301",
+        "elevation": "90.0",
+        "name": "ROA/UCM/GEOFON Station Penon de Velez-Gomera, Spain",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 0.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "RGN",
+        "lat": "54.5477",
+        "long": "13.3214",
+        "elevation": "15.0",
+        "name": "GRSN/GEOFON Station Ruegen, Germany",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 2.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 2.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 2.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "RIOB",
+        "lat": "-10.1501",
+        "long": "-67.747",
+        "elevation": "220.0",
+        "name": "GEOFON Station Rio Branco, Brazil",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 3.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 3.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 3.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "RUE",
+        "lat": "52.4759",
+        "long": "13.78",
+        "elevation": "40.0",
+        "name": "GRSN/GEOFON Station Ruedersdorf, Germany",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 3.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 3.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 3.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "SALP",
+        "lat": "32.0686",
+        "long": "35.1914",
+        "elevation": "475.0",
+        "name": "DESERVE Station Salfit, Palestine Territories",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 3.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 40.0
+            },
+            {
+                "code": "BHN",
+                "depth": 3.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 40.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 3.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 40.0
+            }
+        ]
+    },
+    {
+        "code": "SALTA",
+        "lat": "-24.2241",
+        "long": "-66.34",
+        "elevation": "4000.0",
+        "name": "GEOFON/INPRES Station Salta, Argentina",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 0.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "SANI",
+        "lat": "-2.0496",
+        "long": "125.9881",
+        "elevation": "30.0",
+        "name": "GEOFON Station Sanana, Moluccas, Indonesia",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 2.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 2.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 2.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "SANT",
+        "lat": "36.371",
+        "long": "25.459",
+        "elevation": "540.0",
+        "name": "NOA/GEOFON Station Santorini, Greece",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 0.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "SAUI",
+        "lat": "-7.9826",
+        "long": "131.2988",
+        "elevation": "110.0",
+        "name": "GEOFON Station Saumlaki, Tanimbar, Indonesia",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 0.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "SBV",
+        "lat": "-13.4584",
+        "long": "49.9212",
+        "elevation": "65.0",
+        "name": "GEOFON Station Sambava, Madagascar",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 0.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "SELV",
+        "lat": "37.2383",
+        "long": "-3.7277",
+        "elevation": "650.0",
+        "name": "IAG Station Sierra Elvira, Spain",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 0.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "SFJ",
+        "lat": "66.9967",
+        "long": "-50.6156",
+        "elevation": "365.0",
+        "name": "IRIS/GEOFON Station Sondre Stromfjord, Greenland",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 0.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "SFJD",
+        "lat": "66.9961",
+        "long": "-50.62076",
+        "elevation": "330.0",
+        "name": "(GSN) IRIS/USGS (IU), GEOFON (GE), and GEUS",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 0.0,
+                "azimuth": 109.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 0.0,
+                "azimuth": 19.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "SFS",
+        "lat": "36.4656",
+        "long": "-6.2055",
+        "elevation": "21.0",
+        "name": "ROA/UCM/GEOFON Station San Fernando, Spain",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 5.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 5.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 5.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "SFUC",
+        "lat": "36.637",
+        "long": "-6.175",
+        "elevation": "88.0",
+        "name": "ROA/UCM/GEOFON Station San Fernando, Spain",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 28.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 28.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 28.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "SIVA",
+        "lat": "35.0175",
+        "long": "24.81",
+        "elevation": "95.0",
+        "name": "GEOFON Station Sivas, Crete",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 0.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "SKD",
+        "lat": "35.412",
+        "long": "23.928",
+        "elevation": "306.0",
+        "name": "GEOFON Station Skordalos, Greece",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 0.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "SLIT",
+        "lat": "57.6287",
+        "long": "22.2905",
+        "elevation": "15.0",
+        "name": "LEGMA/GEOFON Station LEGMA, GEOFON Station Slitere/Latvia",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 5.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 5.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 5.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "SMRI",
+        "lat": "-7.04915",
+        "long": "110.44067",
+        "elevation": "203.0",
+        "name": "GEOFON Station GEOFON Station Semarang, Java",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 3.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 3.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 3.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "SNAA",
+        "lat": "-71.6707",
+        "long": "-2.8379",
+        "elevation": "846.0",
+        "name": "AWI/GEOFON Station Sanae, Antarctica",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 1.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 1.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 1.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "SOCY",
+        "lat": "12.51952",
+        "long": "53.98742",
+        "elevation": "804.0",
+        "name": "GEOFON Station GEOFON Station Socotra, Yemen",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 0.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "SOEI",
+        "lat": "-9.7553",
+        "long": "124.2672",
+        "elevation": "1047.0",
+        "name": "GEOFON Station GEOFON Station Soe, Timor",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 0.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "STU",
+        "lat": "48.7719",
+        "long": "9.195",
+        "elevation": "360.0",
+        "name": "VBB Station Stuttgart, Germany",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 10.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 10.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 10.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "SUMG",
+        "lat": "72.5763",
+        "long": "-38.4539",
+        "elevation": "3240.0",
+        "name": "GEOFON Station Summit Camp, Greenland",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 2.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 2.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 2.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "SUW",
+        "lat": "54.0125",
+        "long": "23.1808",
+        "elevation": "152.0",
+        "name": "GEOFON Station Suwalki, Poland",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 2.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 2.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 2.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "TCA",
+        "lat": "-31.337058",
+        "long": "-64.595411",
+        "elevation": "1052.0",
+        "name": "GEOFON/INPRES Station Tanti, Cordoba, Argentina",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 6.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 6.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 6.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "THERA",
+        "lat": "36.366992",
+        "long": "25.475263",
+        "elevation": "288.0",
+        "name": "Station Santorini, Greece",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 0.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "TIRR",
+        "lat": "44.4581",
+        "long": "28.4128",
+        "elevation": "77.0",
+        "name": "GEOFON Station Tirgusor, Romania",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 3.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 3.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 3.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "TNTI",
+        "lat": "0.7718",
+        "long": "127.3667",
+        "elevation": "43.0",
+        "name": "GEOFON Station GEOFON Station Ternate, Indonesia",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 3.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 3.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 3.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "TOLI",
+        "lat": "1.1214",
+        "long": "120.7944",
+        "elevation": "86.0",
+        "name": "GEOFON Station GEOFON Station Tolitoli, Sulawesi",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 2.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 2.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 2.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "TOLI2",
+        "lat": "1.11119",
+        "long": "120.78174",
+        "elevation": "51.0",
+        "name": "GEOFON Station Tolitoli, Sulawesi, Indonesia",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 2.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 2.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 2.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "TRTE",
+        "lat": "58.3786",
+        "long": "26.7205",
+        "elevation": "100.0",
+        "name": "GEOFON Station Tartu, Estonia",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 5.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 5.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 5.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "UGM",
+        "lat": "-7.9125",
+        "long": "110.5231",
+        "elevation": "350.0",
+        "name": "GEOFON Station Wanagama, Indonesia",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 2.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 2.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 2.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "UJAP",
+        "lat": "31.95201",
+        "long": "35.46435",
+        "elevation": "-200.0",
+        "name": "DESERVE Station Al Uja, Palestine Territories",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 3.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 3.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 3.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "VAL",
+        "lat": "51.9394",
+        "long": "-10.2442",
+        "elevation": "14.0",
+        "name": "DIAS/IMS/GEOFON Station Valentia, Ireland",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 0.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "VOI",
+        "lat": "-21.90648",
+        "long": "46.79327",
+        "elevation": "1158.0",
+        "name": "GEOFON Station Vohitsoka, Madagascar",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 0.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "VSU",
+        "lat": "58.462",
+        "long": "26.7347",
+        "elevation": "63.0",
+        "name": "GEOFON Station Vasula, Estonia",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 3.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 3.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 3.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "WIN",
+        "lat": "-22.5691",
+        "long": "17.0915",
+        "elevation": "1720.0",
+        "name": "GSN/GEOFON Station GSN, GEOFON Station Windhoek/Namibia",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 0.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "WLF",
+        "lat": "49.6646",
+        "long": "6.1526",
+        "elevation": "295.0",
+        "name": "GEOFON Station Walferdange, Luxembourg",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 80.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 80.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 80.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "YOGI",
+        "lat": "-7.8166",
+        "long": "110.2949",
+        "elevation": "160.0",
+        "name": "GEOFON Station Yogyakarta, Java",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 0.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 0.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    },
+    {
+        "code": "ZKR",
+        "lat": "35.1147",
+        "long": "26.217",
+        "elevation": "270.0",
+        "name": "NOA/GEOFON Station Zakros, Crete",
+        "channels": [
+            {
+                "code": "BHE",
+                "depth": 2.0,
+                "azimuth": 90.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHN",
+                "depth": 2.0,
+                "azimuth": 0.0,
+                "dip": 0.0,
+                "sample_rate": 20.0
+            },
+            {
+                "code": "BHZ",
+                "depth": 2.0,
+                "azimuth": 0.0,
+                "dip": -90.0,
+                "sample_rate": 20.0
+            }
+        ]
+    }
+]

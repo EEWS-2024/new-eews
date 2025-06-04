@@ -146,15 +146,31 @@ services:
     networks:
       - nginx-manager_customnetwork
 
-  guncang-machine-learning:
+  guncang-picker:
     pull_policy: "always"
     networks:
       nginx-manager_customnetwork:
         ipv4_address: 172.20.0.98
     restart: always
     depends_on:
+      - guncang-kafka
+      - guncang-kafka-2
+      - guncang-kafka-3
+      - guncang-timescale
+      - guncang-seedlink
+    image: docker.io/slackingdjaeger/guncang-picker:latest
+    container_name: guncang-picker
+
+  guncang-machine-learning:
+    pull_policy: "always"
+    networks:
+      nginx-manager_customnetwork:
+        ipv4_address: 172.20.0.99
+    restart: always
+    depends_on:
       - guncang-redis
       - guncang-timescale
+      - guncang-picker
     image: docker.io/slackingdjaeger/guncang-machine-learning:latest
     container_name: guncang-machine-learning
     ports:

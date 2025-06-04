@@ -8,8 +8,8 @@ import (
 	"io"
 	"log"
 	"net/http"
-	"picker-go/internal/config"
-	"picker-go/internal/poller/accessor"
+	"picker/internal/config"
+	"picker/internal/poller/accessor"
 	"time"
 )
 

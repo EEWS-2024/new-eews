@@ -1,0 +1,8 @@
+services:
+  guncang-seedlink:
+    build:
+      context: ../picker
+      dockerfile: Dockerfile
+    image: docker.io/slackingdjaeger/guncang-picker:latest
+    env_file:
+      - ../picker/.env

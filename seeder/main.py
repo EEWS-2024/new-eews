@@ -1,6 +1,7 @@
 import math
 import os
 import sys
+import json
 
 import psycopg2
 import requests
@@ -46,118 +47,81 @@ def haversine(lat1, lon1, lat2, lon2):
     return distance
 
 def seed_data():
-    print("Seeding data...")
-    url = "https://geofon.gfz-potsdam.de/fdsnws/station/1/query?net=GE&level=channel&format=text"
-    response = requests.get(url)
-    if response.status_code != 200:
-        exit(0)
+    with open("data.json", "r") as f:
+        stations = json.load(f)
 
-    items = response.text.split("\n")[1:]
+        channels = []
+        for station1 in stations:
+            nearest_stations = []
+            for station2 in stations:
+                if station1["code"] == station2["code"]:
+                    continue
 
-    stored_stations = []
-    stations = []
-    channels = []
-    channel_counts = {}
-    for item in items:
-        if item == "":
-            continue
-        network, station, location, channel, latitude, longitude, elevation, depth, azimuth, dip, sensor, scale, scale_frequency, scale_unit, sample_rate, start_time, end_time = item.split("|")
+                distance = haversine(
+                    float(station1["lat"]),
+                    float(station1["long"]),
+                    float(station2["lat"]),
+                    float(station2["long"])
+                )
 
-        if channel not in ["BHZ", "BHN", "BHE"]:
-            continue
+                if distance > TRESHOLD_DISTANCE:
+                    continue
 
-        if station not in stored_stations:
-            stored_stations.append(station)
-            stations.append({
-                "station": station,
-                "latitude": latitude,
-                "longitude": longitude,
-                "elevation": elevation,
-            })
+                if len(nearest_stations) < 3:
+                    nearest_stations.append((station2["code"], distance))
+                else:
+                    farthest_station = max(nearest_stations, key=lambda x: x[1])
+                    if distance < farthest_station[1]:
+                        nearest_stations.remove(farthest_station)
+                        nearest_stations.append((station2["code"], distance))
 
-        channels.append({
-            "station": station,
-            "channel": channel,
-            "depth": float(depth),
-            "azimuth": float(azimuth),
-            "dip": float(dip),
-            "sample_rate": float(sample_rate),
-        })
+            station1["nearest_stations"] = [
+                code for code, _ in sorted(nearest_stations)
+            ]
 
-        channel_counts[station] = channel_counts.get(station, 0) + 1
+            for channel in station1["channels"]:
+                channels.append({
+                    "code": station1["code"],
+                    "channel": channel["code"],
+                    "depth": channel["depth"],
+                    "azimuth": channel["azimuth"],
+                    "dip": channel["dip"],
+                    "sample_rate": channel["sample_rate"]
+                })
 
-    for station in stations:
-        if station["station"] not in channel_counts:
-            stations.remove(station)
-            continue
-
-        if channel_counts[station["station"]] < 3:
-            stations.remove(station)
-            for channel in channels:
-                if channel["station"] == station["station"]:
-                    channels.remove(channel)
-
-    for station1 in stations:
-        nearest_stations = []
-        for station2 in stations:
-            if station1["station"] == station2["station"]:
-                continue
-
-            distance = haversine(
-                float(station1["latitude"]),
-                float(station1["longitude"]),
-                float(station2["latitude"]),
-                float(station2["longitude"])
-            )
-
-            if distance > TRESHOLD_DISTANCE:
-                continue
-
-            if len(nearest_stations) < 3:
-                nearest_stations.append((station2["station"], distance))
-            else:
-                farthest_station = max(nearest_stations, key=lambda x: x[1])
-                if distance < farthest_station[1]:
-                    nearest_stations.remove(farthest_station)
-                    nearest_stations.append((station2["station"], distance))
-
-        station1["nearest_stations"] = [
-            code for code, _ in sorted(nearest_stations)
+        station_rows = [
+            (s["code"], float(s["lat"]), float(s["long"]), float(s["elevation"]), s["nearest_stations"])
+            for s in stations
         ]
 
-    station_rows = [
-        (s["station"], float(s["latitude"]), float(s["longitude"]), float(s["elevation"]), s["nearest_stations"])
-        for s in stations
-    ]
+        execute_values(
+            cur,
+            """
+            INSERT INTO stations (code, latitude, longitude, elevation, nearest_stations)
+            VALUES %s
+            ON CONFLICT (code) DO NOTHING
+            """,
+            station_rows
+        )
 
-    execute_values(
-        cur,
-        """
-        INSERT INTO stations (code, latitude, longitude, elevation, nearest_stations)
-        VALUES %s
-        ON CONFLICT (code) DO NOTHING
-        """,
-        station_rows
-    )
+        channel_rows = [
+            (c["code"], c["channel"], c["depth"], c["azimuth"], c["dip"], c["sample_rate"])
+            for c in channels
+        ]
 
-    channel_rows = [
-        (c["station"], c["channel"], c["depth"], c["azimuth"], c["dip"], c["sample_rate"])
-        for c in channels
-    ]
+        execute_values(
+            cur,
+            """
+            INSERT INTO channels (station_code, channel, depth, azimuth, dip, sample_rate)
+            VALUES %s
+            ON CONFLICT (station_code, channel) DO NOTHING
+            """,
+            channel_rows
+        )
 
-    execute_values(
-        cur,
-        """
-        INSERT INTO channels (station_code, channel, depth, azimuth, dip, sample_rate)
-        VALUES %s
-        ON CONFLICT (station_code, channel) DO NOTHING
-        """,
-        channel_rows
-    )
-
-    conn.commit()
-    cur.close()
-    conn.close()
+        conn.commit()
+        cur.close()
+        conn.close()
 
 def create_tables():
     print("Creating tables...")

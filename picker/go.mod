@@ -1,4 +1,4 @@
-module picker-go
+module picker
 
 go 1.24
 
