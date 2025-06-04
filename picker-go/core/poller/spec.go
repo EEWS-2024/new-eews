@@ -27,8 +27,10 @@ type PredictionResult struct {
 	NewSEvent   bool   `json:"new_s_event"`
 	PArr        bool   `json:"p_arr"`
 	PArrTime    string `json:"p_arr_time"`
+	PArrIndex   int    `json:"p_arr_index"`
 	SArr        bool   `json:"s_arr"`
 	SArrTime    string `json:"s_arr_time"`
+	SArrIndex   int    `json:"s_arr_index"`
 	StationCode string `json:"station_code"`
 }
 

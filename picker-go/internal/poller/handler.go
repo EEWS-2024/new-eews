@@ -103,10 +103,10 @@ func (r *Poller) Poll(trace Trace) (x [][]int) {
 	return nil
 }
 
-func (r *Poller) Transpose(data [][]int) [382][3]int {
-	var transposed [382][3]int
+func (r *Poller) Transpose(data [][]int) [600][3]int {
+	var transposed [600][3]int
 	for i := 0; i < 3; i++ {
-		for j := 0; j < 382; j++ {
+		for j := 0; j < 600; j++ {
 			transposed[j][i] = data[i][j]
 		}
 	}
