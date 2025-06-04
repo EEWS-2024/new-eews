@@ -13,6 +13,8 @@ RUN go mod download
 # Copy the source code
 COPY . .
 
+COPY .env .env
+
 # Build the Go app
 RUN go build -o worker ./cmd/worker
 
