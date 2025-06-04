@@ -9,7 +9,6 @@ import (
 	"picker-go/core/poller"
 	"picker-go/core/poller/port"
 	"picker-go/internal/config"
-	"picker-go/internal/poller/adapter"
 	"strings"
 	"syscall"
 	"time"
@@ -19,23 +18,28 @@ type Poller struct {
 	Consumer      port.BrokerConsumer
 	PollerService *poller.Service
 	PolledData    PolledData
+	WaveTime      WaveTime
 	config        *config.Config
 }
 
 func NewPoller(
 	consumer port.BrokerConsumer,
 	cfg *config.Config,
-	redisClient *adapter.RedisAdapter,
 	db *pgxpool.Pool,
 ) *Poller {
-	ps := poller.NewService(cfg, redisClient, db)
+	ps := poller.NewService(cfg, db)
 	pd := PolledData{
 		Traces: make(map[string]map[string][]int),
+	}
+	wt := WaveTime{
+		PreviousPTime: make(map[string]time.Time),
+		PreviousSTime: make(map[string]time.Time),
 	}
 	return &Poller{
 		Consumer:      consumer,
 		PollerService: ps,
 		PolledData:    pd,
+		WaveTime:      wt,
 		config:        cfg,
 	}
 }
@@ -133,15 +137,64 @@ func (r *Poller) ProcessMessage(message *port.Message) (err error) {
 			return err
 		}
 
+		previousPTimeExist := false
+		previousSTimeExist := false
+		var primaryTime time.Time
+		var secondaryTime time.Time
+
+		if predictionResult != nil {
+			_, previousPTimeExist = r.WaveTime.PreviousPTime[predictionResult.StationCode]
+			_, previousSTimeExist = r.WaveTime.PreviousSTime[predictionResult.StationCode]
+
+			primaryTime, err = time.Parse("2006-01-02 15:04:05", predictionResult.PArrTime)
+			if err != nil {
+				return err
+			}
+
+			secondaryTime, err = time.Parse("2006-01-02 15:04:05", predictionResult.SArrTime)
+			if err != nil {
+				return err
+			}
+		}
+
+		var newWaveForm *poller.PredictionStatsResult
 		if predictionResult != nil && predictionResult.PArr && predictionResult.SArr {
-			var newWaveForm *poller.PredictionStatsResult
 			if newWaveForm, err = r.PollerService.PredictStats(
 				traceData.Station,
 				transposed,
 			); err != nil {
 				return err
 			}
+		}
 
+		if predictionResult != nil && previousPTimeExist && !previousSTimeExist {
+			var stationTime time.Time
+			stationTime, err = time.Parse("2006-01-02 15:04:05", traceData.StartTime)
+			if err != nil {
+				return err
+			}
+
+			diff := stationTime.Sub(r.WaveTime.PreviousPTime[predictionResult.StationCode]).Seconds()
+
+			if (diff >= 60 && !predictionResult.SArr) || predictionResult.SArr {
+				if newWaveForm, err = r.PollerService.PredictStats(
+					traceData.Station,
+					transposed,
+				); err != nil {
+					return err
+				}
+			}
+		}
+
+		if predictionResult != nil && !previousPTimeExist && predictionResult.PArr {
+			r.WaveTime.PreviousPTime[predictionResult.StationCode] = primaryTime
+		}
+
+		if predictionResult != nil && !previousSTimeExist && predictionResult.SArr {
+			r.WaveTime.PreviousSTime[predictionResult.StationCode] = secondaryTime
+		}
+
+		if newWaveForm != nil {
 			var waveForms []poller.WaveFormSpec
 			var waveFormTimeStamps []time.Time
 			if waveForms, waveFormTimeStamps, err = r.PollerService.PollWaveform(newWaveForm); err != nil {
@@ -166,6 +219,7 @@ func (r *Poller) ProcessMessage(message *port.Message) (err error) {
 				}
 			}
 		}
+
 	}
 
 	return nil

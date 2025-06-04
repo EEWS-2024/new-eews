@@ -1,5 +1,7 @@
 package poller
 
+import "time"
+
 type Trace struct {
 	Network      string  `json:"network"`
 	Station      string  `json:"station"`
@@ -18,4 +20,9 @@ type Trace struct {
 
 type PolledData struct {
 	Traces map[string]map[string][]int `json:"traces"`
+}
+
+type WaveTime struct {
+	PreviousPTime map[string]time.Time `json:"previous_p_time"`
+	PreviousSTime map[string]time.Time `json:"previous_s_time"`
 }

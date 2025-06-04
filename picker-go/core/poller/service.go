@@ -10,14 +10,12 @@ import (
 	"net/http"
 	"picker-go/internal/config"
 	"picker-go/internal/poller/accessor"
-	"picker-go/internal/poller/adapter"
 	"time"
 )
 
 type Service struct {
 	cfg                  *config.Config
 	dataPoints           map[string]PredictionSpec
-	rc                   *adapter.RedisAdapter
 	stationAccessor      *accessor.StationAccessor
 	waveFormAccessor     *accessor.WaveFormAccessor
 	epicWaveFormAccessor *accessor.EpicWaveFormAccessor
@@ -25,7 +23,6 @@ type Service struct {
 
 func NewService(
 	cfg *config.Config,
-	redisClient *adapter.RedisAdapter,
 	db *pgxpool.Pool,
 ) *Service {
 	sa := accessor.NewStationAccessor(db)
@@ -35,7 +32,6 @@ func NewService(
 	return &Service{
 		cfg:                  cfg,
 		dataPoints:           make(map[string]PredictionSpec),
-		rc:                   redisClient,
 		stationAccessor:      sa,
 		waveFormAccessor:     wfa,
 		epicWaveFormAccessor: ewfa,

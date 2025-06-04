@@ -21,13 +21,11 @@ func Initialize() (*config.Config, *poller.Poller, error) {
 		return nil, nil, err
 	}
 
-	redisClient := adapter.NewRedisAdapter(cfg)
-
 	db, err := pgxpool.New(context.Background(), cfg.DatabaseUrl)
 	if err != nil {
 		return nil, nil, err
 	}
 
-	p := poller.NewPoller(consumer, cfg, redisClient, db)
+	p := poller.NewPoller(consumer, cfg, db)
 	return cfg, p, nil
 }
