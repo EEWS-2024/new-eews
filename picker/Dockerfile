@@ -13,8 +13,6 @@ RUN go mod download
 # Copy the source code
 COPY . .
 
-COPY .env .env
-
 # Build the Go app
 RUN go build -o worker ./cmd/worker
 
@@ -35,6 +33,7 @@ WORKDIR /app
 
 # Copy the binary from builder
 COPY --from=builder /app/worker .
+COPY --from=builder /app/.env .env
 
 # Command to run the executable
 CMD ["./worker"]
