@@ -5,12 +5,10 @@ import (
 	"fmt"
 	"github.com/jackc/pgx/v5/pgxpool"
 	"os"
-	"os/signal"
 	"picker/core/poller"
 	"picker/core/poller/port"
 	"picker/internal/config"
 	"strings"
-	"syscall"
 	"time"
 )
 
@@ -44,45 +42,32 @@ func NewPoller(
 	}
 }
 
-func (r *Poller) Run(topics []string) error {
-	if err := r.Consumer.Subscribe(topics); err != nil {
-		return fmt.Errorf("subscribe failed: %w", err)
+func (r *Poller) Run(topics []string) (err error) {
+	var file *os.File
+
+	if file, err = os.Open("payloads.json"); err != nil {
+		fmt.Println("Error opening file:", err)
+		return
+	}
+	defer file.Close()
+
+	var messages []Trace
+	decoder := json.NewDecoder(file)
+	if err = decoder.Decode(&messages); err != nil {
+		fmt.Println("Error decoding JSON:", err)
+		return
 	}
 
-	sigs := make(chan os.Signal, 1)
-	signal.Notify(sigs, syscall.SIGINT, syscall.SIGTERM)
-
-	fmt.Println("Consumer started; awaiting messages...")
-loop:
-	for {
-		select {
-		case <-sigs:
-			fmt.Println("Shutdown signal received")
-			break loop
-		default:
-			msg, err := r.Consumer.Poll(100)
-			if err != nil {
-				fmt.Fprintf(os.Stderr, "Poll error: %v\n", err)
-				time.Sleep(1 * time.Second)
-				continue
-			}
-			if msg == nil {
-				continue
-			}
-
-			if err = r.ProcessMessage(msg); err != nil {
-				fmt.Printf("Error processing message: %v\n", err)
-				continue
-			}
-
-			// --- Business logic goes here ---
-			fmt.Printf("Received: topic=%s partition=%d offset=%d key=%s value=%s\n",
-				msg.Topic, msg.Partition, msg.Offset, string(msg.Key), string(msg.Value))
+	for _, msg := range messages {
+		fmt.Println("Processing message:", msg.Station)
+		if err, _ = r.ProcessMessage(msg); err != nil {
+			fmt.Printf("Error processing message: %v\n", err)
+			return
 		}
+		fmt.Println("Processing Done\n")
 	}
 
-	fmt.Println("Closing consumer")
-	return r.Consumer.Close()
+	return
 }
 
 func (r *Poller) Poll(trace Trace) (x [][]int) {
@@ -117,14 +102,7 @@ func (r *Poller) Transpose(data [][]int) [600][3]int {
 	return transposed
 }
 
-func (r *Poller) ProcessMessage(message *port.Message) (err error) {
-	var traceData Trace
-
-	if err = json.Unmarshal(message.Value, &traceData); err != nil {
-		fmt.Fprintf(os.Stderr, "Unmarshal error: %v\n", err)
-		return err
-	}
-
+func (r *Poller) ProcessMessage(traceData Trace) (err error, isCompleted bool) {
 	if polledData := r.Poll(traceData); polledData != nil {
 		transposed := r.Transpose(polledData)
 
@@ -134,7 +112,7 @@ func (r *Poller) ProcessMessage(message *port.Message) (err error) {
 			traceData.StartTime,
 			transposed,
 		); err != nil {
-			return err
+			return err, false
 		}
 
 		previousPTimeExist := false
@@ -148,12 +126,12 @@ func (r *Poller) ProcessMessage(message *port.Message) (err error) {
 
 			primaryTime, err = time.Parse("2006-01-02 15:04:05", predictionResult.PArrTime)
 			if err != nil {
-				return err
+				return err, false
 			}
 
 			secondaryTime, err = time.Parse("2006-01-02 15:04:05", predictionResult.SArrTime)
 			if err != nil {
-				return err
+				return err, false
 			}
 		}
 
@@ -163,7 +141,7 @@ func (r *Poller) ProcessMessage(message *port.Message) (err error) {
 				traceData.Station,
 				transposed,
 			); err != nil {
-				return err
+				return err, false
 			}
 		}
 
@@ -171,7 +149,7 @@ func (r *Poller) ProcessMessage(message *port.Message) (err error) {
 			var stationTime time.Time
 			stationTime, err = time.Parse("2006-01-02 15:04:05", traceData.StartTime)
 			if err != nil {
-				return err
+				return err, false
 			}
 
 			diff := stationTime.Sub(r.WaveTime.PreviousPTime[predictionResult.StationCode]).Seconds()
@@ -181,7 +159,7 @@ func (r *Poller) ProcessMessage(message *port.Message) (err error) {
 					traceData.Station,
 					transposed,
 				); err != nil {
-					return err
+					return err, false
 				}
 			}
 		}
@@ -198,29 +176,31 @@ func (r *Poller) ProcessMessage(message *port.Message) (err error) {
 			var waveForms []poller.WaveFormSpec
 			var waveFormTimeStamps []time.Time
 			if waveForms, waveFormTimeStamps, err = r.PollerService.PollWaveform(newWaveForm); err != nil {
-				return err
+				return err, false
 			}
 
 			if waveForms != nil && len(waveForms) >= 3 {
 				var epicWaveForm *poller.WaveFormRecalculationResult
 				if epicWaveForm, err = r.PollerService.Recalculate(waveForms); err != nil {
-					return err
+					return err, false
 				}
 				if err = r.Consumer.Publish(
 					r.config.KafkaProducerTopic,
 					strings.Join(epicWaveForm.StationCodes, ", "),
 					epicWaveForm,
 				); err != nil {
-					return err
+					return err, false
 				}
 
 				if err = r.PollerService.Save(epicWaveForm, waveFormTimeStamps); err != nil {
-					return err
+					return err, false
 				}
+
+				return nil, true
 			}
 		}
 
 	}
 
-	return nil
+	return nil, false
 }
