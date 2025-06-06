@@ -42,7 +42,7 @@ func (s *Service) Predict(
 	stationCode string,
 	startTime string,
 	data [600][3]int,
-) (result *PredictionResult, err error) {
+) (result *PredictionResult, err error, executionTime float64) {
 	payload := map[string]interface{}{
 		"station_code": stationCode,
 		"start_time":   startTime,
@@ -52,9 +52,10 @@ func (s *Service) Predict(
 
 	serialized, err := json.Marshal(payload)
 	if err != nil {
-		return nil, err
+		return nil, err, executionTime
 	}
 
+	startExecutionTime := time.Now()
 	resp, err := http.Post(
 		fmt.Sprintf("%s/predict", s.cfg.MachineLearningBaseUrl),
 		"application/json",
@@ -62,29 +63,30 @@ func (s *Service) Predict(
 	)
 	if err != nil {
 		log.Printf("POST failed: %v", err)
-		return nil, err
+		return nil, err, executionTime
 	}
 	defer resp.Body.Close()
+	executionTime = time.Now().Sub(startExecutionTime).Seconds()
 
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
-		return nil, err
+		return nil, err, executionTime
 	}
 
 	err = json.Unmarshal(body, &result)
 	if err != nil {
 		log.Printf("Response marshalling failed: %v", err)
-		return nil, err
+		return nil, err, executionTime
 	}
 
 	// save the result after syahrul predict the index of P/S
-	return result, nil
+	return result, nil, executionTime
 }
 
 func (s *Service) PredictStats(
 	stationCode string,
 	data [600][3]int,
-) (result *PredictionStatsResult, err error) {
+) (result *PredictionStatsResult, err error, executionTime float64) {
 	payload := map[string]interface{}{
 		"station_code": stationCode,
 		"x":            data,
@@ -92,9 +94,10 @@ func (s *Service) PredictStats(
 
 	serialized, err := json.Marshal(payload)
 	if err != nil {
-		return nil, err
+		return nil, err, executionTime
 	}
 
+	executionStartTime := time.Now()
 	resp, err := http.Post(
 		fmt.Sprintf("%s/predict/stats", s.cfg.MachineLearningBaseUrl),
 		"application/json",
@@ -102,25 +105,28 @@ func (s *Service) PredictStats(
 	)
 	if err != nil {
 		log.Printf("POST failed: %v", err)
-		return nil, err
+		return nil, err, executionTime
 	}
 	defer resp.Body.Close()
+	executionTime = time.Now().Sub(executionStartTime).Seconds()
 
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
-		return nil, err
+		return nil, err, executionTime
 	}
 
 	err = json.Unmarshal(body, &result)
 	if err != nil {
 		log.Printf("Response marshalling failed: %v", err)
-		return nil, err
+		return nil, err, executionTime
 	}
 
-	return result, nil
+	return result, nil, executionTime
 }
 
-func (s *Service) Recalculate(waveForms []WaveFormSpec) (result *WaveFormRecalculationResult, err error) {
+func (s *Service) Recalculate(waveForms []WaveFormSpec) (
+	result *WaveFormRecalculationResult, err error, executionTime float64,
+) {
 	stationCodes := make([]string, 0)
 	latitudes := make([]float64, 0)
 	longitudes := make([]float64, 0)
@@ -145,9 +151,10 @@ func (s *Service) Recalculate(waveForms []WaveFormSpec) (result *WaveFormRecalcu
 
 	serialized, err := json.Marshal(payload)
 	if err != nil {
-		return nil, err
+		return nil, err, executionTime
 	}
 
+	startExecutionTime := time.Now()
 	resp, err := http.Post(
 		fmt.Sprintf("%s/predict/recalculate", s.cfg.MachineLearningBaseUrl),
 		"application/json",
@@ -155,23 +162,24 @@ func (s *Service) Recalculate(waveForms []WaveFormSpec) (result *WaveFormRecalcu
 	)
 	if err != nil {
 		log.Printf("POST failed: %v", err)
-		return nil, err
+		return nil, err, executionTime
 	}
 	defer resp.Body.Close()
+	executionTime = time.Now().Sub(startExecutionTime).Seconds()
 
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
-		return nil, err
+		return nil, err, executionTime
 	}
 
 	err = json.Unmarshal(body, &result)
 	if err != nil {
 		fmt.Print(string(body))
 		log.Printf("Response marshalling failed: %v", err)
-		return nil, err
+		return nil, err, executionTime
 	}
 
-	return result, nil
+	return result, nil, executionTime
 }
 
 func (s *Service) PollWaveform(newWaveForm *PredictionStatsResult) (completedWaveForms []WaveFormSpec, waveFormTimeStamps []time.Time, err error) {

@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/jackc/pgx/v5/pgxpool"
+	"github.com/shirou/gopsutil/v3/process"
 	"os"
 	"picker/core/poller"
 	"picker/core/poller/port"
@@ -58,14 +59,44 @@ func (r *Poller) Run(topics []string) (err error) {
 		return
 	}
 
+	pid := int32(os.Getpid())
+	proc, err := process.NewProcess(pid)
+	if err != nil {
+		panic(err)
+	}
+
+	startTime := time.Now()
+	nData := 0
+	sumSeconds := 0.0
+	mlTotalExecutionTime := 0.0
 	for _, msg := range messages {
+		tStartTime := time.Now()
 		fmt.Println("Processing message:", msg.Station)
-		if err, _ = r.ProcessMessage(msg); err != nil {
+		mlExecutionTime := 0.0
+		if err, mlExecutionTime = r.ProcessMessage(msg); err != nil {
 			fmt.Printf("Error processing message: %v\n", err)
 			return
 		}
+		mlTotalExecutionTime += mlExecutionTime
+		tExecutionTime := time.Now().Sub(tStartTime).Seconds()
+		sumSeconds += tExecutionTime - mlExecutionTime
+		nData += len(msg.Data)
 		fmt.Println("Processing Done\n")
 	}
+	endTime := time.Now()
+
+	time.Sleep(500 * time.Millisecond)
+	cpuPercent, _ := proc.CPUPercent()
+	memPercent, _ := proc.MemoryPercent()
+
+	avgThroughput := float64(nData) / sumSeconds
+	fmt.Println("Avg Throughput of Picker Service (n/s):", avgThroughput)
+
+	executionTime := endTime.Sub(startTime).Seconds() - mlTotalExecutionTime
+	fmt.Println("Execution Time of Picker Service (s):", executionTime)
+
+	fmt.Println("CPU Usage of Picker Service (%):", cpuPercent)
+	fmt.Println("Memory Usage of Picker Service (%):", memPercent)
 
 	return
 }
@@ -102,18 +133,20 @@ func (r *Poller) Transpose(data [][]int) [600][3]int {
 	return transposed
 }
 
-func (r *Poller) ProcessMessage(traceData Trace) (err error, isCompleted bool) {
+func (r *Poller) ProcessMessage(traceData Trace) (err error, mlExecutionTime float64) {
 	if polledData := r.Poll(traceData); polledData != nil {
 		transposed := r.Transpose(polledData)
 
 		var predictionResult *poller.PredictionResult
-		if predictionResult, err = r.PollerService.Predict(
+		predictTime := 0.0
+		if predictionResult, err, predictTime = r.PollerService.Predict(
 			traceData.Station,
 			traceData.StartTime,
 			transposed,
 		); err != nil {
-			return err, false
+			return err, mlExecutionTime
 		}
+		mlExecutionTime += predictTime
 
 		previousPTimeExist := false
 		previousSTimeExist := false
@@ -126,22 +159,23 @@ func (r *Poller) ProcessMessage(traceData Trace) (err error, isCompleted bool) {
 
 			primaryTime, err = time.Parse("2006-01-02 15:04:05", predictionResult.PArrTime)
 			if err != nil {
-				return err, false
+				return err, mlExecutionTime
 			}
 
 			secondaryTime, err = time.Parse("2006-01-02 15:04:05", predictionResult.SArrTime)
 			if err != nil {
-				return err, false
+				return err, mlExecutionTime
 			}
 		}
 
 		var newWaveForm *poller.PredictionStatsResult
+		predictStatsTime := 0.0
 		if predictionResult != nil && predictionResult.PArr && predictionResult.SArr {
-			if newWaveForm, err = r.PollerService.PredictStats(
+			if newWaveForm, err, predictStatsTime = r.PollerService.PredictStats(
 				traceData.Station,
 				transposed,
 			); err != nil {
-				return err, false
+				return err, mlExecutionTime
 			}
 		}
 
@@ -149,20 +183,22 @@ func (r *Poller) ProcessMessage(traceData Trace) (err error, isCompleted bool) {
 			var stationTime time.Time
 			stationTime, err = time.Parse("2006-01-02 15:04:05", traceData.StartTime)
 			if err != nil {
-				return err, false
+				return err, mlExecutionTime
 			}
 
 			diff := stationTime.Sub(r.WaveTime.PreviousPTime[predictionResult.StationCode]).Seconds()
 
 			if (diff >= 60 && !predictionResult.SArr) || predictionResult.SArr {
-				if newWaveForm, err = r.PollerService.PredictStats(
+				if newWaveForm, err, predictStatsTime = r.PollerService.PredictStats(
 					traceData.Station,
 					transposed,
 				); err != nil {
-					return err, false
+					return err, mlExecutionTime
 				}
 			}
 		}
+
+		mlExecutionTime += predictStatsTime
 
 		if predictionResult != nil && !previousPTimeExist && predictionResult.PArr {
 			r.WaveTime.PreviousPTime[predictionResult.StationCode] = primaryTime
@@ -176,31 +212,34 @@ func (r *Poller) ProcessMessage(traceData Trace) (err error, isCompleted bool) {
 			var waveForms []poller.WaveFormSpec
 			var waveFormTimeStamps []time.Time
 			if waveForms, waveFormTimeStamps, err = r.PollerService.PollWaveform(newWaveForm); err != nil {
-				return err, false
+				return err, mlExecutionTime
 			}
 
 			if waveForms != nil && len(waveForms) >= 3 {
 				var epicWaveForm *poller.WaveFormRecalculationResult
-				if epicWaveForm, err = r.PollerService.Recalculate(waveForms); err != nil {
-					return err, false
+				recalculateTime := 0.0
+				if epicWaveForm, err, recalculateTime = r.PollerService.Recalculate(waveForms); err != nil {
+					return err, mlExecutionTime
 				}
+				mlExecutionTime += recalculateTime
+
 				if err = r.Consumer.Publish(
 					r.config.KafkaProducerTopic,
 					strings.Join(epicWaveForm.StationCodes, ", "),
 					epicWaveForm,
 				); err != nil {
-					return err, false
+					return err, mlExecutionTime
 				}
 
 				if err = r.PollerService.Save(epicWaveForm, waveFormTimeStamps); err != nil {
-					return err, false
+					return err, mlExecutionTime
 				}
 
-				return nil, true
+				return nil, mlExecutionTime
 			}
 		}
 
 	}
 
-	return nil, false
+	return nil, mlExecutionTime
 }
