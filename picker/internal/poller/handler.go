@@ -7,14 +7,11 @@ import (
 	"github.com/shirou/gopsutil/v3/process"
 	"os"
 	"picker/core/poller"
-	"picker/core/poller/port"
 	"picker/internal/config"
-	"strings"
 	"time"
 )
 
 type Poller struct {
-	Consumer      port.BrokerConsumer
 	PollerService *poller.Service
 	PolledData    PolledData
 	WaveTime      WaveTime
@@ -22,7 +19,6 @@ type Poller struct {
 }
 
 func NewPoller(
-	consumer port.BrokerConsumer,
 	cfg *config.Config,
 	db *pgxpool.Pool,
 ) *Poller {
@@ -35,7 +31,6 @@ func NewPoller(
 		PreviousSTime: make(map[string]time.Time),
 	}
 	return &Poller{
-		Consumer:      consumer,
 		PollerService: ps,
 		PolledData:    pd,
 		WaveTime:      wt,
@@ -43,7 +38,7 @@ func NewPoller(
 	}
 }
 
-func (r *Poller) Run(topics []string) (err error) {
+func (r *Poller) Run() (err error) {
 	var file *os.File
 
 	if file, err = os.Open("payloads.json"); err != nil {
@@ -222,14 +217,6 @@ func (r *Poller) ProcessMessage(traceData Trace) (err error, mlExecutionTime flo
 					return err, mlExecutionTime
 				}
 				mlExecutionTime += recalculateTime
-
-				if err = r.Consumer.Publish(
-					r.config.KafkaProducerTopic,
-					strings.Join(epicWaveForm.StationCodes, ", "),
-					epicWaveForm,
-				); err != nil {
-					return err, mlExecutionTime
-				}
 
 				if err = r.PollerService.Save(epicWaveForm, waveFormTimeStamps); err != nil {
 					return err, mlExecutionTime
