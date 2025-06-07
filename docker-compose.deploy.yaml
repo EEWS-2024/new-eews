@@ -161,8 +161,9 @@ services:
     image: docker.io/slackingdjaeger/guncang-picker:latest
     container_name: guncang-picker
 
-  guncang-machine-learning:
-    pull_policy: "always"
+  guncang-machine-learning-1:
+    image: docker.io/slackingdjaeger/guncang-machine-learning:latest
+    container_name: guncang-machine-learning-1
     networks:
       nginx-manager_customnetwork:
         ipv4_address: 172.20.0.99
@@ -171,10 +172,52 @@ services:
       - guncang-redis
       - guncang-timescale
       - guncang-picker
-    image: docker.io/slackingdjaeger/guncang-machine-learning:latest
-    container_name: guncang-machine-learning
     ports:
       - "9208:5001"
+
+  guncang-machine-learning-2:
+    image: docker.io/slackingdjaeger/guncang-machine-learning:latest
+    container_name: guncang-machine-learning-2
+    networks:
+      nginx-manager_customnetwork:
+        ipv4_address: 172.20.0.100
+    restart: always
+    depends_on:
+      - guncang-redis
+      - guncang-timescale
+      - guncang-picker
+    ports:
+      - "9209:5001"
+
+  guncang-machine-learning-3:
+    image: docker.io/slackingdjaeger/guncang-machine-learning:latest
+    container_name: guncang-machine-learning-3
+    networks:
+      nginx-manager_customnetwork:
+        ipv4_address: 172.20.0.101
+    restart: always
+    depends_on:
+      - guncang-redis
+      - guncang-timescale
+      - guncang-picker
+    ports:
+      - "9210:5001"
+
+  guncang-ml-nginx:
+    image: nginx:latest
+    container_name: guncang-ml-nginx
+    networks:
+      nginx-manager_customnetwork:
+        ipv4_address: 172.20.0.102
+    ports:
+      - "9211:80"
+    volumes:
+      - ./nginx-ml.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - guncang-machine-learning-1
+      - guncang-machine-learning-2
+      - guncang-machine-learning-3
+    restart: always
 
 volumes:
   postgres_data:
