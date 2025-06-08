@@ -1,7 +1,6 @@
 'use server'
 
 import {Station} from "@/modules/station/components/StationList/interface";
-import {Checkbox} from "@headlessui/react";
 import CustomCheckbox from "@/modules/common/components/Checkbox";
 
 export default async function StationList({

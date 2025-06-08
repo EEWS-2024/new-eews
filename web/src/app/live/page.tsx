@@ -3,6 +3,7 @@
 import MapContainer from "../../modules/common/components/Map";
 import {getStations} from "@/modules/station/actions/getStations";
 import StationList from "@/modules/station/components/StationList";
+import StationInfo from "@/modules/station/components/StationInfo";
 
 export default async function LivePage() {
     const stations = await getStations()
@@ -16,7 +17,7 @@ export default async function LivePage() {
                     </div>
                     <div className={'col-span-3 grid grid-rows-6 h-full gap-3'}>
                         <div className={'rounded-2xl bg-gray-600/50 flex justify-center items-center row-span-1'}>
-                            <span>No Station Selected</span>
+                            <StationInfo />
                         </div>
                         <div className={'' +
                             'rounded-2xl bg-gray-600/50 flex row-span-5 p-2'
