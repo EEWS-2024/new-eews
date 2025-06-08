@@ -126,6 +126,18 @@ func (r *Poller) ProcessMessage(message *port.Message) (err error) {
 		return err
 	}
 
+	if err = r.Consumer.Publish(
+		r.config.KafkaProducerTopic,
+		traceData.Station,
+		poller.PublishSpec{
+			Type:    "trace",
+			Station: traceData.Station,
+			Payload: traceData,
+		},
+	); err != nil {
+		return err
+	}
+
 	if polledData := r.Poll(traceData); polledData != nil {
 		transposed := r.Transpose(polledData)
 
@@ -162,6 +174,7 @@ func (r *Poller) ProcessMessage(message *port.Message) (err error) {
 				traceData.Station,
 				poller.PublishSpec{
 					Type:    "phase_picking",
+					Station: predictionResult.StationCode,
 					Payload: predictionResult,
 				},
 			); err != nil {
@@ -231,11 +244,13 @@ func (r *Poller) ProcessMessage(message *port.Message) (err error) {
 				if epicWaveForm, err = r.PollerService.Recalculate(waveForms); err != nil {
 					return err
 				}
+				stationCodes := strings.Join(epicWaveForm.StationCodes, ", ")
 				if err = r.Consumer.Publish(
 					r.config.KafkaProducerTopic,
-					strings.Join(epicWaveForm.StationCodes, ", "),
+					stationCodes,
 					poller.PublishSpec{
 						Type:    "epic_waveform",
+						Station: stationCodes,
 						Payload: epicWaveForm,
 					},
 				); err != nil {

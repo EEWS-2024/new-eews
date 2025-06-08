@@ -43,5 +43,6 @@ type PredictionStatsResult struct {
 
 type PublishSpec struct {
 	Type    string      `json:"type"`
+	Station string      `json:"station"`
 	Payload interface{} `json:"payload"`
 }
