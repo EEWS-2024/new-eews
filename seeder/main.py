@@ -90,14 +90,14 @@ def seed_data():
                 })
 
         station_rows = [
-            (s["code"], float(s["lat"]), float(s["long"]), float(s["elevation"]), s["nearest_stations"])
+            (s["code"], s["name"], float(s["lat"]), float(s["long"]), float(s["elevation"]), s["nearest_stations"])
             for s in stations
         ]
 
         execute_values(
             cur,
             """
-            INSERT INTO stations (code, latitude, longitude, elevation, nearest_stations)
+            INSERT INTO stations (code, name, latitude, longitude, elevation, nearest_stations)
             VALUES %s
             ON CONFLICT (code) DO NOTHING
             """,
@@ -128,6 +128,7 @@ def create_tables():
     cur.execute("""
         CREATE TABLE IF NOT EXISTS stations (
             code VARCHAR(255) PRIMARY KEY,
+            name VARCHAR(255) NOT NULL,
             latitude FLOAT NOT NULL,
             longitude FLOAT NOT NULL,
             elevation FLOAT NOT NULL,
@@ -147,6 +148,21 @@ def create_tables():
             UNIQUE (station_code, channel)
         )
     """)
+    cur.execute("""
+            CREATE TABLE IF NOT EXISTS phases (
+                pick_time TIMESTAMPTZ NOT NULL,
+                station_code VARCHAR(255) REFERENCES stations(code),
+                is_p_arrived BOOLEAN NOT NULL DEFAULT FALSE,
+                p_arrival_time TIMESTAMPTZ,
+                p_index INT NOT NULL DEFAULT -1,
+                is_s_arrived BOOLEAN NOT NULL DEFAULT FALSE,
+                s_arrival_time TIMESTAMPTZ,
+                s_index INT NOT NULL DEFAULT -1
+            )
+        """)
+    cur.execute("""
+            SELECT create_hypertable('phases', 'pick_time')
+        """)
     cur.execute("""
         CREATE TABLE IF NOT EXISTS waveforms (
             pick_time TIMESTAMPTZ NOT NULL,
@@ -169,9 +185,9 @@ def create_tables():
             station_codes TEXT[] NOT NULL
         )
     """)
-    # cur.execute("""
-    #        SELECT create_hypertable('epic_waveforms', 'event_time')
-    #    """)
+    cur.execute("""
+           SELECT create_hypertable('epic_waveforms', 'event_time')
+       """)
     conn.commit()
 
 

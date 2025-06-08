@@ -1,5 +1,7 @@
 package port
 
+import "picker/core/poller"
+
 type Message struct {
 	Topic     string
 	Partition int32
@@ -11,6 +13,6 @@ type Message struct {
 type BrokerConsumer interface {
 	Subscribe(topics []string) error
 	Poll(timeout int) (*Message, error)
-	Publish(topic string, key string, value interface{}) (err error)
+	Publish(topic string, key string, value poller.PublishSpec) (err error)
 	Close() error
 }

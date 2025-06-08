@@ -9,6 +9,7 @@ import (
 	"picker/core/poller"
 	"picker/core/poller/port"
 	"picker/internal/config"
+	"picker/internal/poller/accessor"
 	"strings"
 	"syscall"
 	"time"
@@ -155,6 +156,30 @@ func (r *Poller) ProcessMessage(message *port.Message) (err error) {
 			if err != nil {
 				return err
 			}
+
+			if err = r.Consumer.Publish(
+				r.config.KafkaProducerTopic,
+				traceData.Station,
+				poller.PublishSpec{
+					Type:    "phase_picking",
+					Payload: predictionResult,
+				},
+			); err != nil {
+				return err
+			}
+
+			if err = r.PollerService.SavePhase(accessor.Phase{
+				PickTime:     time.Now(),
+				StationCode:  predictionResult.StationCode,
+				IsPArrived:   predictionResult.PArr,
+				PIndex:       predictionResult.PArrIndex,
+				PArrivalTime: primaryTime,
+				IsSArrived:   predictionResult.SArr,
+				SIndex:       predictionResult.SArrIndex,
+				SArrivalTime: secondaryTime,
+			}); err != nil {
+				return err
+			}
 		}
 
 		var newWaveForm *poller.PredictionStatsResult
@@ -209,12 +234,15 @@ func (r *Poller) ProcessMessage(message *port.Message) (err error) {
 				if err = r.Consumer.Publish(
 					r.config.KafkaProducerTopic,
 					strings.Join(epicWaveForm.StationCodes, ", "),
-					epicWaveForm,
+					poller.PublishSpec{
+						Type:    "epic_waveform",
+						Payload: epicWaveForm,
+					},
 				); err != nil {
 					return err
 				}
 
-				if err = r.PollerService.Save(epicWaveForm, waveFormTimeStamps); err != nil {
+				if err = r.PollerService.SaveWaveForm(epicWaveForm, waveFormTimeStamps); err != nil {
 					return err
 				}
 			}

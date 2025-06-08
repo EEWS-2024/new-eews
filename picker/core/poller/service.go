@@ -19,6 +19,7 @@ type Service struct {
 	stationAccessor      *accessor.StationAccessor
 	waveFormAccessor     *accessor.WaveFormAccessor
 	epicWaveFormAccessor *accessor.EpicWaveFormAccessor
+	phaseAccessor        *accessor.PhaseAccessor
 }
 
 func NewService(
@@ -28,6 +29,7 @@ func NewService(
 	sa := accessor.NewStationAccessor(db)
 	wfa := accessor.NewWaveFormAccessor(db)
 	ewfa := accessor.NewEpicWaveFormAccessor(db)
+	pa := accessor.NewPhaseAccessor(db)
 
 	return &Service{
 		cfg:                  cfg,
@@ -35,6 +37,7 @@ func NewService(
 		stationAccessor:      sa,
 		waveFormAccessor:     wfa,
 		epicWaveFormAccessor: ewfa,
+		phaseAccessor:        pa,
 	}
 }
 
@@ -240,7 +243,15 @@ func (s *Service) PollWaveform(newWaveForm *PredictionStatsResult) (completedWav
 	return nil, nil, nil
 }
 
-func (s *Service) Save(waveForm *WaveFormRecalculationResult, waveFormTimeStamps []time.Time) (err error) {
+func (s *Service) SavePhase(phase accessor.Phase) (err error) {
+	if err = s.phaseAccessor.Create(&phase); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (s *Service) SaveWaveForm(waveForm *WaveFormRecalculationResult, waveFormTimeStamps []time.Time) (err error) {
 	if err = s.epicWaveFormAccessor.Create(&accessor.EpicWaveForm{
 		EventTime:    time.Now(),
 		StationCodes: waveForm.StationCodes,

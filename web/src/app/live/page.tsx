@@ -19,7 +19,7 @@ export default async function LivePage() {
                         <div className={'rounded-2xl bg-gray-600/50 flex justify-center items-center row-span-1'}>
                             <StationInfo />
                         </div>
-                        <div className={'' +
+                        <div className={
                             'rounded-2xl bg-gray-600/50 flex row-span-5 p-2'
                         }>
                             <StationList stations={stations}/>

@@ -40,3 +40,8 @@ type PredictionStatsResult struct {
 	Magnitude   float64 `json:"magnitude"`
 	StationCode string  `json:"station_code"`
 }
+
+type PublishSpec struct {
+	Type    string      `json:"type"`
+	Payload interface{} `json:"payload"`
+}

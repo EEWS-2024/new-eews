@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/confluentinc/confluent-kafka-go/v2/kafka"
+	"picker/core/poller"
 	"picker/core/poller/port"
 )
 
@@ -57,7 +58,7 @@ func (kc *Consumer) Poll(timeoutMs int) (*port.Message, error) {
 	}
 }
 
-func (kc *Consumer) Publish(topic string, key string, value interface{}) (err error) {
+func (kc *Consumer) Publish(topic string, key string, value poller.PublishSpec) (err error) {
 	var msgValue []byte
 	if msgValue, err = json.Marshal(value); err != nil {
 		return nil
