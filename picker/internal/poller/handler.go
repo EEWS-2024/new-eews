@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/jackc/pgx/v5/pgxpool"
+	"math"
 	"os"
 	"os/signal"
 	"picker/core/poller"
@@ -126,13 +127,19 @@ func (r *Poller) ProcessMessage(message *port.Message) (err error) {
 		return err
 	}
 
+	var timeSeries []map[string]any
+	if timeSeries, err = r.GenerateTimeSeries(traceData); err != nil {
+		fmt.Fprintf(os.Stderr, "GenerateTimeSeries error: %v\n", err)
+		return err
+	}
+
 	if err = r.Consumer.Publish(
 		r.config.KafkaProducerTopic,
 		traceData.Station,
 		poller.PublishSpec{
 			Type:    "trace",
 			Station: traceData.Station,
-			Payload: traceData,
+			Payload: timeSeries,
 		},
 	); err != nil {
 		return err
@@ -266,4 +273,32 @@ func (r *Poller) ProcessMessage(message *port.Message) (err error) {
 	}
 
 	return nil
+}
+
+func (r *Poller) GenerateTimeSeries(trace Trace) (timeSeries []map[string]any, err error) {
+	timeSeries = make([]map[string]any, 0)
+
+	var startTime time.Time
+	if startTime, err = time.Parse("2006-01-02 15:04:05", trace.StartTime); err != nil {
+		return nil, err
+	}
+
+	var endTime time.Time
+	if endTime, err = time.Parse("2006-01-02 15:04:05", trace.EndTime); err != nil {
+		return nil, err
+	}
+
+	start := float64(startTime.UnixNano() / int64(time.Millisecond))
+	end := float64(endTime.UnixNano() / int64(time.Millisecond))
+
+	tick := math.Round(end-start) / float64(len(trace.Data))
+
+	for i, data := range trace.Data {
+		timeSeries = append(timeSeries, map[string]any{
+			"value": data,
+			"time":  start + float64(i)*tick,
+		})
+	}
+
+	return timeSeries, nil
 }
