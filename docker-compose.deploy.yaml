@@ -219,6 +219,22 @@ services:
       - guncang-machine-learning-3
     restart: always
 
+  guncang-server:
+    image: docker.io/slackingdjaeger/guncang-server:latest
+    container_name: guncang-server
+    networks:
+      nginx-manager_customnetwork:
+        ipv4_address: 172.20.0.103
+    restart: always
+    depends_on:
+      - guncang-kafka
+      - guncang-kafka-2
+      - guncang-kafka-3
+      - guncang-timescale
+      - guncang-picker
+    ports:
+      - "9212:8080"
+
 volumes:
   postgres_data:
   redis_data:
