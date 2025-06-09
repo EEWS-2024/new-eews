@@ -46,7 +46,7 @@ loop:
 
 			switch e := event.(type) {
 			case *kafka.Message:
-				handler.PushToClients(e.Value)
+				go handler.PushToClients(e.Value)
 
 			case kafka.Error:
 				if e.Code() != kafka.ErrUnknownTopicOrPart {
