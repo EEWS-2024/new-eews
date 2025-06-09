@@ -4,6 +4,7 @@ import MapContainer from "../../modules/common/components/Map";
 import {getStations} from "@/modules/station/actions/getStations";
 import StationList from "@/modules/station/components/StationList";
 import StationInfo from "@/modules/station/components/StationInfo";
+import WaveFormChart from "@/modules/waveForm/components/WaveFormChart";
 
 export default async function LivePage() {
     const stations = await getStations()
@@ -27,13 +28,7 @@ export default async function LivePage() {
                     </div>
                 </div>
                 <div className={'w-full row-span-1 bg-gray-600/50 flex justify-center items-center rounded-2xl'}>
-                    <span>Channel 1</span>
-                </div>
-                <div className={'w-full row-span-1 bg-gray-600/50 flex justify-center items-center rounded-2xl'}>
-                    <span>Channel 1</span>
-                </div>
-                <div className={'w-full row-span-1 bg-gray-600/50 flex justify-center items-center rounded-2xl'}>
-                    <span>Channel 1</span>
+                    <WaveFormChart/>
                 </div>
             </div>
         </div>

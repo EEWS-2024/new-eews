@@ -1,0 +1,37 @@
+name: Deploy Server
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "docker/docker-compose.build-server.yaml"
+      - ".github/workflows/dpl-server.yaml"
+      - "server/**"
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Create .env
+        run: |
+          cat <<EOF > server/.env
+          DATABASE_URL=${{ secrets.DATABASE_URL }}/server_db
+          KAFKA_BOOTSTRAP_SERVERS=${{ secrets.KAFKA_BOOTSTRAP_SERVERS }}
+          KAFKA_CONSUMER_TOPIC=${{ secrets.KAFKA_PRODUCER_TOPIC }}
+          KAFKA_GROUP_ID=${{ secrets.KAFKA_GROUP_ID }}
+          EOF
+
+      - name: Build and push images
+        run: |
+          docker compose -f docker/docker-compose.build-server.yaml build --push

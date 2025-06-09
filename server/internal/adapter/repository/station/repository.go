@@ -24,7 +24,7 @@ func NewStationRepo(db *pgxpool.Pool) port.StationRepository {
 
 func (s stationRepo) GetAll(ctx context.Context) (stations []domain.Station, err error) {
 	queryStatement := s.sb.Select(
-		"code", "latitude", "longitude",
+		"code", "name", "latitude", "longitude",
 		"elevation", "nearest_stations", "is_enabled",
 	).From("stations").OrderBy("code")
 
@@ -44,6 +44,7 @@ func (s stationRepo) GetAll(ctx context.Context) (stations []domain.Station, err
 
 		if err = rows.Scan(
 			&station.Code,
+			&station.Name,
 			&station.Latitude,
 			&station.Longitude,
 			&station.Elevation,
@@ -61,7 +62,7 @@ func (s stationRepo) GetAll(ctx context.Context) (stations []domain.Station, err
 
 func (s stationRepo) Get(ctx context.Context, code string) (station *domain.Station, err error) {
 	queryStatement := s.sb.Select(
-		"code", "latitude", "longitude",
+		"code", "name", "latitude", "longitude",
 		"elevation", "nearest_stations", "is_enabled",
 	).From("stations").Where(sq.Eq{"code": code})
 
@@ -74,6 +75,7 @@ func (s stationRepo) Get(ctx context.Context, code string) (station *domain.Stat
 
 	if err = s.db.QueryRow(ctx, query, args...).Scan(
 		&station.Code,
+		&station.Name,
 		&station.Latitude,
 		&station.Longitude,
 		&station.Elevation,

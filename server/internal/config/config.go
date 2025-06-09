@@ -7,8 +7,11 @@ import (
 )
 
 type Config struct {
-	HTTPPort    string
-	DatabaseUrl string
+	HTTPPort              string
+	DatabaseUrl           string
+	KafkaBootstrapServers string
+	KafkaGroupID          string
+	KafkaConsumerTopic    string
 }
 
 func LoadConfig() (*Config, error) {
@@ -17,8 +20,11 @@ func LoadConfig() (*Config, error) {
 	}
 
 	config := &Config{
-		HTTPPort:    getEnv("PORT", ":8080"),
-		DatabaseUrl: getEnv("DATABASE_URL", "mongodb://localhost:27017/"),
+		HTTPPort:              getEnv("PORT", ":8080"),
+		DatabaseUrl:           getEnv("DATABASE_URL", "mongodb://localhost:27017/"),
+		KafkaBootstrapServers: getEnv("KAFKA_BOOTSTRAP_SERVERS", "localhost:9092"),
+		KafkaGroupID:          getEnv("KAFKA_GROUP_ID", "group"),
+		KafkaConsumerTopic:    getEnv("KAFKA_CONSUMER_TOPIC", "predict"),
 	}
 
 	return config, nil

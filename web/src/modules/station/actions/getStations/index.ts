@@ -7,7 +7,7 @@ export const getStations = async () => {
     return await makeRequest<
         GetStationResponseInterface[]
     >({
-        path: `station/`,
+        path: `station`,
         method: 'GET',
     })
 }

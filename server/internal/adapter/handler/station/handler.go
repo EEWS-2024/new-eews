@@ -15,7 +15,7 @@ func NewStationHandler(r *mux.Router, db *pgxpool.Pool) {
 	stationService := app.NewStationService(stationRepo)
 
 	stationRouter := r.PathPrefix("/station").Subrouter()
-	stationRouter.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+	stationRouter.HandleFunc("", func(w http.ResponseWriter, r *http.Request) {
 		GetAllStations(w, r, stationService)
 	}).Methods("GET")
 	stationRouter.HandleFunc("/{code}", func(w http.ResponseWriter, r *http.Request) {

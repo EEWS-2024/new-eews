@@ -8,6 +8,7 @@ import (
 	"log"
 	"net/http"
 	"server/internal/adapter/handler"
+	ws "server/internal/adapter/handler/station"
 	"server/internal/config"
 )
 
@@ -24,7 +25,20 @@ func main() {
 	defer dbPool.Close()
 
 	router := mux.NewRouter()
-	handler.NewHandler(router, dbPool)
+	handler.NewHttpHandler(router, dbPool)
+	handler.NewWebsocketHandler(router)
+
+	go ws.StartBroadcaster()
+
+	go func() {
+		if err = handler.NewConsumer(
+			cfg.KafkaBootstrapServers,
+			cfg.KafkaGroupID,
+			[]string{cfg.KafkaConsumerTopic},
+		); err != nil {
+			log.Fatal(err)
+		}
+	}()
 
 	fmt.Printf("Server is up and listening on %s\n", cfg.HTTPPort)
 	if err = http.ListenAndServe(cfg.HTTPPort, router); err != nil {

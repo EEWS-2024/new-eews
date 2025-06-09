@@ -6,6 +6,7 @@ import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import {getStation} from "@/modules/station/actions/getStation";
 import {useStationStore} from "@/modules/station/stores";
+import {useRouter} from "next/navigation";
 
 delete (L.Icon.Default.prototype as any)._getIconUrl;
 
@@ -17,6 +18,7 @@ L.Icon.Default.mergeOptions({
 
 export default function Map({stations}: {stations: Station[]}) {
     const {setStation} = useStationStore()
+    const router = useRouter()
     return (
         <div className={'w-full h-full rounded-2xl overflow-hidden'}>
             <MapContainer center={[-2, 118]} zoom={4} scrollWheelZoom className="w-full h-full">
@@ -29,6 +31,9 @@ export default function Map({stations}: {stations: Station[]}) {
                         eventHandlers={{
                             click: async () => {
                                 const result = await getStation(station.code)
+                                if (result) {
+                                    router.push(`?stationCode=${result.code}`);
+                                }
                                 setStation(result)
                             }
                         }}

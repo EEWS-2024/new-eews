@@ -6,6 +6,6 @@ import (
 	handler "server/internal/adapter/handler/station"
 )
 
-func NewHandler(r *mux.Router, db *pgxpool.Pool) {
+func NewHttpHandler(r *mux.Router, db *pgxpool.Pool) {
 	handler.NewStationHandler(r, db)
 }

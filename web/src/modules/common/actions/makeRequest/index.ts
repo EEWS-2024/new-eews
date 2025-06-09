@@ -19,7 +19,7 @@ export const makeRequest = async <T>({
     return data
   } catch (e: unknown) {
     if (e instanceof AxiosError) {
-      throw new Error(e.response?.data.message)
+      throw new Error(e.response?.data)
     }
     throw new Error('Something went wrong')
   }
