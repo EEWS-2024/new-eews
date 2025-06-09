@@ -139,7 +139,10 @@ func (r *Poller) ProcessMessage(message *port.Message) (err error) {
 		poller.PublishSpec{
 			Type:    "trace",
 			Station: traceData.Station,
-			Payload: timeSeries,
+			Payload: map[string]any{
+				"channel": traceData.Channel,
+				"data":    timeSeries,
+			},
 		},
 	); err != nil {
 		return err
@@ -176,16 +179,18 @@ func (r *Poller) ProcessMessage(message *port.Message) (err error) {
 				return err
 			}
 
-			if err = r.Consumer.Publish(
-				r.config.KafkaProducerTopic,
-				traceData.Station,
-				poller.PublishSpec{
-					Type:    "phase_picking",
-					Station: predictionResult.StationCode,
-					Payload: predictionResult,
-				},
-			); err != nil {
-				return err
+			if predictionResult.PArr || predictionResult.SArr {
+				if err = r.Consumer.Publish(
+					r.config.KafkaProducerTopic,
+					traceData.Station,
+					poller.PublishSpec{
+						Type:    "phase_picking",
+						Station: predictionResult.StationCode,
+						Payload: predictionResult,
+					},
+				); err != nil {
+					return err
+				}
 			}
 
 			if err = r.PollerService.SavePhase(accessor.Phase{
