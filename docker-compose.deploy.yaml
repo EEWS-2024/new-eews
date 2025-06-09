@@ -162,6 +162,7 @@ services:
     container_name: guncang-picker
 
   guncang-machine-learning-1:
+    pull_policy: "always"
     image: docker.io/slackingdjaeger/guncang-machine-learning:latest
     container_name: guncang-machine-learning-1
     networks:
@@ -176,6 +177,7 @@ services:
       - "9208:5001"
 
   guncang-machine-learning-2:
+    pull_policy: "always"
     image: docker.io/slackingdjaeger/guncang-machine-learning:latest
     container_name: guncang-machine-learning-2
     networks:
@@ -190,6 +192,7 @@ services:
       - "9209:5001"
 
   guncang-machine-learning-3:
+    pull_policy: "always"
     image: docker.io/slackingdjaeger/guncang-machine-learning:latest
     container_name: guncang-machine-learning-3
     networks:
@@ -220,6 +223,7 @@ services:
     restart: always
 
   guncang-server:
+    pull_policy: "always"
     image: docker.io/slackingdjaeger/guncang-server:latest
     container_name: guncang-server
     networks:

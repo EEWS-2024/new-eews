@@ -29,7 +29,7 @@ jobs:
           DATABASE_URL=${{ secrets.DATABASE_URL }}/picker_db
           KAFKA_BOOTSTRAP_SERVERS=${{ secrets.KAFKA_BOOTSTRAP_SERVERS }}
           KAFKA_CONSUMER_TOPIC=${{ secrets.KAFKA_PRODUCER_TOPIC }}
-          KAFKA_GROUP_ID=${{ secrets.KAFKA_GROUP_ID }}
+          KAFKA_GROUP_ID=${{ secrets.KAFKA_SERVER_GROUP_ID }}
           EOF
 
       - name: Build and push images
