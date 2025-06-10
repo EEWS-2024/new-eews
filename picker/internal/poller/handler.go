@@ -186,7 +186,13 @@ func (r *Poller) ProcessMessage(message *port.Message) (err error) {
 					poller.PublishSpec{
 						Type:    "phase_picking",
 						Station: predictionResult.StationCode,
-						Payload: predictionResult,
+						Payload: map[string]any{
+							"channel":        traceData.Channel,
+							"is_p_arrived":   predictionResult.PArr,
+							"p_arrival_time": predictionResult.PArrTime,
+							"is_s_arrived":   predictionResult.SArr,
+							"s_arrival_time": predictionResult.SArrTime,
+						},
 					},
 				); err != nil {
 					return err
