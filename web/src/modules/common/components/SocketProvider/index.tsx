@@ -24,9 +24,8 @@ export default function SocketProvider({ children }: { children: React.ReactNode
         ws.current.onmessage = (event) => {
             const message = JSON.parse(event.data);
             if (message.type === 'trace') {
-                setWaveForms(message.payload as WaveFormResponseInterface)
+                setWaveForms(message.payload as WaveFormResponseInterface, message.station as string)
             }
-            console.log('Message from server:', message);
         };
 
         ws.current.onerror = (error) => {

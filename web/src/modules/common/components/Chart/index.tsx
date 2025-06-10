@@ -1,31 +1,26 @@
 import {CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
 
-export default function Chart({data, interval}: {
-    data?: any[];
-    interval?: number;
+export default function Chart({data}: {
+    data: { time: number, value: number }[];
 }) {
     return (
-        <div className="w-full h-[300px]">
-            <ResponsiveContainer width="100%" height="50%">
+        <div className="w-full h-[150px]">
+            <ResponsiveContainer width="100%" height="100%">
                 <LineChart data={data}>
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis
                         dataKey="time"
                         xAxisId={0}
                         axisLine={true}
-                        tickSize={10}
-                        interval={interval}
+                        ticks={data.filter((_, i) => i % Math.floor(data.length / 5) === 0).map(d => d.time)}
                         domain={['auto', 'auto']}
                         padding={'gap'}
-                        tickFormatter={(val) => {
-                            console.log('Tick:', val, new Date(val).toLocaleTimeString());
-                            return new Date(val).toLocaleTimeString('en-US', {
-                                    hourCycle: 'h24',
-                                    hour: '2-digit',
-                                    minute: '2-digit',
-                                    second: '2-digit',
-                                })
-                        }
+                        tickFormatter={(val) => new Date(val).toLocaleTimeString('en-US', {
+                            hourCycle: 'h24',
+                            hour: '2-digit',
+                            minute: '2-digit',
+                            second: '2-digit',
+                        })
 
                         }/>
                     <YAxis

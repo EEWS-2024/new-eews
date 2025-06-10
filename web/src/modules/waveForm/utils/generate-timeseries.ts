@@ -1,4 +1,3 @@
-import {WaveForm} from "@/modules/waveForm/stores/interface";
 
 export const generateTimeSeries = (waveForm: WaveForm[], sampleRate: number) => {
     const waveforms: any[] = [];
@@ -17,19 +16,6 @@ export const generateTimeSeries = (waveForm: WaveForm[], sampleRate: number) => 
         waveforms.push(...waveformsWithTime);
     }
 
-
-    waveForm.forEach((packet) => {
-        const current = new Date(packet.start_time).getTime();
-        const endtime = new Date(packet.end_time).getTime();
-        const tick = Math.round(endtime - current) / packet.data.length;
-        const waveformsWithTime = packet.data.map((value, idx) => {
-            return {
-                value,
-                time: current + idx * tick
-            };
-        });
-        waveforms.push(...waveformsWithTime);
-    });
 
     return waveforms;
 }

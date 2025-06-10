@@ -2,34 +2,53 @@ import {create} from "zustand/react";
 import {UseWaveFormStoreInterface} from "@/modules/waveForm/stores/interface";
 
 export const useWaveFormStore = create<UseWaveFormStoreInterface>((set) => ({
-    waveForms: {},
+    waveForms: {
+        BHZ: [],
+        BHN: [],
+        BHE: []
+    },
     selectedStation: null,
-    setWaveForms: (waveForm) => {
+    setWaveForms: (waveForm, station) => {
         set((state) => {
-            const newPayload = {
-                start_time: waveForm.start_time,
-                end_time: waveForm.end_time,
-                sampling_rate: waveForm.sampling_rate,
-                arrival_time: waveForm.arrival_time,
-                data: waveForm.data,
+            let combined;
+
+            if (station === state.selectedStation) {
+                const existing = state.waveForms[waveForm.channel] || [];
+                combined = [...existing, ...waveForm.data];
+            } else {
+                combined = waveForm.data;
             }
 
-            if (waveForm.station === state.selectedStation) {
-                const existingWaveForms = state.waveForms[waveForm.channel] || [];
-                const newWaveForms = [...existingWaveForms, newPayload];
-                return {
-                    waveForms: {
-                        ...state.waveForms,
-                        [waveForm.channel]: newWaveForms,
-                    },
-                };
+            combined.sort((a, b) => a.time - b.time);
+
+            const combinedLength = combined.length;
+
+            const grouped = new Map();
+
+            for (const { time, value } of combined) {
+                if (!grouped.has(time)) {
+                    grouped.set(time, { sum: value, count: 1 });
+                } else {
+                    const g = grouped.get(time);
+                    g.sum += value;
+                    g.count += 1;
+                    grouped.set(time, g);
+                }
             }
+
+            const aggregated = Array.from(grouped.entries()).map(([time, { sum, count }]) => ({
+                time,
+                value: sum / count,
+            }));
+
+            const trimmed = aggregated.length === combinedLength ? aggregated.slice(aggregated.length * 0.1) : aggregated;
 
             return {
                 waveForms: {
-                    [waveForm.channel]: [newPayload],
+                    ...state.waveForms,
+                    [waveForm.channel]: trimmed,
                 },
-                selectedStation: waveForm.station,
+                selectedStation: station,
             };
         });
     },

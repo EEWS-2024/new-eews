@@ -11,7 +11,7 @@ export default async function LivePage() {
 
     return (
         <div className={'w-full h-screen'}>
-            <div className={'w-full flex flex-col gap-4'}>
+            <div className={'w-full flex flex-col gap-4 h-full'}>
                 <div className={'w-full grid grid-cols-12 gap-4 row-span-5 h-full'}>
                     <div className={'col-span-9 h-full bg-gray-600/50 rounded-2xl p-2'}>
                         <MapContainer stations={stations}/>
@@ -27,9 +27,7 @@ export default async function LivePage() {
                         </div>
                     </div>
                 </div>
-                <div className={'w-full row-span-1 bg-gray-600/50 flex justify-center items-center rounded-2xl'}>
-                    <WaveFormChart/>
-                </div>
+                <WaveFormChart/>
             </div>
         </div>
     )
