@@ -9,12 +9,28 @@ import {
     WaveFormResponseInterface
 } from "@/modules/waveForm/stores/interface";
 import {useSearchParams} from "next/navigation";
+import {useQuery} from "@tanstack/react-query";
+import {useStationStore} from "@/modules/station/stores";
+import {getStation} from "@/modules/station/actions/getStation";
 
 export default function SocketProvider({ children }: { children: React.ReactNode }) {
     const searchParams = useSearchParams()
     const stationCode = searchParams.get('stationCode');
     const ws = useRef<WebSocket | null>(null);
     const {setWaveForms, resetWaveForms, setPhasePicking, resetPhasePicking, setEpic, resetEpic} = useWaveFormStore()
+    const {setStation} = useStationStore()
+
+    const {data: stationData} = useQuery({
+        queryKey: [stationCode],
+        queryFn: () => getStation(stationCode!),
+        enabled: !!stationCode,
+    })
+
+    useEffect(() => {
+        if (!!stationData) {
+            setStation(stationData)
+        }
+    }, [setStation, stationData]);
 
     useEffect(() => {
         resetWaveForms()
@@ -65,7 +81,7 @@ export default function SocketProvider({ children }: { children: React.ReactNode
         return () => {
             ws.current?.close();
         };
-    }, [setPhasePicking, setWaveForms, stationCode]);
+    }, [setEpic, setPhasePicking, setWaveForms, stationCode]);
 
     return (
         <>{children}</>

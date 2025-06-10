@@ -4,8 +4,6 @@ import {Station} from "@/modules/station/components/StationList/interface";
 import {MapContainer, Marker, Popup, TileLayer} from "react-leaflet";
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
-import {getStation} from "@/modules/station/actions/getStation";
-import {useStationStore} from "@/modules/station/stores";
 import {useRouter} from "next/navigation";
 import {useWaveFormStore} from "@/modules/waveForm/stores";
 
@@ -18,7 +16,6 @@ L.Icon.Default.mergeOptions({
 });
 
 export default function Map({stations}: {stations: Station[]}) {
-    const {setStation} = useStationStore()
     const {epic} = useWaveFormStore()
     const router = useRouter()
 
@@ -39,19 +36,14 @@ export default function Map({stations}: {stations: Station[]}) {
                 {stations.map((station) => (
                     <Marker
                         eventHandlers={{
-                            click: async () => {
-                                const result = await getStation(station.code)
-                                if (result) {
-                                    router.push(`?stationCode=${result.code}`);
-                                }
-                                setStation(result)
-                            }
+                            click: async () =>  router.push(`?stationCode=${station.code}`)
                         }}
                         key={station.code}
                         position={[station.latitude, station.longitude]}
                     >
                         <Popup>
                             <div className={'flex flex-col gap-2'}>
+                                <span className={'font-bold'}>{station.name.replaceAll('GEFON Station', '')}</span>
                                 <span>Code: {station.code}</span>
                                 <span>Longitude: {station.longitude}</span>
                                 <span>Latitude: {station.latitude}</span>
