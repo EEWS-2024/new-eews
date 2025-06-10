@@ -1,7 +1,8 @@
-import {CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
+import {CartesianGrid, Line, LineChart, ReferenceLine, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
 
-export default function Chart({data}: {
+export default function Chart({data, phasePicking}: {
     data: { time: number, value: number }[];
+    phasePicking: {pArrivalTime: number | null, sArrivalTime: number | null};
 }) {
     return (
         <div className="w-full h-[150px]">
@@ -37,6 +38,15 @@ export default function Chart({data}: {
                     />
                     <Tooltip />
                     <Line type="monotone" dataKey="value" stroke="#8884d8" strokeWidth={2} dot={false} />
+                    {
+                        phasePicking.sArrivalTime &&
+                        <ReferenceLine stroke="red" strokeWidth={2} x={phasePicking.sArrivalTime} />
+                    }
+                    {
+                        phasePicking.pArrivalTime &&
+                        <ReferenceLine stroke="yellow" strokeWidth={2} x={phasePicking.pArrivalTime} />
+                    }
+
                 </LineChart>
             </ResponsiveContainer>
         </div>

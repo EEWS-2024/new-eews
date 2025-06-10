@@ -7,6 +7,21 @@ export interface WaveFormResponseInterface {
     }[]
 }
 
+export interface PhasePickingResponseInterface {
+    channel: string
+    is_p_arrived: boolean
+    p_arrival_time: number
+    is_s_arrived: boolean
+    s_arrival_time: number
+}
+
+export interface EpicWaveFormResponseInterface {
+    station_codes: string[]
+    magnitude: number
+    latitude: number
+    longitude: number
+}
+
 export interface UseWaveFormStoreInterface {
     waveForms: {
         [channelCode: string]: {
@@ -15,5 +30,17 @@ export interface UseWaveFormStoreInterface {
         }[]
     };
     selectedStation: string | null;
+    phasePicking: {
+        [channelCode: string]: {
+            pArrivalTime: number | null,
+            sArrivalTime: number | null
+        }
+    }
+    epic: EpicWaveFormResponseInterface | null
     setWaveForms: (waveForm: WaveFormResponseInterface, station: string) => void;
+    resetWaveForms: () => void;
+    setPhasePicking: (phasePicking: PhasePickingResponseInterface) => void;
+    resetPhasePicking: () => void;
+    setEpic: (epic: EpicWaveFormResponseInterface) => void;
+    resetEpic: () => void;
 }

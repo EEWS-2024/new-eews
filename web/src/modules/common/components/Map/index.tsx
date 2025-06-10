@@ -7,6 +7,7 @@ import L from 'leaflet';
 import {getStation} from "@/modules/station/actions/getStation";
 import {useStationStore} from "@/modules/station/stores";
 import {useRouter} from "next/navigation";
+import {useWaveFormStore} from "@/modules/waveForm/stores";
 
 delete (L.Icon.Default.prototype as any)._getIconUrl;
 
@@ -18,10 +19,19 @@ L.Icon.Default.mergeOptions({
 
 export default function Map({stations}: {stations: Station[]}) {
     const {setStation} = useStationStore()
+    const {epic} = useWaveFormStore()
     const router = useRouter()
+
+    const earthquakeMarker = L.divIcon({
+        html: '<div class="w-5 h-5 bg-red-600 rounded-full border-2 border-white shadow-md animate-ping"></div>',
+        className: '', // Prevent Leaflet's default styling
+        iconSize: [20, 20],
+        iconAnchor: [10, 10],
+    });
+
     return (
         <div className={'w-full h-full rounded-2xl overflow-hidden'}>
-            <MapContainer center={[-2, 118]} zoom={4} scrollWheelZoom className="w-full h-full">
+            <MapContainer id={'map'} center={[-2, 118]} zoom={4} scrollWheelZoom className="w-full h-full">
                 <TileLayer
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     attribution="&copy; OpenStreetMap contributors"
@@ -50,6 +60,20 @@ export default function Map({stations}: {stations: Station[]}) {
                         </Popup>
                     </Marker>
                 ))}
+                {
+                    epic && (
+                        <Marker position={[epic.latitude, epic.longitude]} icon={earthquakeMarker} >
+                            <Popup>
+                                <div className={'flex flex-col gap-2'}>
+                                    <span>Nearest Stations: {epic.station_codes.join(", ")}</span>
+                                    <span>Magnitude: {epic.magnitude.toFixed(2)}</span>
+                                    <span>Longitude: {epic.longitude.toFixed(2)}</span>
+                                    <span>Latitude: {epic.latitude.toFixed(2)}</span>
+                                </div>
+                            </Popup>
+                        </Marker>
+                    )
+                }
             </MapContainer>
         </div>
     );

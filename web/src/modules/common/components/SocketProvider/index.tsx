@@ -3,14 +3,33 @@
 import {useEffect, useRef} from "react";
 import {configKey} from "@/modules/common/configs";
 import {useWaveFormStore} from "@/modules/waveForm/stores";
-import {WaveFormResponseInterface} from "@/modules/waveForm/stores/interface";
+import {
+    EpicWaveFormResponseInterface,
+    PhasePickingResponseInterface,
+    WaveFormResponseInterface
+} from "@/modules/waveForm/stores/interface";
 import {useSearchParams} from "next/navigation";
 
 export default function SocketProvider({ children }: { children: React.ReactNode }) {
     const searchParams = useSearchParams()
     const stationCode = searchParams.get('stationCode');
     const ws = useRef<WebSocket | null>(null);
-    const {setWaveForms} = useWaveFormStore()
+    const {setWaveForms, resetWaveForms, setPhasePicking, resetPhasePicking, setEpic, resetEpic} = useWaveFormStore()
+
+    useEffect(() => {
+        resetWaveForms()
+        resetPhasePicking()
+    }, [resetPhasePicking, resetWaveForms, stationCode]);
+
+    useEffect(() => {
+        resetEpic();
+
+        const interval = setInterval(() => {
+            resetEpic();
+        }, 10 * 60 * 1000);
+
+        return () => clearInterval(interval);
+    }, [resetEpic]);
 
     useEffect(() => {
         const url = configKey.serverUrl.replace('http', 'ws');
@@ -26,6 +45,12 @@ export default function SocketProvider({ children }: { children: React.ReactNode
             if (message.type === 'trace') {
                 setWaveForms(message.payload as WaveFormResponseInterface, message.station as string)
             }
+            if (message.type === 'phase_picking') {
+                setPhasePicking(message.payload as PhasePickingResponseInterface)
+            }
+            if (message.type === 'epic_waveform') {
+                setEpic(message.payload as EpicWaveFormResponseInterface)
+            }
         };
 
         ws.current.onerror = (error) => {
@@ -40,7 +65,7 @@ export default function SocketProvider({ children }: { children: React.ReactNode
         return () => {
             ws.current?.close();
         };
-    }, [setWaveForms, stationCode]);
+    }, [setPhasePicking, setWaveForms, stationCode]);
 
     return (
         <>{children}</>
