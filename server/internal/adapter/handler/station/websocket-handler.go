@@ -62,7 +62,7 @@ func StartBroadcaster() {
 
 		mu.Lock()
 		for client := range clients {
-			if client.stationCode == message.Station || message.MessageType != "trace" {
+			if client.stationCode == message.Station || message.MessageType == "epic_waveform" {
 				err := client.conn.WriteMessage(websocket.TextMessage, msg)
 				if err != nil {
 					log.Printf("WebSocket write failed: %v", err)
