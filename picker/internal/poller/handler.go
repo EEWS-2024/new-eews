@@ -189,9 +189,9 @@ func (r *Poller) ProcessMessage(message *port.Message) (err error) {
 						Payload: map[string]any{
 							"channel":        traceData.Channel,
 							"is_p_arrived":   predictionResult.PArr,
-							"p_arrival_time": predictionResult.PArrTime,
+							"p_arrival_time": float64(primaryTime.UnixNano() / int64(time.Millisecond)),
 							"is_s_arrived":   predictionResult.SArr,
-							"s_arrival_time": predictionResult.SArrTime,
+							"s_arrival_time": float64(secondaryTime.UnixNano() / int64(time.Millisecond)),
 						},
 					},
 				); err != nil {
