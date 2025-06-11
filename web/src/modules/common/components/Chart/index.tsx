@@ -36,7 +36,20 @@ export default function Chart({data, phasePicking}: {
                         }}
                         ticks={[0]}
                     />
-                    <Tooltip />
+                    <Tooltip content={({ active, payload, label }) => {
+                        if (!active || !payload || !payload.length) return null;
+
+                        return (
+                            <div className="bg-gray-900 p-2 rounded shadow text-sm">
+                                <p>Time: {new Date(label).toLocaleTimeString()}</p>
+                                {payload.map((entry, index) => (
+                                    <p key={index}>
+                                        <p>Value: {entry.value && Number(entry.value).toFixed(2)}</p>
+                                    </p>
+                                ))}
+                            </div>
+                        );
+                    }}/>
                     <Line type="monotone" dataKey="value" stroke="#8884d8" strokeWidth={2} dot={false} />
                     {
                         phasePicking.sArrivalTime &&

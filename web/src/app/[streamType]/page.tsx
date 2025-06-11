@@ -18,7 +18,7 @@ export default function Page() {
     })
 
     return (
-        <div className={'w-full h-screen'}>
+        <div className={'w-full h-full'}>
             <div className={'w-full flex flex-col gap-4 h-full'}>
                 <div className={'w-full grid grid-cols-12 gap-4 row-span-5 h-full'}>
                     <div className={'col-span-9 h-full bg-gray-600/50 rounded-2xl p-2'}>

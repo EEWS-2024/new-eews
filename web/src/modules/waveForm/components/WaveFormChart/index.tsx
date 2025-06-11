@@ -10,7 +10,7 @@ export default function WaveFormChart() {
     const stationCode = searchParams.get('stationCode');
 
     return (
-        <div className={`w-full h-full flex ${!stationCode || !isStreaming ? 'items-center justify-center bg-gray-600/50 p-4 rounded-2xl' : 'gap-4'}`}>
+        <div className={`w-full h-[218px] flex ${!stationCode || !isStreaming ? 'items-center justify-center bg-gray-600/50 p-4 rounded-2xl' : 'gap-4'}`}>
             {!stationCode
                 ? <span className={'text-white font-bold text-xl'}>No Station Selected</span>
                 :  isStreaming
