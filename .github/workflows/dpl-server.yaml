@@ -30,6 +30,7 @@ jobs:
           KAFKA_BOOTSTRAP_SERVERS=${{ secrets.KAFKA_BOOTSTRAP_SERVERS }}
           KAFKA_CONSUMER_TOPIC=${{ secrets.KAFKA_PRODUCER_TOPIC }}
           KAFKA_GROUP_ID=${{ secrets.KAFKA_SERVER_GROUP_ID }}
+          LIVE_URL=${{ secrets.LIVE_URL }}
           EOF
 
       - name: Build and push images
