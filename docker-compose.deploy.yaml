@@ -239,6 +239,19 @@ services:
     ports:
       - "9212:8080"
 
+  guncang-web:
+    pull_policy: "always"
+    image: docker.io/slackingdjaeger/guncang-web:latest
+    container_name: guncang-web
+    networks:
+      nginx-manager_customnetwork:
+        ipv4_address: 172.20.0.104
+    restart: always
+    depends_on:
+      - guncang-server
+    ports:
+      - "9213:3000"
+
 volumes:
   postgres_data:
   redis_data:
