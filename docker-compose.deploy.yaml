@@ -136,6 +136,21 @@ services:
     ports:
       - "9207:5000"
 
+  guncang-fdsn:
+    pull_policy: "always"
+    networks:
+      nginx-manager_customnetwork:
+        ipv4_address: 172.20.0.98
+    restart: always
+    depends_on:
+      - guncang-kafka
+      - guncang-kafka-2
+      - guncang-kafka-3
+    image: docker.io/slackingdjaeger/guncang-fdsn:latest
+    container_name: guncang-fdsn
+    ports:
+      - "9208:5000"
+
   guncang-migrations:
     image: docker.io/slackingdjaeger/guncang-machine-learning:latest
     container_name: guncang-migrations
@@ -150,7 +165,7 @@ services:
     pull_policy: "always"
     networks:
       nginx-manager_customnetwork:
-        ipv4_address: 172.20.0.98
+        ipv4_address: 172.20.0.99
     restart: always
     depends_on:
       - guncang-kafka
@@ -167,21 +182,6 @@ services:
     container_name: guncang-machine-learning-1
     networks:
       nginx-manager_customnetwork:
-        ipv4_address: 172.20.0.99
-    restart: always
-    depends_on:
-      - guncang-redis
-      - guncang-timescale
-      - guncang-picker
-    ports:
-      - "9208:5001"
-
-  guncang-machine-learning-2:
-    pull_policy: "always"
-    image: docker.io/slackingdjaeger/guncang-machine-learning:latest
-    container_name: guncang-machine-learning-2
-    networks:
-      nginx-manager_customnetwork:
         ipv4_address: 172.20.0.100
     restart: always
     depends_on:
@@ -191,10 +191,10 @@ services:
     ports:
       - "9209:5001"
 
-  guncang-machine-learning-3:
+  guncang-machine-learning-2:
     pull_policy: "always"
     image: docker.io/slackingdjaeger/guncang-machine-learning:latest
-    container_name: guncang-machine-learning-3
+    container_name: guncang-machine-learning-2
     networks:
       nginx-manager_customnetwork:
         ipv4_address: 172.20.0.101
@@ -206,14 +206,29 @@ services:
     ports:
       - "9210:5001"
 
+  guncang-machine-learning-3:
+    pull_policy: "always"
+    image: docker.io/slackingdjaeger/guncang-machine-learning:latest
+    container_name: guncang-machine-learning-3
+    networks:
+      nginx-manager_customnetwork:
+        ipv4_address: 172.20.0.102
+    restart: always
+    depends_on:
+      - guncang-redis
+      - guncang-timescale
+      - guncang-picker
+    ports:
+      - "9211:5001"
+
   guncang-ml-nginx:
     image: nginx:latest
     container_name: guncang-ml-nginx
     networks:
       nginx-manager_customnetwork:
-        ipv4_address: 172.20.0.102
+        ipv4_address: 172.20.0.103
     ports:
-      - "9211:80"
+      - "9212:80"
     volumes:
       - ./nginx-ml.conf:/etc/nginx/conf.d/default.conf:ro
     depends_on:
@@ -228,7 +243,7 @@ services:
     container_name: guncang-server
     networks:
       nginx-manager_customnetwork:
-        ipv4_address: 172.20.0.103
+        ipv4_address: 172.20.0.104
     restart: always
     depends_on:
       - guncang-kafka
@@ -237,7 +252,7 @@ services:
       - guncang-timescale
       - guncang-picker
     ports:
-      - "9212:8080"
+      - "9213:8080"
 
   guncang-web:
     pull_policy: "always"
@@ -245,12 +260,12 @@ services:
     container_name: guncang-web
     networks:
       nginx-manager_customnetwork:
-        ipv4_address: 172.20.0.104
+        ipv4_address: 172.20.0.105
     restart: always
     depends_on:
       - guncang-server
     ports:
-      - "9213:3000"
+      - "9214:3000"
 
 volumes:
   postgres_data:
