@@ -1,5 +1,5 @@
 services:
-  guncang-seedlink:
+  guncang-server:
     build:
       context: ../server
       dockerfile: Dockerfile

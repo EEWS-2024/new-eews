@@ -1,0 +1,8 @@
+services:
+  guncang-fdsn:
+    build:
+      context: ../fdsn
+      dockerfile: Dockerfile
+    image: docker.io/slackingdjaeger/guncang-fdsn:latest
+    env_file:
+      - ../fdsn/.env

@@ -1,6 +1,6 @@
+from asgiref.wsgi import WsgiToAsgi
 from app import create_app
 
 app = create_app()
 
-if __name__ == '__main__':
-    app.run(debug=True)
+asgi_app = WsgiToAsgi(app)
