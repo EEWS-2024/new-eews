@@ -3,6 +3,7 @@ from typing import List
 
 from flask import current_app
 
+from app.handlers.data_poll_handler import DataPollHandler
 from app.providers.fdsn_provider import FdsnProvider
 
 
@@ -26,6 +27,7 @@ class TraceHandler:
                 start_time,
                 end_time,
                 context,
+                DataPollHandler,
             )
         )
         thread.daemon = True  # Dies if main process dies

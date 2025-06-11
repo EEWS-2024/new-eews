@@ -1,16 +1,19 @@
+import datetime
 import json
 import threading
-from datetime import timedelta
 from typing import List
 
 from confluent_kafka import Producer
+from obspy import UTCDateTime
 from obspy.clients.fdsn import Client
 
+from app.handlers.data_poll_handler import DataPollHandler
 from config import Config
 
 
 class FdsnProvider:
     def __init__(self):
+        self.poll_data_handler: DataPollHandler | None = None
         self.network = "GE"
         self.channel = "BH?"
         self.selected_channels = ["BHZ", "BHN", "BHE"]
@@ -25,49 +28,72 @@ class FdsnProvider:
     def stop_stream(self):
         self.stop_event.set()
 
+    def publish(
+        self,
+        stats,
+        data,
+        start_time
+    ):
+        time_to_add = datetime.timedelta(seconds=600 / stats.sampling_rate)
+
+        trace_data = {
+            "network": stats.network,
+            "station": stats.station,
+            "channel": stats.channel,
+            "location": stats.location,
+            "start_time": str(start_time),
+            "end_time": str(start_time + time_to_add),
+            "delta": stats.delta,
+            "npts": stats.npts,
+            "calib": stats.calib,
+            "data": data,
+            "sampling_rate": stats.sampling_rate,
+            "type": "archive",
+        }
+
+        self.producer.produce(
+            Config.KAFKA_TOPIC,
+            value=json.dumps(trace_data),
+            key=f"{stats.station}",
+        )
+        self.producer.flush()
+        print(f"Produced message for station {stats.station}")
+
     def stream_data(
         self,
         stations: List[str],
         start_time: str,
         end_time: str,
-        app
+        app,
+        poll_data
     ):
         with app.app_context():
             client = Client(base_url=Config.FDSN_URL)
             traces = client.get_waveforms_bulk(
                 bulk=[
-                    (self.network, station, "*", self.channel, start_time, end_time)
+                    (self.network, station, "*", self.channel, UTCDateTime(start_time), UTCDateTime(end_time))
                     for station in stations
                 ]
             )
 
+            self.poll_data_handler = poll_data()
+
             for trace in traces:
                 if trace.stats.channel in self.selected_channels:
-                    trace_data_point = trace.data.tolist()
-                    trace_start_time = trace.stats.starttime
-                    while len(trace_data_point) > 382:
-                        data_points = trace_data_point[:382]
-                        trace_end_time = trace_start_time + timedelta(seconds=20)
-                        data = {
-                            "network": trace.stats.network,
-                            "station": trace.stats.station,
-                            "channel": trace.stats.channel,
-                            "location": trace.stats.location,
-                            "start_time": str(trace_start_time),
-                            "end_time": str(trace_end_time),
-                            "delta": trace.stats.delta,
-                            "npts": len(data_points),
-                            "calib": trace.stats.calib,
-                            "data": data_points,
-                            "sampling_rate": trace.stats.sampling_rate,
-                        }
-                        self.producer.produce(
-                            Config.KAFKA_TOPIC,
-                            value=json.dumps(data),
-                            key=f"{trace.stats.station}",
+                    try:
+                        trace_data, start_time = self.poll_data_handler.poll_data(
+                            trace.stats.station,
+                            trace.stats.channel,
+                            trace.stats.starttime.datetime,
+                            trace.data.tolist(),
                         )
-                        self.producer.flush()
-                        print(f"Produced message for station {trace.stats.station}")
-                        trace_start_time = trace_end_time
-                        trace_data_point = trace_data_point[382:]
 
+                        if trace_data:
+                            self.publish(
+                                trace.stats,
+                                trace_data,
+                                start_time,
+                            )
+                    except Exception as e:
+                        print(f"Error processing trace data: {e}")
+                        continue

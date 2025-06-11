@@ -86,7 +86,6 @@ class SeedlinkProvider:
                         trace = data.get_trace()
                         if trace.stats.channel in self.selected_channels:
                             try:
-                                client.on_data(trace)
                                 trace_data, start_time = self.poll_data_handler.poll_data(
                                     trace.stats.station,
                                     trace.stats.channel,
