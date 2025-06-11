@@ -25,7 +25,7 @@ func main() {
 	defer dbPool.Close()
 
 	router := mux.NewRouter()
-	handler.NewHttpHandler(router, dbPool)
+	handler.NewHttpHandler(router, dbPool, cfg)
 	handler.NewWebsocketHandler(router)
 
 	go ws.StartBroadcaster()

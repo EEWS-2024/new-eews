@@ -12,6 +12,8 @@ type Config struct {
 	KafkaBootstrapServers string
 	KafkaGroupID          string
 	KafkaConsumerTopic    string
+	LiveUrl               string
+	ArchiveUrl            string
 }
 
 func LoadConfig() (*Config, error) {
@@ -25,6 +27,8 @@ func LoadConfig() (*Config, error) {
 		KafkaBootstrapServers: getEnv("KAFKA_BOOTSTRAP_SERVERS", "localhost:9092"),
 		KafkaGroupID:          getEnv("KAFKA_GROUP_ID", "group"),
 		KafkaConsumerTopic:    getEnv("KAFKA_CONSUMER_TOPIC", "predict"),
+		LiveUrl:               getEnv("LIVE_URL", "http://85.209.163.202:9207"),
+		ArchiveUrl:            getEnv("ARCHIVE_URL", "http://85.209.163.202:9207"),
 	}
 
 	return config, nil

@@ -23,3 +23,13 @@ func (s *StationService) GetAll(ctx context.Context) (stations []domain.Station,
 func (s *StationService) Get(ctx context.Context, code string) (station *domain.Station, err error) {
 	return s.stationRepo.Get(ctx, code)
 }
+
+func (s *StationService) Toggle(ctx context.Context, code string, isEnabled bool) (err error) {
+	return s.stationRepo.Update(
+		ctx,
+		map[string]any{
+			"is_enabled": isEnabled,
+		},
+		code,
+	)
+}

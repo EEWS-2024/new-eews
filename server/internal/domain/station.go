@@ -9,3 +9,8 @@ type Station struct {
 	NearestStations []string `json:"nearest_stations"`
 	IsEnabled       bool     `json:"is_enabled"`
 }
+
+type TogglePayload struct {
+	StationCode string `json:"code"`
+	IsEnabled   bool   `json:"is_enabled"`
+}
