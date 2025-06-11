@@ -48,7 +48,7 @@ export default function SocketProvider({ children }: { children: React.ReactNode
     }, [resetEpic]);
 
     useEffect(() => {
-        const url = configKey.serverUrl.replace('http', 'ws');
+        const url = configKey.socketUrl;
 
         ws.current = new WebSocket(`${url}/ws?stationCode=${stationCode}`); // replace with your URL
 
