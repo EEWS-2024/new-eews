@@ -50,8 +50,9 @@ export default function StreamButton({startTime, endTime}: {
     return (
         <div className={'w-full justify-center'}>
             <button
+                disabled={isLoading || startStreamingPending || stopStreamingPending}
                 onClick={() => !isStreaming ? startStreaming({streamType: streamType!, startTime, endTime}) : stopStreaming({streamType: streamType!})}
-                className={'bg-indigo-600 text-white w-full rounded-xl py-1 font-bold hover:bg-indigo-800 cursor-pointer'}>
+                className={'bg-indigo-600 disabled:bg-gray-600 text-white w-full rounded-xl py-1 font-bold hover:bg-indigo-800 cursor-pointer'}>
                 {isLoading || startStreamingPending || stopStreamingPending
                     ? <span className={'animate-pulse'}>Loading...</span>
                     : isStreaming
