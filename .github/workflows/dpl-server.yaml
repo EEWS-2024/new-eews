@@ -31,6 +31,7 @@ jobs:
           KAFKA_CONSUMER_TOPIC=${{ secrets.KAFKA_PRODUCER_TOPIC }}
           KAFKA_GROUP_ID=${{ secrets.KAFKA_SERVER_GROUP_ID }}
           LIVE_URL=${{ secrets.LIVE_URL }}
+          ARCHIVE_URL=${{ secrets.ARCHIVE_URL }}
           EOF
 
       - name: Build and push images
