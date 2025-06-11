@@ -91,9 +91,15 @@ export default function StationList({
                 </select>
                 {
                     streamType === 'archive' && (
-                        <div className={'w-full flex gap-2'}>
-                            <Input type={'date'} name={'startTime'} onChange={handleDateChange}/>
-                            <Input type={'date'} name={'endTime'} onChange={handleDateChange}/>
+                        <div className={'w-full flex gap-2 flex-col'}>
+                            <div className={'flex items-center gap-2'}>
+                                <label htmlFor={'start-time'} className={'w-1/6'}>Start: </label>
+                                <Input id={'start-time'} className={'w-5/6'} type={'datetime-local'} name={'startTime'} onChange={handleDateChange}/>
+                            </div>
+                            <div className={'flex items-center gap-2'}>
+                                <label htmlFor={'end-time'} className={'w-1/6'}>Finish: </label>
+                                <Input id={'end-time'} className={'w-5/6'} type={'datetime-local'} name={'endTime'} onChange={handleDateChange}/>
+                            </div>
                         </div>
                     )
                 }

@@ -27,8 +27,8 @@ export default function StreamButton({startTime, endTime}: {
     const {mutate: startStreaming, isPending: startStreamingPending} = useMutation({
         mutationFn: ({streamType, startTime, endTime}: {streamType: string, startTime: Date | null, endTime: Date | null}) => startStream({
             stream_type: streamType,
-            start_time: startTime || null,
-            end_time: endTime || null,
+            start_time: startTime ? new Date(startTime).toISOString() : null,
+            end_time: endTime ? new Date(endTime).toISOString() : null,
         }),
         onSuccess: async () => await queryClient.invalidateQueries({queryKey: ['stream']}),
         onError: error => toast.error(error.message),
