@@ -25,7 +25,7 @@ jobs:
 
       - name: Create .env
         run: |
-          cat <<EOF > fdsnclient/.env
+          cat <<EOF > fdsn/.env
           FLASK_APP=${{ secrets.FLASK_APP }}
           FDSN_URL=${{ secrets.FDSN_URL }}
           KAFKA_BOOTSTRAP_SERVERS=${{ secrets.KAFKA_BOOTSTRAP_SERVERS }}
