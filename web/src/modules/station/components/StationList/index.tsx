@@ -6,8 +6,10 @@ import {useMutation, useQueryClient} from "@tanstack/react-query";
 import {toggleStations} from "@/modules/station/actions/toggleStation";
 import {Skeleton} from "@/modules/common/components/Skeleton";
 import StreamButton from "@/modules/waveForm/components/StreamButton";
-import {usePathname, useRouter, useSearchParams} from "next/navigation";
+import {useParams, useRouter, useSearchParams} from "next/navigation";
 import {useStationStore} from "@/modules/station/stores";
+import {Input} from "@/modules/common/components/Input";
+import React, {useState} from "react";
 
 export default function StationList({
     stations,
@@ -16,9 +18,21 @@ export default function StationList({
     const searchParams = useSearchParams()
     const stationCode = searchParams.get("stationCode")
     const router = useRouter()
-    const pathname = usePathname()
+    const {streamType} = useParams()
     const queryClient = useQueryClient()
     const {setStation} = useStationStore()
+
+    const [retrievalTime, setRetrievalTime] = useState({
+        startTime: null,
+        endTime: null,
+    })
+
+    const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setRetrievalTime((prev) => ({
+           ...prev,
+           [e.target.name]: e.target.value,
+        }))
+    }
 
     const {mutate} = useMutation({
         mutationFn: async ({stationCode, isEnabled}: {
@@ -30,7 +44,7 @@ export default function StationList({
         }),
         onSuccess: async (toggledStationCode) => {
             if (stationCode === toggledStationCode) {
-                router.replace(pathname)
+                router.replace(`/${streamType}`)
                 setStation(null)
             }
             await queryClient.invalidateQueries({ queryKey: ['stations'] })
@@ -75,7 +89,15 @@ export default function StationList({
                     <option className={'text-black'}>Custom</option>
                     <option className={'text-black'}>Phasenet</option>
                 </select>
-                <StreamButton/>
+                {
+                    streamType === 'archive' && (
+                        <div className={'w-full flex gap-2'}>
+                            <Input type={'date'} name={'startTime'} onChange={handleDateChange}/>
+                            <Input type={'date'} name={'endTime'} onChange={handleDateChange}/>
+                        </div>
+                    )
+                }
+                <StreamButton {...retrievalTime}/>
             </div>
         </div>
     )

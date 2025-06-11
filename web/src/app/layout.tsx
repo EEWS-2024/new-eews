@@ -33,7 +33,7 @@ export default function RootLayout({
         <GlobalProvider>
           <div className={'bg-gray-900'}>
             <Navbar/>
-            <div className={'p-4'}>
+            <div className={'p-2'}>
               {children}
             </div>
           </div>

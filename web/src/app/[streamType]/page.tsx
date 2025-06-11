@@ -7,7 +7,7 @@ import StationInfo from "@/modules/station/components/StationInfo";
 import WaveFormChart from "@/modules/waveForm/components/WaveFormChart";
 import {useQuery} from "@tanstack/react-query";
 
-export default function LivePage() {
+export default function StreamPage() {
     const {data: stations, isLoading} = useQuery({
         queryKey: ['stations'],
         queryFn: () => getStations(),
