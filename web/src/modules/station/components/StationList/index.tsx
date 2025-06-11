@@ -6,12 +6,19 @@ import {useMutation, useQueryClient} from "@tanstack/react-query";
 import {toggleStations} from "@/modules/station/actions/toggleStation";
 import {Skeleton} from "@/modules/common/components/Skeleton";
 import StreamButton from "@/modules/waveForm/components/StreamButton";
+import {usePathname, useRouter, useSearchParams} from "next/navigation";
+import {useStationStore} from "@/modules/station/stores";
 
 export default function StationList({
     stations,
     isLoading,
 }: {stations?: Station[], isLoading?: boolean}) {
+    const searchParams = useSearchParams()
+    const stationCode = searchParams.get("stationCode")
+    const router = useRouter()
+    const pathname = usePathname()
     const queryClient = useQueryClient()
+    const {setStation} = useStationStore()
 
     const {mutate} = useMutation({
         mutationFn: async ({stationCode, isEnabled}: {
@@ -21,7 +28,13 @@ export default function StationList({
             code: stationCode,
             is_enabled: isEnabled
         }),
-        onSuccess: async () => await queryClient.invalidateQueries({ queryKey: ['stations'] }),
+        onSuccess: async (toggledStationCode) => {
+            if (stationCode === toggledStationCode) {
+                router.replace(pathname)
+                setStation(null)
+            }
+            await queryClient.invalidateQueries({ queryKey: ['stations'] })
+        },
     })
 
     return (

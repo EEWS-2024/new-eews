@@ -33,17 +33,17 @@ export default function Map({stations}: {stations?: Station[]}) {
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     attribution="&copy; OpenStreetMap contributors"
                 />
-                {stations?.map((station) => (
+                {stations?.filter((station) => station.is_enabled).map((station) => (
                     <Marker
                         eventHandlers={{
-                            click: async () =>  router.push(`?stationCode=${station.code}`)
+                            click: async () =>  router.push(`?stationCode=${station.code}`),
                         }}
                         key={station.code}
                         position={[station.latitude, station.longitude]}
                     >
                         <Popup>
                             <div className={'flex flex-col gap-2'}>
-                                <span className={'font-bold'}>{station.name.replaceAll('GEFON Station', '')}</span>
+                                <span className={'font-bold'}>{station.name.replaceAll('GEOFON Station', '')}</span>
                                 <span>Code: {station.code}</span>
                                 <span>Longitude: {station.longitude}</span>
                                 <span>Latitude: {station.latitude}</span>

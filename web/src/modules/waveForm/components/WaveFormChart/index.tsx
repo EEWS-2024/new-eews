@@ -23,7 +23,7 @@ export default function WaveFormChart() {
                             }
                         </div>
                     ))
-                    : <span className={'text-white font-bold text-xl'}>No data streamed</span>
+                    : <span className={'text-white font-bold text-xl'}>Data streaming is not started</span>
             }
         </div>
     )

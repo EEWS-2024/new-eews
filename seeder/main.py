@@ -189,7 +189,14 @@ def create_tables():
            SELECT create_hypertable('epic_waveforms', 'event_time')
        """)
     conn.commit()
-
+    cur.execute("""
+            CREATE TABLE IF NOT EXISTS streams (
+                stream_type VARCHAR(255),
+                status VARCHAR(255),
+                started_at TIMESTAMPTZ NOT null default now(),
+                finished_at TIMESTAMPTZ
+            )
+        """)
 
 if __name__ == "__main__":
     command = sys.argv[1] if len(sys.argv) > 1 else ""

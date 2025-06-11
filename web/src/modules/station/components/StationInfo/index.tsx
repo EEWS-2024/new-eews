@@ -12,7 +12,7 @@ export default function StationInfo() {
                         <span className={'text-white font-bold'}>{station?.name.replaceAll("GEOFON Station", "")}</span>
                         <span className={'text-white/50 '}>({station?.code})</span>
                     </>
-                    : <span className={'text-white font-bold text-xl'}>No Station Selected</span>
+                    : <span className={'text-white font-bold'}>No Station Selected</span>
             }
         </div>
     )
