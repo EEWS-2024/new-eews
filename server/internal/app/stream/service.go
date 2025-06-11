@@ -54,8 +54,8 @@ func (s *StreamService) StartStream(ctx context.Context, spec domain.StartStream
 		url = fmt.Sprintf("%s/run", cfg.ArchiveUrl)
 		payload, err = json.Marshal(map[string]any{
 			"stations":   stationCodes,
-			"start_time": spec.StartTime.Format("2006-01-02"),
-			"end_time":   spec.EndTime.Format("2006-01-02"),
+			"start_time": spec.StartTime.Format("2006-01-02T15:04:05"),
+			"end_time":   spec.EndTime.Format("2006-01-02T15:04:05"),
 		})
 	}
 
