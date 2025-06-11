@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/modules/common/components/Navbar";
 import {GlobalProvider} from "@/modules/common/components/GlobalProvider";
 import {Toaster} from "react-hot-toast";
+import {Suspense} from "react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,6 +31,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+      <Suspense fallback={<p>Loading...</p>}>
         <GlobalProvider>
           <div className={'bg-gray-900'}>
             <Navbar/>
@@ -39,6 +41,7 @@ export default function RootLayout({
           </div>
           <Toaster/>
         </GlobalProvider>
+      </Suspense>
       </body>
     </html>
   );
