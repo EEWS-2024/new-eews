@@ -5,6 +5,7 @@ import CustomCheckbox from "@/modules/common/components/Checkbox";
 import {useMutation, useQueryClient} from "@tanstack/react-query";
 import {toggleStations} from "@/modules/station/actions/toggleStation";
 import {Skeleton} from "@/modules/common/components/Skeleton";
+import StreamButton from "@/modules/waveForm/components/StreamButton";
 
 export default function StationList({
     stations,
@@ -55,9 +56,7 @@ export default function StationList({
                                 ))
                 }
             </div>
-            <div className={'w-full justify-center'}>
-                <button className={'bg-indigo-600 text-white w-full rounded-xl py-1 font-bold'}>Stream</button>
-            </div>
+            <StreamButton/>
         </div>
     )
 }

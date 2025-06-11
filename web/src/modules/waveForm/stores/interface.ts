@@ -37,10 +37,12 @@ export interface UseWaveFormStoreInterface {
         }
     }
     epic: EpicWaveFormResponseInterface | null
+    isStreaming: boolean
     setWaveForms: (waveForm: WaveFormResponseInterface, station: string) => void;
     resetWaveForms: () => void;
     setPhasePicking: (phasePicking: PhasePickingResponseInterface) => void;
     resetPhasePicking: () => void;
     setEpic: (epic: EpicWaveFormResponseInterface) => void;
     resetEpic: () => void;
+    setIsStreaming: (isStreaming: boolean) => void;
 }

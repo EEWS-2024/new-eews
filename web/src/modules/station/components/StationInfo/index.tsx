@@ -5,7 +5,7 @@ import {useStationStore} from "@/modules/station/stores";
 export default function StationInfo() {
     const {station} = useStationStore()
     return (
-        <div className={`w-full flex items-center gap-2 p-2 ${!station ? 'justify-center': ''}`}>
+        <div className={`w-full flex items-center gap-2 p-3 ${!station ? 'justify-center': ''}`}>
             {
                 station
                     ? <>

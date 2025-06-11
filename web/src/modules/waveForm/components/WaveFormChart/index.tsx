@@ -5,15 +5,16 @@ import {useSearchParams} from "next/navigation";
 import Chart from "@/modules/common/components/Chart";
 
 export default function WaveFormChart() {
-    const {waveForms, phasePicking} = useWaveFormStore()
+    const {waveForms, phasePicking, isStreaming} = useWaveFormStore()
     const searchParams = useSearchParams()
     const stationCode = searchParams.get('stationCode');
 
     return (
-        <div className={`w-full h-full flex ${!stationCode ? 'items-center justify-center bg-gray-600/50 p-4 rounded-2xl' : 'gap-4'}`}>
+        <div className={`w-full h-full flex ${!stationCode || !isStreaming ? 'items-center justify-center bg-gray-600/50 p-4 rounded-2xl' : 'gap-4'}`}>
             {!stationCode
                 ? <span className={'text-white font-bold text-xl'}>No Station Selected</span>
-                : Object.entries(waveForms).map(([key, value]) => (
+                :  isStreaming
+                    ? Object.entries(waveForms).map(([key, value]) => (
                         <div key={key} className={'w-full h-full flex flex-col gap-2 bg-gray-600/50 p-4 rounded-2xl'}>
                             <span className={'text-white font-bold text-xl'}>{key}</span>
                             {value.length <= 0
@@ -21,8 +22,8 @@ export default function WaveFormChart() {
                                 : <Chart data={value} phasePicking={phasePicking[key]}/>
                             }
                         </div>
-                    )
-                )
+                    ))
+                    : <span className={'text-white font-bold text-xl'}>No data streamed</span>
             }
         </div>
     )

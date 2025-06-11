@@ -18,6 +18,7 @@ export const makeRequest = async <T>({
 
     return data
   } catch (e: unknown) {
+    console.log(e)
     if (e instanceof AxiosError) {
       throw new Error(e.response?.data)
     }

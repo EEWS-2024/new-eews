@@ -26,6 +26,7 @@ export const useWaveFormStore = create<UseWaveFormStoreInterface>(
                     }
                 },
                 epic: null,
+                isStreaming: false,
                 setWaveForms: (waveForm, station) => {
                     set((state) => {
                         let combined;
@@ -118,7 +119,8 @@ export const useWaveFormStore = create<UseWaveFormStoreInterface>(
                 },
                 resetEpic: () => {
                     set({epic: null})
-                }
+                },
+                setIsStreaming: (isStreaming) => set({isStreaming})
             }
     )
 );
