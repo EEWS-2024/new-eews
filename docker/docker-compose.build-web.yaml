@@ -1,0 +1,8 @@
+services:
+  guncang-seedlink:
+    build:
+      context: ../web
+      dockerfile: Dockerfile
+    image: docker.io/slackingdjaeger/guncang-web:latest
+    env_file:
+      - ../web/.env
