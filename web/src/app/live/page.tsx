@@ -1,13 +1,17 @@
-'use server';
+'use client';
 
 import MapContainer from "../../modules/common/components/Map";
 import {getStations} from "@/modules/station/actions/getStations";
 import StationList from "@/modules/station/components/StationList";
 import StationInfo from "@/modules/station/components/StationInfo";
 import WaveFormChart from "@/modules/waveForm/components/WaveFormChart";
+import {useQuery} from "@tanstack/react-query";
 
-export default async function LivePage() {
-    const stations = await getStations()
+export default function LivePage() {
+    const {data: stations, isLoading} = useQuery({
+        queryKey: ['stations'],
+        queryFn: () => getStations(),
+    })
 
     return (
         <div className={'w-full h-screen'}>
@@ -23,7 +27,7 @@ export default async function LivePage() {
                         <div className={
                             'rounded-2xl bg-gray-600/50 flex row-span-5 p-2'
                         }>
-                            <StationList stations={stations}/>
+                            <StationList stations={stations} isLoading={isLoading}/>
                         </div>
                     </div>
                 </div>

@@ -15,7 +15,7 @@ L.Icon.Default.mergeOptions({
     shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
 });
 
-export default function Map({stations}: {stations: Station[]}) {
+export default function Map({stations}: {stations?: Station[]}) {
     const {epic} = useWaveFormStore()
     const router = useRouter()
 
@@ -33,7 +33,7 @@ export default function Map({stations}: {stations: Station[]}) {
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     attribution="&copy; OpenStreetMap contributors"
                 />
-                {stations.map((station) => (
+                {stations?.map((station) => (
                     <Marker
                         eventHandlers={{
                             click: async () =>  router.push(`?stationCode=${station.code}`)
