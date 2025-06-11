@@ -69,7 +69,14 @@ export default function StationList({
                                 ))
                 }
             </div>
-            <StreamButton/>
+            <div className={'flex flex-col gap-2'}>
+                <select className={'w-full p-2 bg-gray-600/50 rounded-xl'}>
+                    <option className={'text-black'}>Select Model</option>
+                    <option className={'text-black'}>Custom</option>
+                    <option className={'text-black'}>Phasenet</option>
+                </select>
+                <StreamButton/>
+            </div>
         </div>
     )
 }
