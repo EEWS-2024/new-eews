@@ -27,6 +27,7 @@ jobs:
         run: |
           cat <<EOF > web/.env
           NEXT_PUBLIC_SERVER_URL=${{ secrets.SERVER_URL }}
+          NEXT_PUBLIC_SOCKET_URL=${{ secrets.SOCKET_URL }}
           EOF
 
       - name: Build and push images
