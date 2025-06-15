@@ -16,6 +16,7 @@ class TraceHandler:
         stations: List[str],
         start_time: str,
         end_time: str,
+        model_type: str
     ):
         self.fdsn_client.clear_stream()
         context = current_app._get_current_object()
@@ -26,6 +27,7 @@ class TraceHandler:
                 stations,
                 start_time,
                 end_time,
+                model_type,
                 context,
                 DataPollHandler,
             )

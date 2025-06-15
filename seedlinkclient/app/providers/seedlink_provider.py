@@ -34,7 +34,8 @@ class SeedlinkProvider:
             self,
             stats,
             data,
-            start_time
+            start_time,
+            model_type: str,
     ):
         time_to_add = datetime.timedelta(seconds=600 / stats.sampling_rate)
 
@@ -51,6 +52,7 @@ class SeedlinkProvider:
             "data": data,
             "sampling_rate": stats.sampling_rate,
             "type": "live",
+            "model_type": model_type,
         }
 
         self.producer.produce(
@@ -62,7 +64,7 @@ class SeedlinkProvider:
         print(f"Produced message for station {stats.station}")
 
 
-    def stream_data(self, stations: List[str], app, poll_data):
+    def stream_data(self, stations: List[str], model_type: str, app, poll_data):
         with app.app_context():
             client = EasySeedLinkClient(server_url=Config.SEEDLINK_URL)
 
@@ -98,6 +100,7 @@ class SeedlinkProvider:
                                         trace.stats,
                                         trace_data,
                                         start_time,
+                                        model_type
                                     )
                             except Exception as e:
                                 print(f"Error processing trace data: {e}")

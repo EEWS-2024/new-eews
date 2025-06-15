@@ -32,7 +32,8 @@ class FdsnProvider:
         self,
         stats,
         data,
-        start_time
+        start_time,
+        model_type: str,
     ):
         time_to_add = datetime.timedelta(seconds=600 / stats.sampling_rate)
 
@@ -49,6 +50,7 @@ class FdsnProvider:
             "data": data,
             "sampling_rate": stats.sampling_rate,
             "type": "archive",
+            "model_type": model_type,
         }
 
         self.producer.produce(
@@ -64,6 +66,7 @@ class FdsnProvider:
         stations: List[str],
         start_time: str,
         end_time: str,
+        model_type: str,
         app,
         poll_data
     ):
@@ -93,6 +96,7 @@ class FdsnProvider:
                                 trace.stats,
                                 trace_data,
                                 start_time,
+                                model_type
                             )
                     except Exception as e:
                         print(f"Error processing trace data: {e}")

@@ -11,7 +11,7 @@ class TraceHandler:
     def __init__(self):
         self.seedlink_provider = SeedlinkProvider()
 
-    def run(self, stations: List[str]):
+    def run(self, stations: List[str], model_type: str):
         self.seedlink_provider.clear_stream()
         context = current_app._get_current_object()
 
@@ -19,6 +19,7 @@ class TraceHandler:
             target=self.seedlink_provider.stream_data,
             args=(
                 stations,
+                model_type,
                 context,
                 DataPollHandler,
             )
