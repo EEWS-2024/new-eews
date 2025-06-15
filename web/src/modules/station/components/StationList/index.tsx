@@ -22,6 +22,7 @@ export default function StationList({
     const queryClient = useQueryClient()
     const {setStation} = useStationStore()
 
+    const [modelType, setModelType] = useState<string>('')
     const [retrievalTime, setRetrievalTime] = useState({
         startTime: null,
         endTime: null,
@@ -84,10 +85,10 @@ export default function StationList({
                 }
             </div>
             <div className={'flex flex-col gap-2'}>
-                <select className={'w-full p-2 bg-gray-600/50 rounded-xl'}>
-                    <option className={'text-black'}>Select Model</option>
-                    <option className={'text-black'}>Custom</option>
-                    <option className={'text-black'}>Phasenet</option>
+                <select className={'w-full p-2 bg-gray-600/50 rounded-xl'} value={modelType} onChange={(e) => setModelType(e.target.value)}>
+                    <option className={'text-black'} value={''}>Select Model</option>
+                    <option className={'text-black'} value={'unet-custom'}>U-net Custom</option>
+                    <option className={'text-black'} value={'phasenet'}>Phasenet</option>
                 </select>
                 {
                     streamType === 'archive' && (
@@ -103,7 +104,7 @@ export default function StationList({
                         </div>
                     )
                 }
-                <StreamButton {...retrievalTime}/>
+                <StreamButton {...retrievalTime} modelType={modelType}/>
             </div>
         </div>
     )

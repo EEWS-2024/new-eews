@@ -156,6 +156,7 @@ func (r *Poller) ProcessMessage(message *port.Message) (err error) {
 			traceData.Station,
 			traceData.StartTime,
 			transposed,
+			traceData.ModelType,
 		); err != nil {
 			return err
 		}

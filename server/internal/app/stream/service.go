@@ -46,7 +46,8 @@ func (s *StreamService) StartStream(ctx context.Context, spec domain.StartStream
 	if spec.StreamType == "LIVE" {
 		url = fmt.Sprintf("%s/run", cfg.LiveUrl)
 		payload, err = json.Marshal(map[string]any{
-			"stations": stationCodes,
+			"stations":   stationCodes,
+			"model_type": spec.ModelType,
 		})
 	}
 
@@ -56,6 +57,7 @@ func (s *StreamService) StartStream(ctx context.Context, spec domain.StartStream
 			"stations":   stationCodes,
 			"start_time": spec.StartTime.Format("2006-01-02T15:04:05"),
 			"end_time":   spec.EndTime.Format("2006-01-02T15:04:05"),
+			"model_type": spec.ModelType,
 		})
 	}
 

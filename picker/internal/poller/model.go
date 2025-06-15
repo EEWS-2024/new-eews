@@ -16,6 +16,7 @@ type Trace struct {
 	ArrivalTime  float64 `json:"arrival_time"`
 	Type         string  `json:"type"`
 	Data         []int   `json:"data"`
+	ModelType    string  `json:"model_type"`
 }
 
 type PolledData struct {

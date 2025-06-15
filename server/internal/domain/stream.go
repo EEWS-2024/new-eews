@@ -6,6 +6,7 @@ type StartStreamPayload struct {
 	StreamType string     `json:"stream_type"`
 	StartTime  *time.Time `json:"start_time"`
 	EndTime    *time.Time `json:"end_time"`
+	ModelType  string     `json:"model_type"`
 }
 
 type StopStreamPayload struct {

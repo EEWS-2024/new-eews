@@ -45,12 +45,13 @@ func (s *Service) Predict(
 	stationCode string,
 	startTime string,
 	data [600][3]int,
+	modelType string,
 ) (result *PredictionResult, err error) {
 	payload := map[string]interface{}{
 		"station_code": stationCode,
 		"start_time":   startTime,
 		"x":            data,
-		"model_type":   "phasenet",
+		"model_type":   modelType,
 	}
 
 	serialized, err := json.Marshal(payload)
