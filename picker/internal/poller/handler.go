@@ -264,19 +264,19 @@ func (r *Poller) ProcessMessage(message *port.Message) (err error) {
 					return err
 				}
 				stationCodes := strings.Join(epicWaveForm.StationCodes, ", ")
-				if epicWaveForm.Magnitude > 4.0 {
-					if err = r.Consumer.Publish(
-						r.config.KafkaProducerTopic,
-						stationCodes,
-						poller.PublishSpec{
-							Type:    "epic_waveform",
-							Station: stationCodes,
-							Payload: epicWaveForm,
-						},
-					); err != nil {
-						return err
-					}
+				//if epicWaveForm.Magnitude > 4.0 {
+				if err = r.Consumer.Publish(
+					r.config.KafkaProducerTopic,
+					stationCodes,
+					poller.PublishSpec{
+						Type:    "epic_waveform",
+						Station: stationCodes,
+						Payload: epicWaveForm,
+					},
+				); err != nil {
+					return err
 				}
+				//}
 
 				if err = r.PollerService.SaveWaveForm(epicWaveForm, waveFormTimeStamps); err != nil {
 					return err
