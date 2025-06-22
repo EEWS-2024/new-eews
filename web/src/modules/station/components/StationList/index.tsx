@@ -10,6 +10,7 @@ import {useParams, useRouter, useSearchParams} from "next/navigation";
 import {useStationStore} from "@/modules/station/stores";
 import {Input} from "@/modules/common/components/Input";
 import React, {useState} from "react";
+import {useWaveFormStore} from "@/modules/waveForm/stores";
 
 export default function StationList({
     stations,
@@ -21,6 +22,7 @@ export default function StationList({
     const {streamType} = useParams()
     const queryClient = useQueryClient()
     const {setStation} = useStationStore()
+    const {isStreaming} = useWaveFormStore()
 
     const [modelType, setModelType] = useState<string>('')
     const [retrievalTime, setRetrievalTime] = useState({
@@ -76,10 +78,10 @@ export default function StationList({
                             : stations?.map((station) => (
                                     <div key={station.code} className={'rounded-lg bg-gray-600/50 p-2 flex justify-between items-center'}>
                                         <span className={'font-semibold'}>{station.code}</span>
-                                        <CustomCheckbox checked={station.is_enabled} onChange={() => mutate({
+                                        {!isStreaming && <CustomCheckbox checked={station.is_enabled} onChange={() => mutate({
                                             stationCode: station.code,
                                             isEnabled: !station.is_enabled
-                                        })}/>
+                                        })}/>}
                                     </div>
                                 ))
                 }
@@ -87,8 +89,8 @@ export default function StationList({
             <div className={'flex flex-col gap-2'}>
                 <select className={'w-full p-2 bg-gray-600/50 rounded-xl'} value={modelType} onChange={(e) => setModelType(e.target.value)}>
                     <option className={'text-black'} value={''}>Select Model</option>
-                    <option className={'text-black'} value={'unet-custom'}>U-net Custom</option>
                     <option className={'text-black'} value={'phasenet'}>Phasenet</option>
+                    <option className={'text-black'} value={'unet-custom'}>U-net Custom</option>
                 </select>
                 {
                     streamType === 'archive' && (

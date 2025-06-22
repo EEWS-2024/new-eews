@@ -52,7 +52,7 @@ export default function StreamButton({startTime, endTime, modelType}: {
     return (
         <div className={'w-full justify-center'}>
             <button
-                disabled={isLoading || startStreamingPending || stopStreamingPending || modelType === '' || (streamType === 'archive' && (!startTime || !endTime))}
+                disabled={!isStreaming && (isLoading || startStreamingPending || stopStreamingPending || modelType === '' || (streamType === 'archive' && (!startTime || !endTime)))}
                 onClick={() => !isStreaming ? startStreaming({streamType: streamType!, startTime, endTime, modelType}) : stopStreaming({streamType: streamType!})}
                 className={'bg-indigo-600 disabled:bg-gray-600 text-white w-full rounded-xl py-1 font-bold hover:bg-indigo-800 cursor-pointer'}>
                 {isLoading || startStreamingPending || stopStreamingPending

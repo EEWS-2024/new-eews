@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	sq "github.com/Masterminds/squirrel"
+	"github.com/confluentinc/confluent-kafka-go/v2/kafka"
 	"io"
 	"net/http"
 	"server/internal/config"
@@ -125,6 +126,10 @@ func (s *StreamService) StopStream(ctx context.Context, spec domain.StopStreamPa
 		return errors.New("stream client error")
 	}
 
+	if err = s.truncateKafka(cfg); err != nil {
+		return err
+	}
+
 	if err = s.streamRepo.Update(
 		ctx,
 		map[string]any{
@@ -135,6 +140,51 @@ func (s *StreamService) StopStream(ctx context.Context, spec domain.StopStreamPa
 		spec.StreamType,
 	); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (s *StreamService) truncateKafka(cfg *config.Config) (err error) {
+	var admin *kafka.AdminClient
+	admin, err = kafka.NewAdminClient(&kafka.ConfigMap{
+		"bootstrap.servers": cfg.KafkaBootstrapServers,
+	})
+	if err != nil {
+		panic(fmt.Sprintf("Failed to create AdminClient: %s", err))
+	}
+	defer admin.Close()
+
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	if err = s.DeleteTopic("trace", ctx, admin); err != nil {
+		return
+	}
+
+	if err = s.DeleteTopic("predicted", ctx, admin); err != nil {
+		return
+	}
+
+	return
+}
+
+func (s *StreamService) DeleteTopic(topic string, ctx context.Context, admin *kafka.AdminClient) error {
+	results, err := admin.DeleteTopics(
+		ctx,
+		[]string{topic},
+		kafka.SetAdminOperationTimeout(5*time.Second),
+	)
+	if err != nil {
+		panic(fmt.Sprintf("DeleteTopics failed: %s", err))
+	}
+
+	for _, result := range results {
+		if result.Error.Code() != kafka.ErrNoError {
+			fmt.Printf("Failed to delete topic %s: %v\n", result.Topic, result.Error)
+		} else {
+			fmt.Printf("Topic %s deleted successfully.\n", result.Topic)
+		}
 	}
 
 	return nil
